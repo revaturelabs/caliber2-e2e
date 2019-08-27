@@ -3,6 +3,7 @@ package com.revature.steps;
 import org.openqa.selenium.WebDriver;
 
 import com.revature.page.Caliber2page;
+import com.revature.page.HomePage;
 import com.revature.runner.Caliber2Runner;
 
 import cucumber.api.PendingException;
@@ -13,7 +14,7 @@ import cucumber.api.java.en.When;
 public class HomeStep {
 
 	public static WebDriver driver = Caliber2Runner.driver;
-	public static Caliber2page caliber2page = Caliber2Runner.caliber2page;
+	public static HomePage homepage = Caliber2Runner.homepage;
 	
 	@Given("^The user is on the Caliber(\\d+) home page$")
 	public void the_user_is_on_the_Caliber_home_page(int arg1) throws Throwable {
