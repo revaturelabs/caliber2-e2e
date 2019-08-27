@@ -18,25 +18,25 @@ public class ReportsStep {
 	@Then("^The user should be on reports$")
 	public void the_user_should_be_on_reports() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+
 	}
 
 	@Given("^The user is on the reports page$")
 	public void the_user_is_on_the_reports_page() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+
 	}
 
 	@When("^The user clicks the dropdown and clicks (\\d+)$")
 	public void the_user_clicks_the_dropdown_and_clicks(int arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+
 	}
 
 	@Then("^The user will have the reports for (\\d+) displayed$")
 	public void the_user_will_have_the_reports_for_displayed(int arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+
 	}
 	
 }

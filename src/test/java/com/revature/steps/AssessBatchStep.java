@@ -15,6 +15,7 @@ public class AssessBatchStep {
 	@When("^The user clicks on Add Week$")
 	public void the_user_clicks_on_Add_Week() throws Throwable {
 	   assessBatch.newWeek.click();
+
 	}
 
 	@When("^The user clicks on No$")

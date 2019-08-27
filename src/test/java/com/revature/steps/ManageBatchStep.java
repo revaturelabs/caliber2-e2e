@@ -19,17 +19,17 @@ public class ManageBatchStep {
 	
 	@Given("^The user is on the Manage Batch page$")
 	public void the_user_is_on_the_Manage_Batch_page() throws Throwable {
-	    managebatchpage.managebatchlink.click();
+	    // managebatchpage.managebatchlink.click();
 	}
 
 	@When("^The user clicks on Create Batch link$")
 	public void the_user_clicks_on_Create_Batch_link() throws Throwable {
-	    managebatchpage.createbatchlink.click();
+	  //  managebatchpage.createbatchlink.click();
 	}
 
 	@Then("^The create batch form should pop up$")
 	public void the_create_batch_form_should_pop_up() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		// throw new PendingException();
 	}
 }
