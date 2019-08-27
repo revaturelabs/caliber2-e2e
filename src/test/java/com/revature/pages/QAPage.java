@@ -214,4 +214,28 @@ public class QAPage {
 	// save button
 	@FindBy(css = "a.save-button")
 	public WebElement saveButton;
+	
+	// flag modal - green flag
+	@FindBy(id = "greenFlag")
+	public WebElement flagGreen;
+	
+	// flag modal - red flag
+	@FindBy(id = "redFlag")
+	public WebElement flagRed;
+	
+	// flag modal - textarea
+	@FindBy(id = "comment")
+	public WebElement flagComment;
+	
+	// flag modal - delete button -- only appears after selecting a flag
+	@FindBy(xpath = "//*[@id=\"flagTrainee\"]/div/div/div[2]/button[1]")
+	public WebElement flagDelete;
+	
+	// flag modal - submit button -- only appears after selecting a flag
+	@FindBy(xpath = "//*[@id=\"flagTrainee\"]/div/div/div[2]/button[2]")
+	public WebElement flagSubmit;
+	
+	// flag modal - cancel button
+	@FindBy(xpath = "//*[@id=\"flagTrainee\"]/div/div/div[2]/button[3]")
+	public WebElement flagCancel;
 }
