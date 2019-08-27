@@ -23,6 +23,8 @@ public class QualityAuditStep {
 	}
 	
 	//first name might change if you add someone named Aaron for example
+	// use the regex to replace any leading/trailing whitespace from received text
+	// it WILL absolutely contain unexpected whitespace, so be careful when writing tests
 	@Then("^The first trainee is Adams, Gary$")
 	public void the_first_trainee_is_Adams_Gary() throws Throwable {
 		System.out.println(qaPage.firstTraineeName.getText());
