@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.revature.pages.Caliber2page;
+import com.revature.pages.ManageBatchPage;
 import com.revature.pages.QAPage;
 
 import cucumber.api.CucumberOptions;
@@ -21,6 +22,7 @@ public class Caliber2Runner {
 	public static WebDriver driver;
 	public static Caliber2page caliber2page;
 	public static QAPage qaPage;
+	public static ManageBatchPage managebatchpage;
 	
 	static {
 		File file = new File("src/main/resources/chromedriver.exe");
