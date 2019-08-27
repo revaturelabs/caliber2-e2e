@@ -17,7 +17,8 @@ public class HomeStep {
 	
 	@Given("^The user is on the Caliber(\\d+) home page$")
 	public void the_user_is_on_the_Caliber_home_page(int arg1) throws Throwable {
-		driver.get("localhost:4200");
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
 	}
 
 	@When("^The user clicks on Manage Batch$")
