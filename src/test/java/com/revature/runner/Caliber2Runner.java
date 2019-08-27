@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.revature.page.Caliber2page;
+import com.revature.page.HomePage;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
@@ -19,6 +20,7 @@ public class Caliber2Runner {
 	// Run the test on Junit4 ONLY!~!~!~!
 	public static WebDriver driver;
 	public static Caliber2page caliber2page;
+	public static HomePage homepage;
 	
 	static {
 		File file = new File("src/main/resources/chromedriver.exe");
@@ -26,6 +28,7 @@ public class Caliber2Runner {
 		driver = new ChromeDriver();        
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		caliber2page = new Caliber2page(driver);
+		homepage = new HomePage(driver);
 	}
 
 	@AfterClass
