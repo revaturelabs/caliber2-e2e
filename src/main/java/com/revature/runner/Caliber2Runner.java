@@ -7,7 +7,7 @@ import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import com.revature.app.Caliber2E2eApplication;
 import com.revature.page.Caliber2page;
 import com.revature.page.HomePage;
 
@@ -15,8 +15,8 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/main/resources", glue = "com.revature.steps",
-	plugin = {"pretty", "json:target/./cucumber.json"})
+@CucumberOptions(features = "classpath:", glue = "com.revature.steps",
+	plugin = {"pretty", "json:./cucumber.json"})
 public class Caliber2Runner {
 	// Run the test on Junit4 ONLY!~!~!~!
 	public static WebDriver driver;
@@ -24,7 +24,13 @@ public class Caliber2Runner {
 	public static HomePage homepage;
 
 	static {
-		File file = new File("src/main/resources/chromedriver.exe");
+		try {
+			Caliber2E2eApplication.exportResource("chromedriver.exe");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		File file = new File("chromedriver.exe");
 		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);

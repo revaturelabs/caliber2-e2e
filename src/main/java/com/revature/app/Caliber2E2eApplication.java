@@ -44,9 +44,11 @@ public class Caliber2E2eApplication {
 			e.printStackTrace();
 			// I am sorry
 			try {
-				cucumber.close();
+				if (cucumber != null) {
+					cucumber.close();
+				}
 			}
-			catch (Exception e2) {
+			catch (IOException e2) {
 				e2.printStackTrace();
 			}
 			return;
@@ -75,22 +77,29 @@ public class Caliber2E2eApplication {
 		}
 		finally {
 			try {
-				writer.close();
+				if (writer != null) {
+					writer.close();
+				}
 			}
-			catch (Exception e2) {
+			catch (IOException e2) {
 				e2.printStackTrace();
 			}
 		}
 
 	}
 
-	private static String exportResource(String resourceName) throws Exception {
+	/**
+	 * Exports a resource from the jar into the folder we are running from.
+	 * 
+	 * @param resourceName The name of the resource without a leading slash.
+	 * @throws Exception If a problem occurs.
+	 */
+	public static void exportResource(String resourceName) throws Exception {
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
-		String jarFolder;
 		try {
-			stream =
-				Caliber2E2eApplication.class.getResourceAsStream(resourceName);
+			stream = Caliber2E2eApplication.class
+				.getResourceAsStream("/" + resourceName);
 			if (stream == null) {
 				throw new Exception("Cannot get resource \"" + resourceName
 					+ "\" from Jar file.");
@@ -98,11 +107,12 @@ public class Caliber2E2eApplication {
 
 			int readBytes;
 			byte[] buffer = new byte[4096];
-			jarFolder =
-				new File(Caliber2E2eApplication.class.getProtectionDomain()
-					.getCodeSource().getLocation().toURI().getPath())
-						.getParentFile().getPath();
-			resStreamOut = new FileOutputStream(jarFolder + resourceName);
+
+			File toCreate = new File(resourceName);
+
+			toCreate.createNewFile();
+
+			resStreamOut = new FileOutputStream(toCreate);
 			while ((readBytes = stream.read(buffer)) > 0) {
 				resStreamOut.write(buffer, 0, readBytes);
 			}
@@ -111,10 +121,12 @@ public class Caliber2E2eApplication {
 			throw ex;
 		}
 		finally {
-			stream.close();
-			resStreamOut.close();
+			if (stream != null) {
+				stream.close();
+			}
+			if (resStreamOut != null) {
+				resStreamOut.close();
+			}
 		}
-
-		return jarFolder + resourceName;
 	}
 }
