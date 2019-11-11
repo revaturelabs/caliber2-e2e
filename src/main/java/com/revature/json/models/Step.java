@@ -69,6 +69,10 @@ public class Step {
 		return true;
 	}
 
+	public String getKeyword() {
+		return this.keyword;
+	}
+
 	public Integer getLine() {
 		return this.line;
 	}
@@ -105,6 +109,10 @@ public class Step {
 		result = prime * result
 			+ ((this.result == null) ? 0 : this.result.hashCode());
 		return result;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	public void setLine(Integer line) {

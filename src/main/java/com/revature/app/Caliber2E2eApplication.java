@@ -1,5 +1,6 @@
 package com.revature.app;
 
+import com.revature.html.Generator;
 import com.revature.json.models.Feature;
 import com.revature.runner.Caliber2Runner;
 import gherkin.deps.com.google.gson.Gson;
@@ -9,7 +10,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 @SpringBootApplication
 public class Caliber2E2eApplication {
@@ -32,7 +38,6 @@ public class Caliber2E2eApplication {
 			 * the directory the jar is in.
 			 */
 			File cucumberFile = new File("cucumber.json");
-			System.out.println(cucumberFile.getAbsolutePath());
 			cucumber = new FileReader(cucumberFile);
 		}
 		catch (Exception e) {
@@ -50,6 +55,66 @@ public class Caliber2E2eApplication {
 		// Actually parse into objects
 		Feature[] parsed = gson.fromJson(cucumber, Feature[].class);
 
+		// generate html
+		try {
+			exportResource("bootstrap.min.css");
+			exportResource("bootstrap.min.js");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		String webPage = Generator.toWebPage(parsed);
+		File output = new File("test.html");
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter(output);
+			writer.append(webPage);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				writer.close();
+			}
+			catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
 	}
 
+	private static String exportResource(String resourceName) throws Exception {
+		InputStream stream = null;
+		OutputStream resStreamOut = null;
+		String jarFolder;
+		try {
+			stream =
+				Caliber2E2eApplication.class.getResourceAsStream(resourceName);
+			if (stream == null) {
+				throw new Exception("Cannot get resource \"" + resourceName
+					+ "\" from Jar file.");
+			}
+
+			int readBytes;
+			byte[] buffer = new byte[4096];
+			jarFolder =
+				new File(Caliber2E2eApplication.class.getProtectionDomain()
+					.getCodeSource().getLocation().toURI().getPath())
+						.getParentFile().getPath();
+			resStreamOut = new FileOutputStream(jarFolder + resourceName);
+			while ((readBytes = stream.read(buffer)) > 0) {
+				resStreamOut.write(buffer, 0, readBytes);
+			}
+		}
+		catch (Exception ex) {
+			throw ex;
+		}
+		finally {
+			stream.close();
+			resStreamOut.close();
+		}
+
+		return jarFolder + resourceName;
+	}
 }
