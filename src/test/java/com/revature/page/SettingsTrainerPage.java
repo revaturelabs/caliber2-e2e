@@ -25,4 +25,30 @@ public class SettingsTrainerPage {
 	public WebElement getTableCell(int columnNumber, WebElement row) {
 		return row.findElement(By.xpath("//td["+columnNumber+"]"));
 	}
+	
+	
+	//Add Trainer Modal
+	
+	@FindBy(id="trainerName")
+	public WebElement inputTrainerName;
+	
+	@FindBy(id="trainerEmail")
+	public WebElement inputTrainerEmail;
+	
+	@FindBy(id = "title")
+	public WebElement inputTrainerTitle;
+	
+	@FindBy(id= "trainerTier")
+	public WebElement trainerTierDropdown;
+	
+	//input with lower case seperated by dashes, ie. "role-vp"
+	public WebElement selectTrainerTier(String tier) {
+		return driver.findElement(By.id("user-add-trainer-"+tier));
+	}
+	
+	@FindBy(id="updateButton1")
+	public WebElement submitAddTrainer;
+	
+	@FindBy(id="closeButton1")
+	public WebElement closeAddTrainer;
 }
