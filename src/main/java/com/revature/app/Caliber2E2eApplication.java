@@ -27,9 +27,9 @@ public class Caliber2E2eApplication {
 		FileReader cucumber = null;
 		try {
 			/*
-			 * The jar must be run from the same directory it is in. That is,
-			 * the runtime/execution path and jar path should be the same
-			 * directory.
+			 * The runtime/execution path and jar path should be the same
+			 * directory. That is, the 'java -jar' command should be run from
+			 * the directory the jar is in.
 			 */
 			File cucumberFile = new File("cucumber.json");
 			System.out.println(cucumberFile.getAbsolutePath());
