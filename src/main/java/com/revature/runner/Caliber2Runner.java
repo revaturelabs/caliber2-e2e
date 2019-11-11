@@ -15,17 +15,18 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features= "src/main/resources",glue ="com.revature.steps")
+@CucumberOptions(features = "src/main/resources", glue = "com.revature.steps",
+	plugin = {"pretty", "json:target/./cucumber.json"})
 public class Caliber2Runner {
 	// Run the test on Junit4 ONLY!~!~!~!
 	public static WebDriver driver;
 	public static Caliber2page caliber2page;
 	public static HomePage homepage;
-	
+
 	static {
 		File file = new File("src/main/resources/chromedriver.exe");
-		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());        
-		driver = new ChromeDriver();        
+		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
+		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		caliber2page = new Caliber2page(driver);
 		homepage = new HomePage(driver);
