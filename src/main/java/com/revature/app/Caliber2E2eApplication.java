@@ -6,7 +6,6 @@ import com.revature.runner.Caliber2Runner;
 import gherkin.deps.com.google.gson.Gson;
 import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
@@ -20,8 +19,56 @@ import java.io.OutputStream;
 @SpringBootApplication
 public class Caliber2E2eApplication {
 
+	/**
+	 * I know. Abnormal termination.
+	 */
+	private static final int PASSED = 1;
+	private static final int FAILED = 0;
+
+	/**
+	 * Exports a resource from the jar into the folder we are running from.
+	 *
+	 * @param resourceName The name of the resource without a leading slash.
+	 * @throws Exception If a problem occurs.
+	 */
+	public static void exportResource(String resourceName) throws Exception {
+		InputStream stream = null;
+		OutputStream resStreamOut = null;
+		try {
+			stream = Caliber2E2eApplication.class
+				.getResourceAsStream("/" + resourceName);
+			if (stream == null) {
+				throw new Exception("Cannot get resource \"" + resourceName
+					+ "\" from Jar file.");
+			}
+
+			int readBytes;
+			byte[] buffer = new byte[4096];
+
+			File toCreate = new File(resourceName);
+
+			toCreate.createNewFile();
+
+			resStreamOut = new FileOutputStream(toCreate);
+			while ((readBytes = stream.read(buffer)) > 0) {
+				resStreamOut.write(buffer, 0, readBytes);
+			}
+		}
+		catch (Exception ex) {
+			throw ex;
+		}
+		finally {
+			if (stream != null) {
+				stream.close();
+			}
+			if (resStreamOut != null) {
+				resStreamOut.close();
+			}
+		}
+	}
+
 	public static void main(String[] args) {
-		SpringApplication.run(Caliber2E2eApplication.class, args);
+		// SpringApplication.run(Caliber2E2eApplication.class, args);
 
 		// Run the junit tests
 		JUnitCore junit = new JUnitCore();
@@ -79,47 +126,12 @@ public class Caliber2E2eApplication {
 			}
 		}
 
-	}
-
-	/**
-	 * Exports a resource from the jar into the folder we are running from.
-	 * 
-	 * @param resourceName The name of the resource without a leading slash.
-	 * @throws Exception If a problem occurs.
-	 */
-	public static void exportResource(String resourceName) throws Exception {
-		InputStream stream = null;
-		OutputStream resStreamOut = null;
-		try {
-			stream = Caliber2E2eApplication.class
-				.getResourceAsStream("/" + resourceName);
-			if (stream == null) {
-				throw new Exception("Cannot get resource \"" + resourceName
-					+ "\" from Jar file.");
-			}
-
-			int readBytes;
-			byte[] buffer = new byte[4096];
-
-			File toCreate = new File(resourceName);
-
-			toCreate.createNewFile();
-
-			resStreamOut = new FileOutputStream(toCreate);
-			while ((readBytes = stream.read(buffer)) > 0) {
-				resStreamOut.write(buffer, 0, readBytes);
-			}
+		if (Generator.doesPass(parsed)) {
+			System.exit(Caliber2E2eApplication.PASSED);
 		}
-		catch (Exception ex) {
-			throw ex;
+		else {
+			System.exit(Caliber2E2eApplication.FAILED);
 		}
-		finally {
-			if (stream != null) {
-				stream.close();
-			}
-			if (resStreamOut != null) {
-				resStreamOut.close();
-			}
-		}
+
 	}
 }

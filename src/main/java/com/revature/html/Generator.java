@@ -62,6 +62,19 @@ public class Generator {
 		return passes;
 	}
 
+	public static boolean doesPass(Feature[] features) {
+		if (features == null) {
+			return false;
+		}
+		boolean passes = true;
+
+		for (Feature feature : features) {
+			passes = passes && Generator.doesPass(feature);
+		}
+
+		return passes;
+	}
+
 	private static boolean doesPass(Step step) {
 		if (step == null) {
 			return false;
@@ -155,8 +168,8 @@ public class Generator {
 				results += "<a href=\""
 					+ Generator.linkifyTitle(Generator.calculateTitle(feature),
 						false)
-					+ "\">Back to parent feature '" + feature.getName() + "'</a>"
-					+ Generator.NEWLINE;
+					+ "\">Back to parent feature '" + feature.getName()
+					+ "'</a>" + Generator.NEWLINE;
 			}
 			results +=
 				"</div>" + Generator.NEWLINE + "</div>" + Generator.NEWLINE;
