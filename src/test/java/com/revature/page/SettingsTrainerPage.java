@@ -5,10 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SettingsTrainerPage {
 
 	WebDriver driver;
+	WebDriverWait wait = new WebDriverWait(driver, 3);
 	
 	public SettingsTrainerPage(WebDriver driver) {
 		this.driver = driver;
@@ -27,28 +31,89 @@ public class SettingsTrainerPage {
 	}
 	
 	
-	//Add Trainer Modal
+	//Add Trainer Modal******************************************
 	
-	@FindBy(id="trainerName")
-	public WebElement inputTrainerName;
-	
-	@FindBy(id="trainerEmail")
-	public WebElement inputTrainerEmail;
-	
-	@FindBy(id = "title")
-	public WebElement inputTrainerTitle;
-	
-	@FindBy(id= "trainerTier")
-	public WebElement trainerTierDropdown;
-	
-	//input with lower case seperated by dashes, ie. "role-vp"
-	public WebElement selectTrainerTier(String tier) {
-		return driver.findElement(By.id("user-add-trainer-"+tier));
+	public WebElement inputTrainerName() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addTrainerModal']//input[@id='trainerName']")));
 	}
 	
-	@FindBy(id="updateButton1")
-	public WebElement submitAddTrainer;
+	public WebElement inputTrainerEmail() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addTrainerModal']//input[@id='trainerEmail']")));
+	}
 	
-	@FindBy(id="closeButton1")
-	public WebElement closeAddTrainer;
+	public WebElement inputTrainerTitle() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addTrainerModal']//input[@id='title']")));
+	}
+	
+	public WebElement trainerTierDropdown() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addTrainerModal']//input[@id='trainerTier']")));
+	}
+	
+	public void selectTrainerTierByName(String tier) {
+		Select selectTrainer = new Select(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addTrainerModal']//input[@id='trainerTier']"))));
+		selectTrainer.selectByVisibleText(tier);	
+		}
+	
+	public void selectTrainerTier(int n) {
+		Select selectTrainer = new Select(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addTrainerModal']//input[@id='trainerTier']"))));
+		selectTrainer.selectByIndex(n);
+	}
+	
+	public WebElement submitAddTrainer() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addTrainerModal']//input[@id='updateButton1']")));
+	}
+	
+	public WebElement closeAddTrainer() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addTrainerModal']//input[@id='closeButton1']")));
+	}
+	//******************************************************************************************************************************************
+	
+	
+	//Edit Trainer Modal***********************************************************************************************************************
+	public WebElement inputEditTrainerName() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editTrainerModal']//input[@id='trainerName']")));
+	}
+	
+	public WebElement inputEditTrainerEmail() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editTrainerModal']//input[@id='trainerEmail']")));
+	}
+	
+	public WebElement inputEditTrainerTitle() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editTrainerModal']//input[@id='title']")));
+	}
+	
+	public WebElement trainerEditTierDropdown() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editTrainerModal']//input[@id='trainerTier']")));
+	}
+	
+	public void selectEditTrainerTierByName(String tier) {
+		Select selectTrainer = new Select(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editTrainerModal']//input[@id='trainerTier']"))));
+		selectTrainer.selectByVisibleText(tier);	
+		}
+	
+	public void selectEditTrainerTier(int n) {
+		Select selectTrainer = new Select(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editTrainerModal']//input[@id='trainerTier']"))));
+		selectTrainer.selectByIndex(n);
+	}
+	
+	public WebElement submitEditTrainer() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editTrainerModal']//input[@id='updateButton1']")));
+	}
+	
+	public WebElement closeEditTrainer() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editTrainerModal']//input[@id='closeButton1']")));
+	}
+	
+	//******************************************************************************************************************************************
+	
+	
+	//DISABLE TRAINER MODAL*********************************************************************************************************************
+	public WebElement yesDisableTrainerButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("yesButton1")));
+	}
+	
+	public WebElement noDisableTrainerButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("noButton1")));
+	}
+	
 }
