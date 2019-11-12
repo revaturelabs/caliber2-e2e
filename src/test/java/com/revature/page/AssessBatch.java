@@ -5,7 +5,6 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -14,23 +13,25 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class AssessBatch {
 	
 	WebDriver driver;
-	WebDriverWait wait = new WebDriverWait(driver, 3);
+	WebDriverWait wait;
 	
 	public AssessBatch(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		wait = new WebDriverWait(driver, 3);
 	}
 	
 	// Year
-	@FindBy(id="batch-select-toolbar-years-dropdown")
-	public WebElement yearDropdown;
+	public WebElement getYearDropdown() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-toolbar-years-dropdown"))).findElement(By.tagName("a"));
+	}
 
 	public WebElement getSelectedYear() {
-		return yearDropdown.findElement(By.id("shared-dropdown-menu-current-value"));
+		return getYearDropdown().findElement(By.id("shared-dropdown-menu-current-value"));
 	}
 	
 	public WebElement getYearDropdownContainer() {
-		return yearDropdown.findElement(By.id("shared-dropdown-menu-dropdown-container"));
+		return getYearDropdown().findElement(By.id("shared-dropdown-menu-dropdown-container"));
 	}
 	
 	public void selectYear(String year) {
@@ -45,15 +46,16 @@ public class AssessBatch {
 	}
 	
 	// Quarter
-	@FindBy (id = "batch-select-toolbar-quaters-dropdown")
-	public WebElement quarterDropdown;
+	public WebElement getQuarterDropdown() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-toolbar-quaters-dropdown"))).findElement(By.tagName("a"));
+	}
 	
 	public WebElement getSelectedQuarter() {
-		return quarterDropdown.findElement(By.id("shared-dropdown-menu-current-value"));
+		return getQuarterDropdown().findElement(By.id("shared-dropdown-menu-current-value"));
 	}
 	
 	public WebElement getQuarterDropdownContainer() {
-		return quarterDropdown.findElement(By.id("shared-dropdown-menu-dropdown-container"));
+		return getQuarterDropdown().findElement(By.id("shared-dropdown-menu-dropdown-container"));
 	}
 	
 	public void selectQuarter(String quarter) {
@@ -68,14 +70,16 @@ public class AssessBatch {
 	}
 	
 	// Batch #
-	@FindBy (id = "batch-select-toolbar-batches-dropdown")
-	public WebElement batchesDropdown;
+	public WebElement getBatchesDropdown() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-toolbar-batches-dropdown"))).findElement(By.tagName("a"));
+	}
 	
 	public WebElement getSelectedBatch() {
-		return batchesDropdown.findElement(By.id("shared-dropdown-menu-current-value"));
+		return getBatchesDropdown().findElement(By.id("shared-dropdown-menu-current-value"));
 	}
-	@FindBy (id ="batch-select-dropdown-list")
-	public WebElement batchDropdownContainer;
+	public WebElement getBatchDropdownContainer() {
+		return getBatchesDropdown().findElement(By.id("batch-select-dropdown-list"));
+	}
 	
 	public void selectBatch(String batch) {
 		WebElement container = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-dropdown-list")));
@@ -88,14 +92,17 @@ public class AssessBatch {
 		}
 	}
 	
-	@FindBy (id ="batch-select-search-bar")
-	public WebElement batchSearchBar;
+	public WebElement getBatchSearchBar() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-search-bar")));
+	}
 	
-	@FindBy (id = "assess-batch-v2-createassessment")
-	public WebElement createAssessmentButton;
+	public WebElement getCreateAssessmentButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("assess-batch-v2-createassessment")));
+	}
 	
-	@FindBy (id = "assess-batch-v2-import-grades")
-	public WebElement importGradesButton;
+	public WebElement getImportGradesButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("assess-batch-v2-import-grades")));
+	}
 	
 	// Create New Assessment Window
 	public WebElement getCreateAssessmentCloseButton() {
@@ -166,19 +173,21 @@ public class AssessBatch {
 	}
 	
 	// Weeks
-	@FindBy(tagName = "app-week-selector")
-	public WebElement weeksContainer;
+	public WebElement getWeeksContainer() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("app-week-selector")));
+	}
 	
 	public void selectWeek(int week) {
-		for (WebElement element : weeksContainer.findElements(By.tagName("a"))) {
+		for (WebElement element : getWeeksContainer().findElements(By.tagName("a"))) {
 			if(element.getText().endsWith(Integer.toString(week))) {
 				element.click();
 			}
 		}
 	}
 	
-	@FindBy(id = "shared-week-selector-addweek")
-	public WebElement addWeekButton;
+	public WebElement getAddWeekButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("shared-week-selector-addweek")));
+	}
 	
 	// Add Week Window
 	public WebElement getNewWeekCloseButton() {
@@ -194,11 +203,12 @@ public class AssessBatch {
 	}
 	
 	// Trainers
-	@FindBy(id = "assess-associate-list-table")
-	public WebElement trainersContainer;
+	public WebElement getTrainersContainer() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("assess-associate-list-table")));
+	}
 	
 	public WebElement getTrainerContainer(String trainerName) {
-		for (WebElement element : trainersContainer.findElements(By.tagName("app-associate-details"))) {
+		for (WebElement element : getTrainersContainer().findElements(By.tagName("app-associate-details"))) {
 			if (element.getText().contains(trainerName)) {
 				return element;
 			}
@@ -211,7 +221,7 @@ public class AssessBatch {
 	 */
 	public WebElement getTrainerContainer(int index) {
 		int i = 0;
-		for (WebElement element : trainersContainer.findElements(By.tagName("app-associate-details"))) {
+		for (WebElement element : getTrainersContainer().findElements(By.tagName("app-associate-details"))) {
 			if (index == i) {
 				return element;
 			}
@@ -379,6 +389,7 @@ public class AssessBatch {
 		return driver.findElement(By.id("notes-container")).findElement(By.tagName("textarea"));
 	}
 		
-	@FindBy(id = "batch-level-feedback-save-button")
-	public WebElement saveButton;
+	public WebElement getSaveButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-level-feedback-save-button")));
+	}
 }
