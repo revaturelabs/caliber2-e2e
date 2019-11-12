@@ -151,7 +151,11 @@ public class Generator {
 				results += Generator.TABLE_CONTAINER + Generator.NEWLINE;
 				results += Generator.generateTable(element);
 				results += "</div>" + Generator.NEWLINE;
-				results += Generator.LINK_TO_TOP + Generator.NEWLINE;
+				results +=
+					"<a href=\""
+						+ Generator.linkifyTitle(
+							Generator.calculateTitle(feature), false)
+						+ "\">Back to parent</a>" + Generator.NEWLINE;
 			}
 			results +=
 				"</div>" + Generator.NEWLINE + "</div>" + Generator.NEWLINE;
@@ -336,7 +340,10 @@ public class Generator {
 		 */
 		int newCount = 0;
 		if (Generator.linkCounts.containsKey(cleaned)) {
-			newCount = Generator.linkCounts.get(cleaned) + 1;
+			newCount = Generator.linkCounts.get(cleaned);
+			if (updateCount) {
+				++newCount;
+			}
 		}
 		if (updateCount) {
 			Generator.linkCounts.put(cleaned, newCount);
