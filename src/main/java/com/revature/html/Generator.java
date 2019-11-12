@@ -91,8 +91,9 @@ public class Generator {
 		results += "</div>" + Generator.NEWLINE;
 
 		results += "<h1 id=\"features\">Features</h1>" + Generator.NEWLINE;
-		results += "<div class=\"accordion border-bottom\" id=\"featuresCollapse\">"
-			+ Generator.NEWLINE;
+		results +=
+			"<div class=\"accordion border-bottom\" id=\"featuresCollapse\">"
+				+ Generator.NEWLINE;
 		results += "<div class=\"card\">" + Generator.NEWLINE
 			+ "<div class=\"card-header\" id=\"featureHeading\">"
 			+ "<button class=\"btn btn-link\" data-toggle=\"collapse\"  data-target=\"#featuresBody\" aria-expanded=\"false\" aria-controls=\"featuresBody\">Hide/Show</button>"
@@ -126,8 +127,8 @@ public class Generator {
 			// we want the name but strip off the pound sign
 			String convenientScenarioName =
 				Generator.linkifyTitle(title, false).substring(1);
-			results += "<div class=\"accordion border-bottom\" id=\"" + convenientScenarioName
-				+ "Collapse\">" + Generator.NEWLINE;
+			results += "<div class=\"accordion border-bottom\" id=\""
+				+ convenientScenarioName + "Collapse\">" + Generator.NEWLINE;
 			results += "<div class=\"card\">" + Generator.NEWLINE
 				+ "<div class=\"card-header\" id=\"" + convenientScenarioName
 				+ "Heading\">"
@@ -151,11 +152,11 @@ public class Generator {
 				results += Generator.TABLE_CONTAINER + Generator.NEWLINE;
 				results += Generator.generateTable(element);
 				results += "</div>" + Generator.NEWLINE;
-				results +=
-					"<a href=\""
-						+ Generator.linkifyTitle(
-							Generator.calculateTitle(feature), false)
-						+ "\">Back to parent</a>" + Generator.NEWLINE;
+				results += "<a href=\""
+					+ Generator.linkifyTitle(Generator.calculateTitle(feature),
+						false)
+					+ "\">Back to parent feature '" + feature.getName() + "'</a>"
+					+ Generator.NEWLINE;
 			}
 			results +=
 				"</div>" + Generator.NEWLINE + "</div>" + Generator.NEWLINE;
@@ -440,8 +441,8 @@ public class Generator {
 				}
 				for (Step step : element.getSteps()) {
 					if (step.getName() == null || step.getName().isEmpty()) {
-						step.setName("Unnamed" + step.getKeyword().trim()
-							+ nextUnnamed);
+						step.setName(
+							"Unnamed" + step.getKeyword().trim() + nextUnnamed);
 						++nextUnnamed;
 					}
 				}
