@@ -12,7 +12,7 @@ import java.util.Map;
 public class Generator {
 	private static final String NEWLINE = System.lineSeparator();
 	private static final String TABLE_CONTAINER =
-		"<div class=\"container border rounded p-3 mt-2\">";
+		"<div class=\"container border rounded p-3 mt-2 bg-white\">";
 	private static final String LINK_TO_TOP =
 		"<a href=\"#overall_results\">Back to top</a>";
 	/**
@@ -91,7 +91,7 @@ public class Generator {
 		results += "</div>" + Generator.NEWLINE;
 
 		results += "<h1 id=\"features\">Features</h1>" + Generator.NEWLINE;
-		results += "<div class=\"accordion\" id=\"featuresCollapse\">"
+		results += "<div class=\"accordion border-bottom\" id=\"featuresCollapse\">"
 			+ Generator.NEWLINE;
 		results += "<div class=\"card\">" + Generator.NEWLINE
 			+ "<div class=\"card-header\" id=\"featureHeading\">"
@@ -126,7 +126,7 @@ public class Generator {
 			// we want the name but strip off the pound sign
 			String convenientScenarioName =
 				Generator.linkifyTitle(title, false).substring(1);
-			results += "<div class=\"accordion\" id=\"" + convenientScenarioName
+			results += "<div class=\"accordion border-bottom\" id=\"" + convenientScenarioName
 				+ "Collapse\">" + Generator.NEWLINE;
 			results += "<div class=\"card\">" + Generator.NEWLINE
 				+ "<div class=\"card-header\" id=\"" + convenientScenarioName
@@ -167,11 +167,12 @@ public class Generator {
 	}
 
 	private static String generateSummaryTable(Feature[] features) {
-		String results = "<table class=\"table table-hover\">" + Generator.NEWLINE
-			+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
-			+ "<th scope=\"col\">Feature</th>" + Generator.NEWLINE
-			+ "<th scope=\"col\">Status</th>" + Generator.NEWLINE + "</tr>"
-			+ Generator.NEWLINE + "</thead>" + Generator.NEWLINE;
+		String results =
+			"<table class=\"table table-hover\">" + Generator.NEWLINE
+				+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
+				+ "<th scope=\"col\">Feature</th>" + Generator.NEWLINE
+				+ "<th scope=\"col\">Status</th>" + Generator.NEWLINE + "</tr>"
+				+ Generator.NEWLINE + "</thead>" + Generator.NEWLINE;
 
 		results += "<tbody>" + Generator.NEWLINE;
 
@@ -211,12 +212,13 @@ public class Generator {
 		if (element == null) {
 			return "";
 		}
-		String results = "<table class=\"table table-hover\">" + Generator.NEWLINE
-			+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
-			+ "<th scope=\"col\">Type</th>" + Generator.NEWLINE
-			+ "<th scope=\"col\">Name</th>" + Generator.NEWLINE
-			+ "<th scope=\"col\">Result</th>" + Generator.NEWLINE + "</tr>"
-			+ Generator.NEWLINE + "</thead>" + Generator.NEWLINE;
+		String results =
+			"<table class=\"table table-hover\">" + Generator.NEWLINE
+				+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
+				+ "<th scope=\"col\">Type</th>" + Generator.NEWLINE
+				+ "<th scope=\"col\">Name</th>" + Generator.NEWLINE
+				+ "<th scope=\"col\">Result</th>" + Generator.NEWLINE + "</tr>"
+				+ Generator.NEWLINE + "</thead>" + Generator.NEWLINE;
 
 		results += "<tbody>" + Generator.NEWLINE;
 
@@ -262,12 +264,13 @@ public class Generator {
 		if (feature == null) {
 			return "";
 		}
-		String results = "<table class=\"table table-hover\">" + Generator.NEWLINE
-			+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
-			+ "<th scope=\"col\">Type</th>" + Generator.NEWLINE
-			+ "<th scope=\"col\">Name</th>" + Generator.NEWLINE
-			+ "<th scope=\"col\">Result</th>" + Generator.NEWLINE + "</tr>"
-			+ Generator.NEWLINE + "</thead>" + Generator.NEWLINE;
+		String results =
+			"<table class=\"table table-hover\">" + Generator.NEWLINE
+				+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
+				+ "<th scope=\"col\">Type</th>" + Generator.NEWLINE
+				+ "<th scope=\"col\">Name</th>" + Generator.NEWLINE
+				+ "<th scope=\"col\">Result</th>" + Generator.NEWLINE + "</tr>"
+				+ Generator.NEWLINE + "</thead>" + Generator.NEWLINE;
 
 		results += "<tbody>" + Generator.NEWLINE;
 
@@ -298,7 +301,8 @@ public class Generator {
 	}
 
 	private static String getFooter() {
-		return "<script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\" crossorigin=\"anonymous\"></script>"
+		return "</div>"
+			+ "<script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\" crossorigin=\"anonymous\"></script>"
 			+ Generator.NEWLINE
 			+ "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js\" integrity=\"sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1\" crossorigin=\"anonymous\"></script>"
 			+ Generator.NEWLINE
@@ -314,8 +318,9 @@ public class Generator {
 			+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
 			+ Generator.NEWLINE
 			+ "<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\" integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">"
-			+ Generator.NEWLINE + "</head>" + Generator.NEWLINE + "<body>"
-			+ Generator.NEWLINE;
+			+ Generator.NEWLINE + "</head>" + Generator.NEWLINE
+			+ "<body class=\"bg-light\">" + Generator.NEWLINE
+			+ "<div class=\"container\">";
 	}
 
 	/**
@@ -417,7 +422,7 @@ public class Generator {
 			for (Element element : feature.getElements()) {
 				if (element.getName() == null || element.getName().isEmpty()) {
 					element.setName(
-						"Unknamed" + element.getKeyword() + nextUnnamed);
+						"Unnamed" + element.getKeyword() + nextUnnamed);
 					++nextUnnamed;
 				}
 			}
@@ -435,7 +440,7 @@ public class Generator {
 				}
 				for (Step step : element.getSteps()) {
 					if (step.getName() == null || step.getName().isEmpty()) {
-						step.setName("Unknamed" + step.getKeyword().trim()
+						step.setName("Unnamed" + step.getKeyword().trim()
 							+ nextUnnamed);
 						++nextUnnamed;
 					}
