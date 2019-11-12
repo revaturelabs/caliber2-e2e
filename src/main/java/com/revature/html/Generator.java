@@ -5,6 +5,7 @@ import com.revature.json.models.Feature;
 import com.revature.json.models.Result;
 import com.revature.json.models.Step;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -366,6 +367,32 @@ public class Generator {
 		if (features == null) {
 			return;
 		}
+
+		// clear out duplicate background steps
+		for (Feature feature : features) {
+			if (feature.getElements() == null) {
+				continue;
+			}
+			ArrayList<Element> unique = new ArrayList<>();
+			ArrayList<String> backgroundNames = new ArrayList<>();
+			for (Element element : feature.getElements()) {
+				if (element.getKeyword() == null) {
+					continue;
+				}
+				final String keyword = element.getKeyword();
+				if (!keyword.equals("Background")) {
+					unique.add(element);
+					continue;
+				}
+				if (backgroundNames.contains(keyword)) {
+					continue;
+				}
+				unique.add(element);
+				backgroundNames.add(keyword);
+			}
+			feature.setElements(unique.toArray(new Element[unique.size()]));
+		}
+
 		// we go through one layer at a time naming things
 		int nextUnnamed = 1;
 		for (Feature feature : features) {
