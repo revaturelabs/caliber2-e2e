@@ -49,4 +49,7 @@ WebDriver driver;
 	
 	@FindBy(id="header-login-link")
 	public WebElement login;
+	
+	@FindBy(id="header-navbar-toggle-button")
+	public WebElement navBarToggleButton;
 }
