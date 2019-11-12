@@ -96,19 +96,19 @@ public class Step {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result
+		int result1 = 1;
+		result1 = prime * result1
 			+ ((this.keyword == null) ? 0 : this.keyword.hashCode());
-		result =
-			prime * result + ((this.line == null) ? 0 : this.line.hashCode());
-		result =
-			prime * result + ((this.match == null) ? 0 : this.match.hashCode());
-		result = prime * result + Arrays.hashCode(this.matchedColumns);
-		result =
-			prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-		result = prime * result
+		result1 =
+			prime * result1 + ((this.line == null) ? 0 : this.line.hashCode());
+		result1 = prime * result1
+			+ ((this.match == null) ? 0 : this.match.hashCode());
+		result1 = prime * result1 + Arrays.hashCode(this.matchedColumns);
+		result1 =
+			prime * result1 + ((this.name == null) ? 0 : this.name.hashCode());
+		result1 = prime * result1
 			+ ((this.result == null) ? 0 : this.result.hashCode());
-		return result;
+		return result1;
 	}
 
 	public void setKeyword(String keyword) {
