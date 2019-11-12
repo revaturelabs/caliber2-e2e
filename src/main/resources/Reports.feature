@@ -10,7 +10,7 @@ Scenario: Select Batch Year
 Scenario Outline: Search Batch by Criteria
 	When The user selects a "<year>"
 	And The user clicks the select batch dropdown
-	And The user inputs a "<criteria>"  into the search  bar
+	And The user inputs a "<criteria>" into the search bar
 	Then The batch dropdown should contain items matching the "<criteria>"
 	
 		Examples: 
@@ -41,7 +41,7 @@ Scenario Outline:  Select Week to view reports
 	
 Scenario Outline: Selecting All trainees and all weeks
 	When The user selects a "<year>"
-	And The user selects a"<batch>"
+	And The user selects a "<batch>"
 	And The user selects all trainees
 	And The user selects all weeks
 #	Then The dashboard will populate  information
