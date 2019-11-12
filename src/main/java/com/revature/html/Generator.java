@@ -167,7 +167,7 @@ public class Generator {
 	}
 
 	private static String generateSummaryTable(Feature[] features) {
-		String results = "<table class=\"table\">" + Generator.NEWLINE
+		String results = "<table class=\"table table-hover\">" + Generator.NEWLINE
 			+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
 			+ "<th scope=\"col\">Feature</th>" + Generator.NEWLINE
 			+ "<th scope=\"col\">Status</th>" + Generator.NEWLINE + "</tr>"
@@ -211,7 +211,7 @@ public class Generator {
 		if (element == null) {
 			return "";
 		}
-		String results = "<table class=\"table\">" + Generator.NEWLINE
+		String results = "<table class=\"table table-hover\">" + Generator.NEWLINE
 			+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
 			+ "<th scope=\"col\">Type</th>" + Generator.NEWLINE
 			+ "<th scope=\"col\">Name</th>" + Generator.NEWLINE
@@ -262,7 +262,7 @@ public class Generator {
 		if (feature == null) {
 			return "";
 		}
-		String results = "<table class=\"table\">" + Generator.NEWLINE
+		String results = "<table class=\"table table-hover\">" + Generator.NEWLINE
 			+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
 			+ "<th scope=\"col\">Type</th>" + Generator.NEWLINE
 			+ "<th scope=\"col\">Name</th>" + Generator.NEWLINE
