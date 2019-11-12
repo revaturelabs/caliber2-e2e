@@ -58,13 +58,6 @@ public class Caliber2E2eApplication {
 		Feature[] parsed = gson.fromJson(cucumber, Feature[].class);
 
 		// generate html
-		try {
-			exportResource("bootstrap.min.css");
-			exportResource("bootstrap.min.js");
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
 		String webPage = Generator.toWebPage(parsed);
 		File output = new File("test.html");
 		FileWriter writer = null;
