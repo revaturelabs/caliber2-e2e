@@ -123,7 +123,7 @@ Feature: Manage Batch
 		Examples:
 		|year|batch|trainee|
 		
-	Scenario Outline: Edit batch details fields
+	Scenario Outline: Edit batch details fields by text entry
 		Given The user selects a "<year>" in drop down
 		When user click on the edit batch button on "<batch>"
 		And The user updates "<contents>" in "<field>"
@@ -133,10 +133,10 @@ Feature: Manage Batch
 		Examples:
 		|year|batch|contents|field|
 		
-	Scenario Outline: Edit batch details fields
+	Scenario Outline: Edit batch details fields by selection
 		Given The user selects a "<year>" in drop down
 		When user click on the edit batch button on "<batch>"
-		And The user selects  "<contents>" in "<field>" dropdown
+		And The user selects "<contents>" in "<field>" dropdown
 		And The user clicks the update button
 		Then The "<batch>" "<field>" should match "<contents>" 
 		
