@@ -2,7 +2,7 @@ package com.revature.app;
 
 import com.revature.html.Generator;
 import com.revature.json.models.Feature;
-import com.revature.runner.Caliber2Runner;
+import com.revature.runner.ChromeRunner;
 import gherkin.deps.com.google.gson.Gson;
 import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
@@ -73,7 +73,7 @@ public class Caliber2E2eApplication {
 		// Run the junit tests
 		JUnitCore junit = new JUnitCore();
 		junit.addListener(new TextListener(System.out));
-		junit.run(Caliber2Runner.class);
+		junit.run(ChromeRunner.class);
 
 		// parse the json output
 		Gson gson = new Gson();

@@ -1,22 +1,7 @@
 package com.revature.runner;
 
 import com.revature.app.Caliber2E2eApplication;
-import com.revature.page.AddTraineeModal;
-import com.revature.page.AssessBatchPage;
-import com.revature.page.Caliber2page;
-import com.revature.page.CreateBatchModal;
-import com.revature.page.EditBatchModal;
-import com.revature.page.EditTraineeModal;
-import com.revature.page.HomePage;
-import com.revature.page.LoginPage;
-import com.revature.page.ManageBatchPage;
-import com.revature.page.NavigationBar;
-import com.revature.page.QualityAuditPage;
-import com.revature.page.ReportsPage;
-import com.revature.page.SettingsCategoriesPage;
-import com.revature.page.SettingsLocationsPage;
-import com.revature.page.SettingsTrainerPage;
-import com.revature.page.ShowTraineesModal;
+import com.revature.page.*;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import org.junit.AfterClass;
@@ -28,9 +13,9 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "classpath:", glue = "com.revature.steps",
-	plugin = {"pretty", "json:./cucumber.json"})
-public class Caliber2Runner {
+@CucumberOptions(features = "src/main/resources", glue = "com.revature.steps",plugin = {"pretty", "json:./cucumber.json"})
+//@CucumberOptions(features = "classpath:", glue = "com.revature.steps",plugin = {"pretty", "json:./cucumber.json"})
+public class ChromeRunner {
 	// Run the test on Junit4 ONLY!~!~!~!
 	public static WebDriver driver;
 	public static AddTraineeModal addTraineeModal;
@@ -39,7 +24,6 @@ public class Caliber2Runner {
 	public static EditBatchModal editBatchModal;
 	public static EditTraineeModal editTraineeModal;
 	public static HomePage homePage;
-	public static Caliber2page caliber2page;
 	public static LoginPage loginPage;
 	public static ManageBatchPage manageBatchPage;
 	public static NavigationBar navBar;
@@ -68,7 +52,6 @@ public class Caliber2Runner {
 		editBatchModal = new EditBatchModal(driver);
 		editTraineeModal = new EditTraineeModal(driver);
 		homePage = new HomePage(driver);
-		caliber2page = new Caliber2page(driver);
 		loginPage = new LoginPage(driver);
 		manageBatchPage = new ManageBatchPage(driver);
 		navBar = new NavigationBar(driver);
