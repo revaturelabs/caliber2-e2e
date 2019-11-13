@@ -1,32 +1,9 @@
 Feature: On Caliber 2 homepage
 	Background: User on Caliber2
 		Given The user is on the Caliber2 home page
-	Scenario Outline: The user clicks on tabs
-		When The user clicks on "<Tab>"
-		Then The user is on the "<Tab>" page
-		
-		Examples:
-		|Tab|Tab|
-		|Manage Batch|Manage Batch|
-		|Assess Batch|Assess Batch|
-		|Quality Audit|Quality Audit|
-		|Reports|Reports|
-		|Home|Home|
-		|Revature Icon|Home|
-		
-	Scenario Outline: The user clicks on settings options
-		Given The user clicks on Settings
-		When The user clicks on "<Option>"
-		Then the user is on the "<Option>" page
-		
-		Examples:
-		|Option|Option|
-		|Trainers|Trainers|
-		|Locations|Locations|
-		|Category|Category|
-		
+				
 	Scenario Outline: The user is viewing the Last Quaility Audit
-		When The user clicks on "<Performance>"
+		When The user clicks on performance "<Performance>"
 		Then The user toggles display of associates graded as "<Performance>"
 		
 		Examples:
@@ -38,7 +15,7 @@ Feature: On Caliber 2 homepage
 		
 	Scenario Outline: The user is filtering the Last Quality Audit
 		When The user clicks on the States dropdown
-		When The clicks on "<State>"
+		When The user clicks on state "<State>"
 		Then The user can see stats for "<State>"
 		
 		Examples:
@@ -50,7 +27,7 @@ Feature: On Caliber 2 homepage
 	Scenario Outline: The user is viewing the A given State
 		Given The user is viewing "<State>"
 		When The user clicks on the Cities dropdown
-		When The clicks on "<City>"
+		When The user clicks on city "<City>"
 		Then The user can see stats for "<City>"
 		
 		Examples:
