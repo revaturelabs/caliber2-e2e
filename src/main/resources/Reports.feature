@@ -1,6 +1,6 @@
 Feature: Report Feature
 	Background: The user is on the reports page
-	Given The user is on Caliber 2 web page 
+	Given The user is on the Caliber2 home page
 	And The user is in the Reports tab
 
 Scenario: Select Batch Year
