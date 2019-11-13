@@ -32,3 +32,5 @@ build/
 
 \target\classes\META-INF\maven\com.example\caliber2-e2e\pom.properties
 cucumber.json
+*.html
+*.exe
