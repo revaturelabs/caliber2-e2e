@@ -123,22 +123,6 @@ Feature: Manage Batch
 		Examples:
 		|year|batch|trainee|
 		
-<<<<<<< HEAD
-	Scenario Outline: Edit batch details fields
-		Given The user selects a "<year>" in drop down
-		When user click on the edit batch button on "<batch>"
-		And The user updates "<contents>" in "<field>"
-		And The user clicks the update button
-		Then The "<batch>" "<field>" should match "<contents>" 
-		
-		Examples:
-		|year|batch|contents|field|
-		
-	Scenario Outline: Edit batch details fields
-		Given The user selects a "<year>" in drop down
-		When user click on the edit batch button on "<batch>"
-		And The user selects  "<contents>" in "<field>" dropdown
-=======
 	Scenario Outline: Edit batch details fields by text entry
 		Given The user selects a "<year>" in drop down
 		When user click on the edit batch button on "<batch>"
@@ -153,7 +137,6 @@ Feature: Manage Batch
 		Given The user selects a "<year>" in drop down
 		When user click on the edit batch button on "<batch>"
 		And The user selects "<contents>" in "<field>" dropdown
->>>>>>> refs/remotes/origin/dev
 		And The user clicks the update button
 		Then The "<batch>" "<field>" should match "<contents>" 
 		

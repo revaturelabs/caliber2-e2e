@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-Feature:
-	Background: User on Caliber2
-		Given The user is on the Caliber2 home page
-	Scenario:
-		When The user clicks on Quality Audit
-=======
 Feature: on Caliber 2 Quality Audit page
 	 Background: User on Caliber 2
 	 	Given: User on quality audit page
@@ -146,17 +139,4 @@ Feature: on Caliber 2 Quality Audit page
 	 	
 	 	
 	 	
-	 	
-	 	
-	 
-	 
-	 
-	 
-	 
-	 
-	 	
-	 	
-	 	
-	
-	 
->>>>>>> refs/remotes/origin/dev
+
