@@ -10,12 +10,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class AssessBatch {
+public class AssessBatchPage {
 	
 	WebDriver driver;
 	WebDriverWait wait;
 	
-	public AssessBatch(WebDriver driver) {
+	public AssessBatchPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		wait = new WebDriverWait(driver, 3);

@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 public class HomeStep {
 
 	public static WebDriver driver = Caliber2Runner.driver;
-	public static HomePage homepage = Caliber2Runner.homepage;
+	public static HomePage homepage = Caliber2Runner.homePage;
 	
 	@Given("^The user is on the Caliber(\\d+) home page$")
 	public void the_user_is_on_the_Caliber_home_page(int arg1) throws Throwable {
