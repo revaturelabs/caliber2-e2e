@@ -1,6 +1,8 @@
 Feature: On Caliber category page
 	Background: User on Caliber2
-		Given The user is on the category page
+		Given The user is on the Caliber2 home page
+		When the user clicks on the settings
+		When the_user_clicks_on_category
 	Scenario: The user goes add Assessment Category
 		When The User clicks add assesment add fills in info
 		Then The new Category appears in category list

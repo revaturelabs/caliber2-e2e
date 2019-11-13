@@ -1,6 +1,7 @@
 Feature: caliber 2 trainer page
 	Background: User on caliber 2 trainer page
-		Given The user is on the trainer page
+		When the user clicks on the settings
+		When the user clicks on the trainer
 	Scenario: the user makes a new trainer
 		When The user clicks new trainer and fills in info
 		Then The new trainer is listed among trainer list

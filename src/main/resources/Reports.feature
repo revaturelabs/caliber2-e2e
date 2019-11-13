@@ -1,7 +1,7 @@
 Feature: Report Feature
 	Background: The user is on the reports page
 	Given The user is on the Caliber2 home page
-	And The user is in the Reports tab
+	When the user clicks on reports
 
 Scenario: Select Batch Year
 	When The user selects a year from the dropdown for year
