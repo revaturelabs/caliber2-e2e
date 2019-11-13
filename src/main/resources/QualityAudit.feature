@@ -139,16 +139,4 @@ Feature: on Caliber 2 Quality Audit page
 	 	
 	 	
 	 	
-	 	
-	 	
-	 
-	 
-	 
-	 
-	 
-	 
-	 	
-	 	
-	 	
-	
-	 
+
