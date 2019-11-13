@@ -13,11 +13,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ManageBatchPage {
 
 	WebDriver driver;
-	WebDriverWait wait = new WebDriverWait(driver, 3);
+	WebDriverWait wait;
 
 	public ManageBatchPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		wait = new WebDriverWait(driver, 3);
 	}
 	
 	public WebElement getDropdownSelectYearContainer() {

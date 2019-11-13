@@ -12,11 +12,12 @@ public class QualityAuditPage {
 
 	
 	WebDriver driver;
-	WebDriverWait wait = new WebDriverWait(driver, 3);
+	WebDriverWait wait;
 
 	public QualityAuditPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		wait = new WebDriverWait(driver, 3);
 	}
 	
 	@FindBy(id="batch-select-toolbar-years-dropdown")

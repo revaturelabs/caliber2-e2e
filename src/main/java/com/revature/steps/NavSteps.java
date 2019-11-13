@@ -14,7 +14,7 @@ public class NavSteps {
 	NavigationBar navBar = PagesUtil.navBar;
 	
 	@Given("^The user is on the Caliber2 home page$")
-	public void the_user_is_on_the_Caliber_home_page(int arg1) throws Throwable {
+	public void the_user_is_on_the_Caliber_home_page() throws Throwable {
 	    driver.get("http://caliber-2-dev.revaturelabs.com.s3-website-us-east-1.amazonaws.com/caliber/vp/home");
 	}
 	
