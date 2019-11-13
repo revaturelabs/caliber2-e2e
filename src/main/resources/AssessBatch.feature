@@ -7,11 +7,11 @@ Feature: Assess Batch
 		
 	Scenario Outline: find batch based on criteria
 		When the user clicks on the year dropdown
-		When the user chooses a <year>
+		When the user chooses a year <year>
 		When the user clicks on quarter dropdown
-		When the user chooses a <quarter>
+		When the user chooses a quarter <quarter>
 		When the user clicks on select batch dropdown
-		When the user enters <criteria> into the search bar
+		When the user enters "<criteria>" into the search bar
 		When the user clicks on the first displayed result
 		Then the page title should be <title>
 		

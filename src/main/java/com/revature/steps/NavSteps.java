@@ -17,6 +17,12 @@ public class NavSteps {
 	    throw new PendingException();
 	}
 	
+	@Given("^User on quality audit page$")
+	public void user_on_quality_audit_page() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+	
 	@Given("^The user is on the trainer page$")
 	public void the_user_is_on_the_trainer_page() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions

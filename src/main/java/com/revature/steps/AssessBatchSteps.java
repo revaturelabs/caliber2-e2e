@@ -17,8 +17,8 @@ public class AssessBatchSteps {
 	    throw new PendingException();
 	}
 
-	@When("^the user chooses a (\\d+)$")
-	public void the_user_chooses_a(int arg1) throws Throwable {
+	@When("^the user chooses a year (\\d+)$")
+	public void the_user_chooses_a_year(int arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
 	}
@@ -29,8 +29,8 @@ public class AssessBatchSteps {
 	    throw new PendingException();
 	}
 
-	@When("^the user chooses a Q(\\d+)$")
-	public void the_user_chooses_a_Q(int arg1) throws Throwable {
+	@When("^the user chooses a quarter Q(\\d+)$")
+	public void the_user_chooses_a_quarter(int arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
 	}
@@ -41,8 +41,8 @@ public class AssessBatchSteps {
 	    throw new PendingException();
 	}
 
-	@When("^the user enters natalie into the search bar$")
-	public void the_user_enters_natalie_into_the_search_bar() throws Throwable {
+	@When("^the user enters \"([^\"]*)\" into the search bar$")
+	public void the_user_enters_criteria_into_the_search_bar(String arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
 	}
@@ -59,50 +59,8 @@ public class AssessBatchSteps {
 	    throw new PendingException();
 	}
 
-	@When("^the user enters church into the search bar$")
-	public void the_user_enters_church_into_the_search_bar() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^the user enters java into the search bar$")
-	public void the_user_enters_java_into_the_search_bar() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^the user enters dan into the search bar$")
-	public void the_user_enters_dan_into_the_search_bar() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
 	@Then("^the page title should be temp(\\d+)$")
 	public void the_page_title_should_be_temp(int arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^the user enters pickles into the search bar$")
-	public void the_user_enters_pickles_into_the_search_bar() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^the user enters pega into the search bar$")
-	public void the_user_enters_pega_into_the_search_bar() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^the user enters shelby into the search bar$")
-	public void the_user_enters_shelby_into_the_search_bar() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^the user enters levinson into the search bar$")
-	public void the_user_enters_levinson_into_the_search_bar() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
 	}
