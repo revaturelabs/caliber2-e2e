@@ -10,6 +10,7 @@ Scenario: Select Batch Year
 Scenario Outline: Search Batch by Criteria
 	When The user selects a "<year>"
 	And The user clicks the select batch dropdown
+<<<<<<< HEAD
 	And The user inputs a "<criteria>"  into the search  bar
 	Then The batch dropdown should contain items matching the "<criteria>"
 	
@@ -42,6 +43,40 @@ Scenario Outline:  Select Week to view reports
 Scenario Outline: Selecting All trainees and all weeks
 	When The user selects a "<year>"
 	And The user selects a"<batch>"
+=======
+	And The user inputs a "<criteria>" into the search bar
+	Then The batch dropdown should contain items matching the "<criteria>"
+	
+		Examples: 
+		|criteria|year|
+		|Natalie|2020|
+		|Church|2020|
+		|Java|2020|
+		|Dan|2020|
+		|Pega|2020|
+		|Pickles|2019|
+		|Jake|2019|
+		|BPM|2019|
+		|Shelby|2018|
+		|Hines|2018|
+		|Jee|2018|
+		
+Scenario Outline:  Select Week to view reports
+	Given The user selects a "<year>"
+	When The user selects a "<batch>"
+	Then A week selection drop down menu should be visible
+	And populated with how many "<entries>" they have in that batch
+	
+	Examples:
+	|year|batch|entries|
+	|2020|Natalie Church - Full Stack Java/JEE - 11/9/2019|4|
+	|2019|Dan Pickles - PEGA BPM - 10/7/2019|4|
+	|2018|James K - Full Stack Java/JEE - 7/9/2018|10|
+	
+Scenario Outline: Selecting All trainees and all weeks
+	When The user selects a "<year>"
+	And The user selects a "<batch>"
+>>>>>>> refs/remotes/origin/dev
 	And The user selects all trainees
 	And The user selects all weeks
 #	Then The dashboard will populate  information
