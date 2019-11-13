@@ -4,7 +4,6 @@ Feature: on Caliber 2 Quality Audit page
 	 	When the user clicks on quality audit
 	 
 	 Scenario Outline: search batch by first name, last name, curriculum
-	 	Given User on quality audit page 
 	 	When User clicks on Select Batch
 	 	When User types "<search>" in search bar
 	 	Then The batch should be "<batch>"
