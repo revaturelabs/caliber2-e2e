@@ -11,11 +11,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class SettingsLocationsPage {
 	
 	WebDriver driver;
-	WebDriverWait wait = new WebDriverWait(driver, 3);
+	WebDriverWait wait;
 	
 	public SettingsLocationsPage(WebDriver driver) {
 		this.driver=driver;
 		PageFactory.initElements(driver, this);
+		wait = new WebDriverWait(driver, 3);
 	}
 	
 	@FindBy(id="locationspage-component-displayaddlocationmodal")

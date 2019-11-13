@@ -11,11 +11,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ShowTraineesModal {
 
 	WebDriver driver;
-	WebDriverWait wait = new WebDriverWait(driver, 3);
+	WebDriverWait wait;
 
 	public ShowTraineesModal(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		wait = new WebDriverWait(driver, 3);
 	}
 	
 	@FindBy(id="view-trainees-modal-close-button")

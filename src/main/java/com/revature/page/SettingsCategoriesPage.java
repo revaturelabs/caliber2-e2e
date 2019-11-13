@@ -12,11 +12,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class SettingsCategoriesPage {
 	
 	WebDriver driver;
-	WebDriverWait wait = new WebDriverWait(driver, 3);
+	WebDriverWait wait;
 
 	public SettingsCategoriesPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		wait = new WebDriverWait(driver, 3);
 	}
 	
 	public WebElement selectNthActiveCategory(int n) {
