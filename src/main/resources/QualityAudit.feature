@@ -1,6 +1,7 @@
 Feature: on Caliber 2 Quality Audit page
 	 Background: User on Caliber 2
-	 	Given User on quality audit page
+	 	Given The user is on the Caliber2 home page
+	 	When the user clicks on quality audit
 	 
 	 Scenario Outline: search batch by first name, last name, curriculum
 	 	Given User on quality audit page 

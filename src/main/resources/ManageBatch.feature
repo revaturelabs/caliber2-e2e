@@ -1,7 +1,7 @@
 Feature: Manage Batch
 	Background: User on Caliber2
 		Given The user is on the Caliber2 home page
-		And the user is on the manage batch page
+		When the user clicks on manage batch
 		
 	Scenario Outline: Create Batch
 		When The user clicks on create batch

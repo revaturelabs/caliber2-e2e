@@ -1,6 +1,8 @@
 Feature: using the Caliber 2 Location Page
 	Background: User on caliber 2 location Page
-		Given The user is on the caliber 2 location page
+		Given The user is on the Caliber2 home page
+		When the user clicks on the settings
+		When the user clicks on the location
 	Scenario: The user adds a new location
 		When The user clicks on add new location and fills in info
 		Then The location is added to the list of locations

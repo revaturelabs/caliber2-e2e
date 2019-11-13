@@ -23,31 +23,43 @@ public class NavSteps {
 		navBar.assessbatch.click();
 	}
 	
-	@Given("^User on quality audit page$")
-	public void user_on_quality_audit_page() throws Throwable {
+	@When("^the user clicks on manage batch$")
+	public void the_user_clicks_on_manage_batch() throws Throwable {
+		navBar.managebatch.click();
+	}
+	
+	@When("^the user clicks on quality audit$")
+	public void the_user_clicks_on_quality_audit_page() throws Throwable {
 	    navBar.qualitybatch.click();
 	}
-	
-	@Given("^The user is on the trainer page$")
-	public void the_user_is_on_the_trainer_page() throws Throwable {
-	    navBar.settings.click();
-	    navBar.trainers.click();
-	}
-	
-	@Given("^The user is in the Reports tab$")
-	public void the_user_is_in_the_Reports_tab() throws Throwable {
+		
+	@When("^the user clicks on reports$")
+	public void the_user_clicks_on_reports_tab() throws Throwable {
 	    navBar.reports.click();
 	}
 	
-	@Given("^The user is on the caliber (\\d+) location page$")
-	public void the_user_is_on_the_caliber_location_page(int arg1) throws Throwable {
+	@When("^the user clicks on the settings$")
+	public void the_user_clicks_on_settings() throws Throwable {
 	    navBar.settings.click();
+	}
+	
+	@When("^the user clicks on the trainer$")
+	public void the_user_clicks_on_trainers() throws Throwable {
+	    navBar.trainers.click();
+	}
+	
+	@When("^the user clicks on the location$")
+	public void the_user_clicks_on_locations(int arg1) throws Throwable {
 		navBar.locations.click();
 	}
 	
-	@Given("^The user is on the category page$")
-	public void the_user_is_on_the_category_page() throws Throwable {
-		navBar.settings.click();
+	@When("^the_user_clicks_on_category$")
+	public void the_user_clicks_on_category() throws Throwable {
 		navBar.categories.click();
+	}
+	
+	@When("^the_user_clicks_on_login$")
+	public void the_user_is_on_the_trainer_page() throws Throwable {
+	    navBar.login.click();
 	}
 }
