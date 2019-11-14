@@ -34,7 +34,9 @@ public class ReportSteps {
 			List<WebElement> footRows = PagesUtil.reportsPage.getQcScoreTable()
 				.findElements(By.xpath(".//tfoot/tr"));
 
-			for (WebElement row : bodyRows) {
+			for (int i = 1; i < bodyRows.size(); ++i) {
+				// skip the first column, it is a label
+				WebElement row = bodyRows.get(i);
 				List<WebElement> columns = row.findElements(By.xpath(".//td"));
 				for (WebElement cell : columns) {
 					try {
@@ -46,7 +48,9 @@ public class ReportSteps {
 				}
 			}
 
-			for (WebElement row : footRows) {
+			for (int i = 1; i < footRows.size(); ++i) {
+				// skip the first column, it is a label
+				WebElement row = footRows.get(i);
 				List<WebElement> columns = row.findElements(By.xpath(".//td"));
 				for (WebElement cell : columns) {
 					try {
