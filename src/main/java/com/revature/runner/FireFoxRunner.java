@@ -18,8 +18,6 @@ import java.util.concurrent.TimeUnit;
 //@CucumberOptions(features = "classpath:", glue = "com.revature.steps",plugin = {"pretty", "json:./cucumber.json"})
 public class FireFoxRunner {
 	// Run the test on Junit4 ONLY!~!~!~!
-	public static WebDriver driver;
-	public static PagesUtil pages;
 
 	static {
 		try {
@@ -28,16 +26,7 @@ public class FireFoxRunner {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		File file = new File("geckodriver.exe");
-		System.setProperty("webdriver.gecko.driver", file.getAbsolutePath());
-		driver = new FirefoxDriver();
-
-		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-		pages = new PagesUtil(driver);
+		
 	}
 
-	@AfterClass
-	public static void tearDown() {
-		driver.quit();
-	}
 }
