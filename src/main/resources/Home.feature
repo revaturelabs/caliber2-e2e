@@ -37,7 +37,6 @@ Feature: On Caliber 2 homepage
 		|FL|Tampa|Tampa|
 
 	Scenario Outline: The user removes a week
-		Given The user is on the home page
 		When The user clicks on "<Week>"
 		Then The table is updated
 		
@@ -51,20 +50,10 @@ Feature: On Caliber 2 homepage
 		|Week 6|
 		
 	Scenario: The user removes all weeks
-		Given The user is on the home page
 		When The user removes all weeks
 		Then The table is empty
 			
 	Scenario: The user adds a week
-		Given The user is on the home page
 		When The user clicks the include weeks button
 		When The user selects a week
 		Then The table is updated
-		
-	Scenario: The user is viewing missing grade reports
-		Given The user is on the home page
-		When The user clicks on all weeks
-		Then The user sees no results
-		
-		When The user clicks on one week
-		Then The user sees all reports that include that week

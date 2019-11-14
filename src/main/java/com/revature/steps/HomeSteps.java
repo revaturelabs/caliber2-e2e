@@ -5,9 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 
 import com.revature.page.HomePage;
-import com.revature.runner.ChromeRunner;
 import com.revature.utils.PagesUtil;
-
 import cucumber.api.PendingException;
 import cucumber.api.java.en.*;
 
@@ -63,29 +61,9 @@ public class HomeSteps {
 		page.selectLastQACity(arg1);
 		throw new PendingException();
 	}
-
 	
-
-	@When("^The user clicks on all weeks$")
-	public void the_user_clicks_on_all_weeks() throws Throwable {
-		page.weekSorterButton.click();
-	    throw new PendingException();
-	}
-
-	@Then("^The user sees no results$")
-	public void the_user_sees_no_results() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^The user clicks on one week$")
-	public void the_user_clicks_on_one_week() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@Then("^The user sees all reports that include that week$")
-	public void the_user_sees_all_reports_that_include_that_week() throws Throwable {
+	@When("^The user clicks on \"([^\"]*)\"$")
+	public void the_user_clicks_on(String arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
 	}
