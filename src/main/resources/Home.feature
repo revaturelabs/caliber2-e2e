@@ -36,9 +36,12 @@ Feature: On Caliber 2 homepage
 		|MI|Detroit|Detroit|
 		|FL|Tampa|Tampa|
 
-	Scenario Outline: The user removes a week
+	Scenario Outline: The table responds to removal of a week and adding it back
 		When The user clicks on week "<Week>"
 		Then The table is updated minus week "<Week>"
+		When The user clicks the include weeks button
+		When The user selects a week
+		Then The table is updated updated plus week "<Week>"
 		
 		Examples:
 		|Week|
@@ -52,8 +55,3 @@ Feature: On Caliber 2 homepage
 	Scenario: The user removes all weeks
 		When The user removes all weeks
 		Then The table is empty
-			
-	Scenario: The user adds a week
-		When The user clicks the include weeks button
-		When The user selects a week
-		Then The table is updated

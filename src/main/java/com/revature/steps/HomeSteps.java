@@ -58,6 +58,19 @@ public class HomeSteps {
 			assertFalse(webElement.findElement(By.tagName("span")).getText().contains(arg1));
 		}
 	}
+	
+	@When("^The user clicks the include weeks button$")
+	public void the_user_clicks_the_include_weeks_button() {
+		
+	}
+
+	@When("^The user selects a week$")
+	public void the_user_selects_a_week() {
+	}
+	
+	@Then("^The table is updated updated plus week \"([^\"]*)\"$")
+	public void the_table_is_updated_updated_plus_week(String arg1) {
+	}
 
 	@When("^The user removes all weeks$")
 	public void the_user_removes_all_weeks() {
@@ -70,14 +83,5 @@ public class HomeSteps {
 	@Then("^The table is empty$")
 	public void the_table_is_empty() {
 		assertNull(page.getMissingGradeRows());
-	}
-
-	@When("^The user clicks the include weeks button$")
-	public void the_user_clicks_the_include_weeks_button() {
-		
-	}
-
-	@When("^The user selects a week$")
-	public void the_user_selects_a_week() {
 	}
 }
