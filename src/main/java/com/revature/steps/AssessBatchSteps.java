@@ -21,7 +21,9 @@ public class AssessBatchSteps {
 
 	@Then("^the user should be on the assess batch page$")
 	public void the_user_should_be_on_the_assess_batch_page() throws Throwable {
-		driver.get("http://caliber-2-dev.revaturelabs.com.s3-website-us-east-1.amazonaws.com/caliber/vp/assess");
+		driver.get("http://caliber-2-dev.revaturelabs.com.s3-website-us-east-1.amazonaws.com/caliber/vp/home");
+		navbar.assessbatch.click();
+		Assert.assertEquals("http://caliber-2-dev.revaturelabs.com.s3-website-us-east-1.amazonaws.com/caliber/vp/assess", driver.getTitle());
 	}
 
 	@When("^the user clicks on the year dropdown$")
@@ -66,14 +68,13 @@ public class AssessBatchSteps {
 
 	@Given("^the user is on a specific batch page$")
 	public void the_user_is_on_a_specific_batch_page() throws Throwable {
-		//CHANGE THE VALUES OF THESE, THE ENTRY GOT DELETED!!!
-//		batchpage.getYearDropdown().click();
-//		batchpage.selectYear("2018");
-//		batchpage.getQuarterDropdown().click();
-//		batchpage.selectQuarter("Q3");
-//		batchpage.getBatchesDropdown().click();
-//		batchpage.getBatchSearchBar().sendKeys("Ravi Singh");
-//		batchpage.getSelectedBatch();
+		batchpage.getYearDropdown().click();
+		batchpage.selectYear("2018");
+		batchpage.getQuarterDropdown().click();
+		batchpage.selectQuarter("Q3");
+		batchpage.getBatchesDropdown().click();
+		batchpage.getBatchSearchBar().sendKeys("Ravi Singh");
+		batchpage.getSelectedBatch();
 	}
 
 	@When("^the user clicks on a specific week$")
@@ -98,8 +99,7 @@ public class AssessBatchSteps {
 
 	@Then("^a new week should be displayed on the batch page$")
 	public void a_new_week_should_be_displayed_on_the_batch_page() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	    Assert.assertEquals(batchpage.getWeeksContainer().findElement(By.tagName("b")).getText(), "Week 2");
 	}
 
 	@When("^the user clicks create assessment$")
@@ -132,19 +132,24 @@ public class AssessBatchSteps {
 
 	@Then("^the batch page will be updated with the new information$")
 	public void the_batch_page_will_be_updated_with_the_new_information() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	    //Assert.assertEquals(expected, actual);
 	}
 
 	@Given("^the user is on a specific batch page with existing assessments$")
 	public void the_user_is_on_a_specific_batch_page_with_existing_assessments() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+//		batchpage.getYearDropdown().click();
+//		batchpage.selectYear("2018");
+//		batchpage.getQuarterDropdown().click();
+//		batchpage.selectQuarter("Q3");
+//		batchpage.getBatchesDropdown().click();
+//		batchpage.getBatchSearchBar().sendKeys("Ravi Singh");
+//		batchpage.getSelectedBatch();
 	}
 
 	@When("^the user changes an assessment grade for a specific associate$")
 	public void the_user_changes_an_assessment_grade_for_a_specific_associate() throws Throwable {
-	    
+	    batchpage.getUpdateAssessmentButton(1);
+	    batchpage.selectUpdateAssessmentType(1);
 	}
 
 	@Then("^the statistics at the bottom of the page should update correctly$")
@@ -155,8 +160,13 @@ public class AssessBatchSteps {
 
 	@Given("^the user is on a specific batch page and has made changes to the existing data$")
 	public void the_user_is_on_a_specific_batch_page_and_has_made_changes_to_the_existing_data() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+//		batchpage.getYearDropdown().click();
+//		batchpage.selectYear("2018");
+//		batchpage.getQuarterDropdown().click();
+//		batchpage.selectQuarter("Q3");
+//		batchpage.getBatchesDropdown().click();
+//		batchpage.getBatchSearchBar().sendKeys("Ravi Singh");
+//		batchpage.getSelectedBatch();
 	}
 
 	@When("^the user clicks save changes$")
@@ -166,8 +176,7 @@ public class AssessBatchSteps {
 
 	@Then("^the batch information should update accordingly$")
 	public void the_batch_information_should_update_accordingly() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	    //Assert.assertEquals(expected, actual);
 	}
 	
 }
