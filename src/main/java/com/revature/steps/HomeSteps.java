@@ -6,14 +6,15 @@ import org.openqa.selenium.WebDriver;
 
 import com.revature.page.HomePage;
 import com.revature.runner.ChromeRunner;
+import com.revature.utils.PagesUtil;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.*;
 
 public class HomeSteps {
 	
-	WebDriver driver = ChromeRunner.driver;
-	HomePage page = ChromeRunner.pages.homePage;
+	WebDriver driver = PagesUtil.driver;
+	HomePage page = PagesUtil.homePage;
 
 //	@When("^The user clicks on performance \"([^\"]*)\"$")
 //	public void the_user_clicks_on_performance(String arg1) throws Throwable {
