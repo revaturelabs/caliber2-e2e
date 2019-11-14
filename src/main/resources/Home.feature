@@ -38,16 +38,16 @@ Feature: On Caliber 2 homepage
 
 	Scenario Outline: The user removes a week
 		When The user clicks on week "<Week>"
-		Then The table is updated
+		Then The table is updated minus week "<Week>"
 		
 		Examples:
 		|Week|
-		|1|
-		|2|
-		|3|
-		|4|
-		|5|
-		|6|
+		|1|1|
+		|2|2|
+		|3|3|
+		|4|4|
+		|5|5|
+		|6|6|
 		
 	Scenario: The user removes all weeks
 		When The user removes all weeks
