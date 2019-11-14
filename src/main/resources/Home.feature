@@ -37,17 +37,17 @@ Feature: On Caliber 2 homepage
 		|FL|Tampa|Tampa|
 
 	Scenario Outline: The user removes a week
-		When The user clicks on "<Week>"
+		When The user clicks on week "<Week>"
 		Then The table is updated
 		
 		Examples:
 		|Week|
-		|Week 1|
-		|Week 2|
-		|Week 3|
-		|Week 4|
-		|Week 5|
-		|Week 6|
+		|1|
+		|2|
+		|3|
+		|4|
+		|5|
+		|6|
 		
 	Scenario: The user removes all weeks
 		When The user removes all weeks
