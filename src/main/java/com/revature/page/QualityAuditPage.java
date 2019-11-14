@@ -117,6 +117,11 @@ public class QualityAuditPage {
 		
 	}
 	
+	
+	@FindBy(id="app-week-selector")
+	public WebElement weekContainer;
+	
+	
 	public WebElement selectAddWeekButton() {
 		
 		 return driver.findElement(By.tagName("app-week-selector")).findElement(By.id("shared-week-selector-addweek"));
@@ -139,6 +144,10 @@ public class QualityAuditPage {
 		this.getAddWeekModal().findElement(By.id("assessDeclineWeek")).click();
 	}
 
+	
+	@FindBy(id="quality-audit-list-table")
+	public WebElement qualityAuditListTable;
+	
 	public WebElement getTraineeRowByName(String name) {
 		
 		
@@ -205,5 +214,44 @@ public class QualityAuditPage {
 	public WebElement getSaveButton() {
 		return driver.findElement(By.id("batch-level-feedback-save-button"));
 	}
+	
+	// Update Comment Window
+		public WebElement getRedFlag() {
+			return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("associate-flag-dialog-flag"))).findElement(By.className("red-flag"));
+		}
+		
+		public WebElement getGreenFlag() {
+			return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("associate-flag-dialog-flag"))).findElement(By.className("green-flag"));
+		}
+			
+		public WebElement getTrainerCommentInput() {
+			return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("comment"))); 
+		}
+		
+		public WebElement getSelectedFlag() {
+			return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("associate-flag-dialog-selected-flag"))).findElement(By.tagName("app-flag"));
+		}
+		
+		public WebElement getDeleteCommentButton () {
+			return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("associate-flag-dialog-delete-comment-button")));
+		}
+		
+		public WebElement getConfirmDeleteButton () {
+			return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("associate-flag-dialog-delete-confirm-button")));
+		}
+		
+		public WebElement getCancelCommentButton() {
+			return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("associate-flag-dialog-cancel-button")));
+		}
+		
+		public WebElement getCreateCommentButton() {
+			return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("associate-flag-dialog-update-create-button")));
+		}
+		
+//		// Trainer comment
+//		public WebElement getTrainerCommentContainer(String trainerName) {
+//			return getTrainerContainer(trainerName).findElement(By.tagName("app-associate-notes")).findElement(By.tagName("text-area"));
+//		}
+	
 	
 }
