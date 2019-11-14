@@ -33,13 +33,27 @@ Feature: On Caliber 2 homepage
 		Examples:
 		|State|City|City|
 		|TX|Dallas|Dallas|
-		|MI|Detroit|Detroit||
+		|MI|Detroit|Detroit|
 		|FL|Tampa|Tampa|
 
-	Scenario: The user is viewing missing grade reports
-		Given The user in on the home page
-		When The user clicks on all weeks
-		Then The user sees no results
+	Scenario Outline: The user removes a week
+		When The user clicks on week "<Week>"
+		Then The table is updated minus week "<Week>"
 		
-		When The user clicks on one week
-		Then The user sees all reports that include that week
+		Examples:
+		|Week|
+		|1|1|
+		|2|2|
+		|3|3|
+		|4|4|
+		|5|5|
+		|6|6|
+		
+	Scenario: The user removes all weeks
+		When The user removes all weeks
+		Then The table is empty
+			
+	Scenario: The user adds a week
+		When The user clicks the include weeks button
+		When The user selects a week
+		Then The table is updated

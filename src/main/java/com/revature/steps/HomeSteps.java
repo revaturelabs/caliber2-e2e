@@ -1,87 +1,83 @@
 package com.revature.steps;
 
-import cucumber.api.PendingException;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import com.revature.page.HomePage;
+import com.revature.utils.PagesUtil;
 import cucumber.api.java.en.*;
 
 public class HomeSteps {
 	
-	@Then("^The user toggles display of associates graded as \"([^\"]*)\"$")
-	public void the_user_toggles_display_of_associates_graded_as(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^The user clicks on performance \"([^\"]*)\"$")
-	public void the_user_clicks_on_performance(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
+	WebDriver driver = PagesUtil.driver;
+	HomePage page = PagesUtil.homePage;
 	
 	@When("^The user clicks on the States dropdown$")
-	public void the_user_clicks_on_the_States_dropdown() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	public void the_user_clicks_on_the_States_dropdown() {
+		page.lastQAStateDropdown.click();
 	}
 	
 	@When("^The user clicks on state \"([^\"]*)\"$")
-	public void the_user_clicks_on_state(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^The user clicks on city \"([^\"]*)\"$")
-	public void the_user_clicks_on_city(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-
-	@Then("^The user can see stats for \"([^\"]*)\"$")
-	public void the_user_can_see_stats_for(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@Given("^The user is viewing \"([^\"]*)\"$")
-	public void the_user_is_viewing(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^The user clicks on the Cities dropdown$")
-	public void the_user_clicks_on_the_Cities_dropdown() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@Given("^The user in on the home page$")
-	public void the_user_in_on_the_home_page() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^The user clicks on all weeks$")
-	public void the_user_clicks_on_all_weeks() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@Then("^The user sees no results$")
-	public void the_user_sees_no_results() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^The user clicks on one week$")
-	public void the_user_clicks_on_one_week() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@Then("^The user sees all reports that include that week$")
-	public void the_user_sees_all_reports_that_include_that_week() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	public void the_user_clicks_on_state(String arg1) {
+		page.selectLastQAState(arg1);
 	}
 	
+	@Then("^The user can see stats for \"([^\"]*)\"$")
+	public void the_user_can_see_stats_for(String arg1) {
+		assertTrue(page.lastQAStateDropdown.getText().equals(arg1) || page.getCityDropdown().getText().equals(arg1));
+	}
+	
+	@When("^The user clicks on the Cities dropdown$")
+	public void the_user_clicks_on_the_Cities_dropdown() {
+		page.getCityDropdown().click();
+	}
+	
+	@When("^The user clicks on city \"([^\"]*)\"$")
+	public void the_user_clicks_on_city(String arg1) {
+		page.selectLastQACity(arg1);
+	}
+	//Then The user can see stats for city
+	
+	@When("^The user clicks on week \"([^\"]*)\"$")
+	public void the_user_clicks_on_week(String arg1) {
+		int week = Integer.parseInt(arg1);
+		page.getWeekByWeekNumber(week).findElement(By.id("pills-pill-remove-week-button")).click();
+	}
+	
+	@Then("^The table is updated minus week \"([^\"]*)\"$")
+	public void the_table_is_updated_minus_week(String arg1) {
+		List<WebElement> rows = page.getMissingGradeRows();
+		for (WebElement webElement : rows) {
+			assertFalse(webElement.findElement(By.tagName("span")).getText().contains(arg1));
+		}
+	}
+
+	@When("^The user removes all weeks$")
+	public void the_user_removes_all_weeks() {
+		int weekNumber = (page.weeksContainer.findElements(By.className("pillX")).size());
+		for(int i = 0; i< weekNumber; i++) {
+			page.weeksContainer.findElement(By.id("pills-pill-remove-week-button")).click();
+		}
+	}
+
+	@Then("^The table is empty$")
+	public void the_table_is_empty() {
+		assertNull(page.getMissingGradeRows());
+	}
+
+	@When("^The user clicks the include weeks button$")
+	public void the_user_clicks_the_include_weeks_button() {
+		
+	}
+
+	@When("^The user selects a week$")
+	public void the_user_selects_a_week() {
+	}
 }

@@ -1,22 +1,24 @@
 package com.revature.page;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
 
 	WebDriver driver;
-	WebDriverWait wait;
+	WebDriverWait wait = new WebDriverWait(driver, 3);
 	
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, 3);
 	}
 	
 	@FindBy(id="last-quality-audit-panel")
@@ -30,7 +32,20 @@ public class HomePage {
 	
 	@FindBy(id="lastQATable")
 	public WebElement lastQATable;
+
+	public WebElement getCityDropdown() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("home-toolbar-city-select")));
+	}
 	
+	public void selectLastQACity(String city) {
+		Select select = new Select(getCityDropdown());
+		select.selectByVisibleText(city);
+	}
+	
+	public void selectLastQAState (String state){
+		Select select = new Select(lastQAStateDropdown);
+		select.selectByVisibleText(state);
+	}
 	/**
 	 * iterate through rows in the table, checking the th where the trainer name is stored
 	 * if the name matches the trainer we are looking for, return the row. else return null
@@ -67,18 +82,18 @@ public class HomePage {
 	}
 	
 	@FindBy(id="pill-box-container")
-	public WebElement pillBoxContainer;
+	public WebElement weeksContainer;
 	
-	public WebElement getPillByIndex(int pillIndex) {
-		return this.pillBoxContainer.findElements(By.tagName("app-pill")).get(pillIndex);
+	public WebElement getWeekByIndex(int weekIndex) {
+		return this.weeksContainer.findElements(By.tagName("app-pill")).get(weekIndex);
 	}
 	
 	/**
 	 * iterate through the pills, getting the text and parsing out the week number
 	 * if the found number matches what we are looking for return the pill, else return null
 	 */
-	public WebElement getPillByWeek(int week) {
-		for(WebElement elem: this.pillBoxContainer.findElements(By.tagName("app-pill"))) {
+	public WebElement getWeekByWeekNumber(int week) {
+		for(WebElement elem: this.weeksContainer.findElements(By.tagName("app-pill"))) {
 			if(Integer.parseInt(elem.findElement(By.className("pillContent")).getText().split(" ")[1])==week) {
 				return elem;
 			}
@@ -100,5 +115,34 @@ public class HomePage {
 			}
 		}
 		return null;
+	}
+	
+	public List<WebElement> getMissingGradeRows() {
+		try {
+			return this.missingGradesTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+		} catch (Exception e) { // Empty table
+			return null;
+		}
+	}
+	
+	/**
+	 * @param index at 1
+	 */
+	public WebElement getMissingRowByIndex(int index) {
+		List<WebElement> rows = getMissingGradeRows();
+		if (index > rows.size()) {
+			return null;
+		}
+		else {
+			return rows.get(index-1);
+		}
+	}
+	
+	/**
+	 * @param index at 1
+	 */
+	public WebElement getMissingWeeksColByRowIndex(int index) {
+		WebElement row = getMissingRowByIndex(index);
+		return row.findElement(By.id("missing-grades-list-weeks"));
 	}
 }
