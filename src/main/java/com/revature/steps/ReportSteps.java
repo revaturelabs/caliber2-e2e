@@ -46,12 +46,6 @@ public class ReportSteps {
 		Assert.fail();
 	}
 
-	@Then("^The dashboard will populate information$")
-	public void the_dashboard_will_populate_information() throws Throwable {
-		// Check that we have a table, throws exception if it does not exist.
-		PagesUtil.reportsPage.getQcScoreTable();
-	}
-
 	@Then("^The dashboard will populate charts$")
 	public void the_dashboard_will_populate_charts() throws Throwable {
 		// Check that we have a table, throws exception if it does not exist.
@@ -65,12 +59,52 @@ public class ReportSteps {
 		PagesUtil.reportsPage.getIndividualScoreTable();
 	}
 
+	@Then("^The dashboard will populate information$")
+	public void the_dashboard_will_populate_information() throws Throwable {
+		// Check that we have a table, throws exception if it does not exist.
+		PagesUtil.reportsPage.getQcScoreTable();
+	}
+
 	@Then("^The select batch drop down is populated$")
 	public void the_select_batch_drop_down_is_populated() throws Throwable {
 		PagesUtil.reportsPage.getSelectBatchDropdownOpenButton().click();
 		Assert
 			.assertTrue(PagesUtil.reportsPage.getDropdownSelectBatchContainer()
 				.findElements(By.xpath(".//a")).size() > 0);
+	}
+
+	@Then("^The table should have the correct number of week columns$")
+	public void the_table_should_have_the_correct_number_of_week_columns()
+		throws Throwable {
+
+		PagesUtil.reportsPage.getSelectWeeksDropdownButton().click();
+		List<WebElement> items = PagesUtil.reportsPage
+			.getDropdownSelectWeeksContainer().findElements(By.tagName("a"));
+
+		// The number of weeks + all weeks, which == #weeks + trainee col
+		final int properCols = items.size();
+
+		List<WebElement> headRows = PagesUtil.reportsPage.getQcScoreTable()
+			.findElements(By.xpath(".//thead/tr"));
+		List<WebElement> bodyRows = PagesUtil.reportsPage.getQcScoreTable()
+			.findElements(By.xpath(".//tbody/tr"));
+		List<WebElement> footRows = PagesUtil.reportsPage.getQcScoreTable()
+			.findElements(By.xpath(".//tfoot/tr"));
+
+		for (WebElement row : headRows) {
+			List<WebElement> columns = row.findElements(By.xpath(".//th"));
+			Assert.assertEquals(properCols, columns.size());
+		}
+		for (WebElement row : bodyRows) {
+			List<WebElement> columns = row.findElements(By.xpath(".//td"));
+			Assert.assertEquals(properCols, columns.size());
+		}
+
+		for (WebElement row : footRows) {
+			List<WebElement> columns = row.findElements(By.xpath(".//td"));
+			Assert.assertEquals(properCols, columns.size());
+		}
+
 	}
 
 	@When("^The user clicks the select batch dropdown$")
