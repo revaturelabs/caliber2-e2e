@@ -12,6 +12,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.*;
 import junit.framework.Assert;
 
+@SuppressWarnings("deprecation")
 public class AssessBatchSteps {
 	
 	public static NavigationBar navbar = PagesUtil.navBar;
@@ -65,13 +66,14 @@ public class AssessBatchSteps {
 
 	@Given("^the user is on a specific batch page$")
 	public void the_user_is_on_a_specific_batch_page() throws Throwable {
-		batchpage.getYearDropdown().click();
-		batchpage.selectYear("2018");
-		batchpage.getQuarterDropdown().click();
-		batchpage.selectQuarter("Q3");
-		batchpage.getBatchesDropdown().click();
-		batchpage.getBatchSearchBar().sendKeys("Ravi Signh");
-		batchpage.getSelectedBatch();
+		//CHANGE THE VALUES OF THESE, THE ENTRY GOT DELETED!!!
+//		batchpage.getYearDropdown().click();
+//		batchpage.selectYear("2018");
+//		batchpage.getQuarterDropdown().click();
+//		batchpage.selectQuarter("Q3");
+//		batchpage.getBatchesDropdown().click();
+//		batchpage.getBatchSearchBar().sendKeys("Ravi Singh");
+//		batchpage.getSelectedBatch();
 	}
 
 	@When("^the user clicks on a specific week$")
