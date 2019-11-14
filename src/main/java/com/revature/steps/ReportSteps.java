@@ -20,6 +20,29 @@ public class ReportSteps {
 		Assert.assertNotNull(container);
 	}
 
+	@Then("^All cells should have an icon$")
+	public void all_cells_should_have_an_icon() throws Throwable {
+		List<WebElement> bodyRows = PagesUtil.reportsPage.getQcScoreTable()
+			.findElements(By.xpath(".//tbody/tr"));
+		List<WebElement> footRows = PagesUtil.reportsPage.getQcScoreTable()
+			.findElements(By.xpath(".//tfoot/tr"));
+
+		for (WebElement row : bodyRows) {
+			List<WebElement> columns = row.findElements(By.xpath(".//td"));
+			for (WebElement cell : columns) {
+				cell.findElement(By.tagName("em"));
+			}
+		}
+
+		for (WebElement row : footRows) {
+			List<WebElement> columns = row.findElements(By.xpath(".//td"));
+			for (WebElement cell : columns) {
+				cell.findElement(By.tagName("em"));
+			}
+		}
+
+	}
+
 	@Then("^populated with how many \"([^\"]*)\" they have in that batch$")
 	public void populated_with_how_many_they_have_in_that_batch(
 		String numEntries) throws Throwable {

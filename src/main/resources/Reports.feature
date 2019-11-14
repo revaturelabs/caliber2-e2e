@@ -38,6 +38,7 @@ Scenario Outline: Selecting All trainees and all weeks
 	And The user selects all weeks
 	Then The dashboard will populate information
 	And The table should have the correct number of week columns
+	And All cells should have an icon
 	
 	Examples:
 	|year|batch|
