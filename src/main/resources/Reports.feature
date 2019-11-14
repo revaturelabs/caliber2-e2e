@@ -63,7 +63,7 @@ Scenario Outline: Selecting specific trainees and specific week
 	When The user selects a year "<year>"
 	And The user selects a batch "<batch>"
 	And The user selects a trainee "<trainee>"
-	And The user selects "<week>"
+	And The user selects a week "<week>"
 #Then The dashboard will populate  information
 	
 	Examples:
@@ -73,7 +73,7 @@ Scenario Outline: Selecting specific all trainees and specific week
 	When The user selects a year "<year>"
 	And The user selects a batch "<batch>"
 	And The user selects all trainees
-	And The user selects "<week>"
+	And The user selects a week "<week>"
 #Then The dashboard will populate  information
 
 	Examples:

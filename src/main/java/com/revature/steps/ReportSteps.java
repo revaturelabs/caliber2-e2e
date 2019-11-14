@@ -88,6 +88,15 @@ public class ReportSteps {
 			.click();
 	}
 
+	@When("^The user selects a week \"([^\"]*)\"$")
+	public void the_user_selects_a_week(String week) throws Throwable {
+		PagesUtil.reportsPage.getSelectWeeksDropdownButton().click();
+		PagesUtil.reportsPage.getDropdownSelectWeeksContainer()
+			.findElement(
+				By.xpath(".//[@id=\"shared-dropdown-menu-" + week + "\"]"))
+			.click();
+	}
+
 	@When("^The user selects a year \"([^\"]*)\"$")
 	public void the_user_selects_a_year(String year) throws Throwable {
 		PagesUtil.reportsPage.getSelectYearDropdownButton().click();
