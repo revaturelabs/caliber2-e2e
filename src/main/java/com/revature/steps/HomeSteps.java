@@ -13,23 +13,6 @@ public class HomeSteps {
 	
 	WebDriver driver = PagesUtil.driver;
 	HomePage page = PagesUtil.homePage;
-
-//	@When("^The user clicks on performance \"([^\"]*)\"$")
-//	public void the_user_clicks_on_performance(String arg1) throws Throwable {
-//		page.lastQACanvas.click();
-//		throw new PendingException();
-//	}
-//	
-//	@Then("^The user toggles display of associates graded as \"([^\"]*)\"$")
-//	public void the_user_toggles_display_of_associates_graded_as(String arg1) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-	@Given("^The user is on the home page$")
-	public void the_user_is_on_the_home_page() throws Throwable {
-		assertTrue(driver.getCurrentUrl().endsWith("home"));
-		throw new PendingException();
-	}
 	
 	@When("^The user clicks on the States dropdown$")
 	public void the_user_clicks_on_the_States_dropdown() throws Throwable {
