@@ -49,7 +49,7 @@ public class NavSteps {
 	}
 	
 	@When("^the user clicks on the location$")
-	public void the_user_clicks_on_locations(int arg1) throws Throwable {
+	public void the_user_clicks_on_locations() throws Throwable {
 		navBar.locations.click();
 	}
 	
