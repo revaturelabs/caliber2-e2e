@@ -6,17 +6,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
 
 	WebDriver driver;
-	WebDriverWait wait;
+	WebDriverWait wait = new WebDriverWait(driver, 3);
 	
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, 3);
 	}
 	
 	@FindBy(id="last-quality-audit-panel")
@@ -30,7 +30,20 @@ public class HomePage {
 	
 	@FindBy(id="lastQATable")
 	public WebElement lastQATable;
+
+	public WebElement getCityDropdown() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("home-toolbar-city-select")));
+	}
 	
+	public void selectLastQACity(String city) {
+		Select select = new Select(getCityDropdown());
+		select.selectByVisibleText(city);
+	}
+	
+	public void selectLastQAState (String state){
+		Select select = new Select(lastQAStateDropdown);
+		select.selectByVisibleText(state);
+	}
 	/**
 	 * iterate through rows in the table, checking the th where the trainer name is stored
 	 * if the name matches the trainer we are looking for, return the row. else return null
