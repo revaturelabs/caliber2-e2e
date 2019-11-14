@@ -5,6 +5,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -30,14 +31,24 @@ public class ReportSteps {
 		for (WebElement row : bodyRows) {
 			List<WebElement> columns = row.findElements(By.xpath(".//td"));
 			for (WebElement cell : columns) {
-				cell.findElement(By.tagName("em"));
+				try {
+					cell.findElement(By.tagName("em"));
+				}
+				catch (NoSuchElementException e) {
+					Assert.fail();
+				}
 			}
 		}
 
 		for (WebElement row : footRows) {
 			List<WebElement> columns = row.findElements(By.xpath(".//td"));
 			for (WebElement cell : columns) {
-				cell.findElement(By.tagName("em"));
+				try {
+					cell.findElement(By.tagName("em"));
+				}
+				catch (NoSuchElementException e) {
+					Assert.fail();
+				}
 			}
 		}
 
