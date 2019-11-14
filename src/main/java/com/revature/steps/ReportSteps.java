@@ -47,6 +47,13 @@ public class ReportSteps {
 		Assert.fail();
 	}
 
+	@Then("^The dashboard will populate information$")
+	public void the_dashboard_will_populate_information(String trainee)
+		throws Throwable {
+		// Check that we have a table, throws exception if it does not exist.
+		PagesUtil.reportsPage.getQcScoreTable();
+	}
+
 	@Then("^The select batch drop down is populated$")
 	public void the_select_batch_drop_down_is_populated() throws Throwable {
 		Assert

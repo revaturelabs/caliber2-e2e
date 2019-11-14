@@ -89,6 +89,11 @@ public class ReportsPage {
 			By.xpath("//table[@id='qc-scores-container-table-default']/tr["
 				+ rowNumber + "]"));
 	}
+	
+	public WebElement getQcScoreTable() {
+		return this.driver.findElement(
+			By.xpath("//table[@id='qc-scores-container-table-default']"));
+	}
 
 	public WebElement getTableData(int columnNumber, WebElement row) {
 		return row.findElement(By.xpath("//td[" + columnNumber + "]"));

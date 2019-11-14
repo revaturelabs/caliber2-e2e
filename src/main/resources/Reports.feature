@@ -44,41 +44,44 @@ Scenario Outline: Selecting All trainees and all weeks
 	And The user selects a batch "<batch>"
 	And The user selects all trainees
 	And The user selects all weeks
-#	Then The dashboard will populate  information
+	Then The dashboard will populate information
 	
 	Examples:
 	|year|batch|
+	|2019|Dan Pickles - PEGA BPM - 10/7/2019|
 	
 Scenario Outline: Selecting specific trainees and All weeks
 	When The user selects a year "<year>"
 	And The user selects a batch "<batch>"
 	And The user selects a trainee "<trainee>"
 	And The user selects all weeks
-#Then The dashboard will populate  information
+	Then The dashboard will populate information
 
 	Examples:
 	|year|batch|trainee|
+	|2019|Dan Pickles - PEGA BPM - 10/7/2019|Martin, Andrew|
 	
 Scenario Outline: Selecting specific trainees and specific week
 	When The user selects a year "<year>"
 	And The user selects a batch "<batch>"
 	And The user selects a trainee "<trainee>"
 	And The user selects a week "<week>"
-#Then The dashboard will populate  information
+	Then The dashboard will populate information
 	
 	Examples:
 	|year|batch|trainee|week|
+	|2019|Dan Pickles - PEGA BPM - 10/7/2019|Martin, Andrew|Week 1|
 	
 Scenario Outline: Selecting specific all trainees and specific week
 	When The user selects a year "<year>"
 	And The user selects a batch "<batch>"
 	And The user selects all trainees
 	And The user selects a week "<week>"
-#Then The dashboard will populate  information
+	Then The dashboard will populate information
 
 	Examples:
 	|year|batch|week|
-	
+	|2019|Dan Pickles - PEGA BPM - 10/7/2019|Week 1|
 
 
 
