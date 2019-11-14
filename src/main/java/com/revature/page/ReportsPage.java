@@ -16,52 +16,88 @@ public class ReportsPage {
 	public ReportsPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, 3);
+		this.wait = new WebDriverWait(driver, 3);
 	}
-	
-	
-	//DROPDOWN CONTAINERS*****************************************************************************************************
+
+	// DROPDOWN
+	// CONTAINERS*****************************************************************************************************
+	/**
+	 * The actual list that is inside the dropdown once open.
+	 * 
+	 * @return The dropdown list.
+	 */
 	public WebElement getDropdownSelectBatchContainer() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-dropdown-list")));
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("batch-select-dropdown-list")));
 	}
 
 	public WebElement getDropdownSelectWeeksContainer() {
-
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//app-shared-dropdown-menu[@id='reports-toolbar-week-dropdown']//ul[@id='shared-dropdown-menu-dropdown-container']")));
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-shared-dropdown-menu[@id='reports-toolbar-week-dropdown']//ul[@id='shared-dropdown-menu-dropdown-container']")));
 	}
 
 	public WebElement getDropdownSelectYearContainer() {
-
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//app-shared-dropdown-menu[@id='reports-toolbar-year-dropdown']//ul[@id='shared-dropdown-menu-dropdown-container']")));
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-shared-dropdown-menu[@id='reports-toolbar-year-dropdown']//ul[@id='shared-dropdown-menu-dropdown-container']")));
 	}
-	
+
 	public WebElement getDropdownSelectTraineeContainer() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//app-shared-dropdown-menu[@id='reports-toolbar-trainees-dropdown']//ul[@id='shared-dropdown-menu-dropdown-container']")));
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-shared-dropdown-menu[@id='reports-toolbar-trainees-dropdown']//ul[@id='shared-dropdown-menu-dropdown-container']")));
 	}
-	//**************************************************************************************************************
-	
+	// **************************************************************************************************************
 
-	public WebElement getItemByItemNumber(WebElement dropdownContainer, int dropdownNumber) {
-		return dropdownContainer.findElements(By.tagName("a")).get(dropdownNumber);
+	public WebElement getItemByItemNumber(WebElement dropdownContainer,
+		int dropdownNumber) {
+		return dropdownContainer.findElements(By.tagName("a"))
+			.get(dropdownNumber);
+	}
+
+	public WebElement getBatchSelectDropdownOpenButton() {
+		return this.driver
+			.findElement(By.id("batch-select-dropdown-open-button"));
+	}
+
+	public WebElement getSelectWeeksDropdownButton() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-shared-dropdown-menu[@id='reports-toolbar-week-dropdown']//li[@id='shared-dropdown-menu-button']")));
 	}
 
 	public WebElement selectDropdownItem(String itemName) {
-		return driver.findElement(By.id("shared-dropdown-menu-" + itemName));
+		return this.driver
+			.findElement(By.id("shared-dropdown-menu-" + itemName));
 	}
 
 	public WebElement getRowForQCScores(int rowNumber) {
-		return driver.findElement(By.xpath("//table[@id='qc-scores-container-table-default']/tr[" + rowNumber + "]"));
+		return this.driver.findElement(
+			By.xpath("//table[@id='qc-scores-container-table-default']/tr["
+				+ rowNumber + "]"));
 	}
 
 	public WebElement getTableData(int columnNumber, WebElement row) {
 		return row.findElement(By.xpath("//td[" + columnNumber + "]"));
 	}
 
+	/**
+	 * Must have clicked on the select batch dropdown for this to be visible.
+	 * 
+	 * @return The search bar element.
+	 */
+	public WebElement getBatchSelectSearchBar() {
+		return this.driver.findElement(By.id("batch-select-search-bar"));
+	}
+
 	@FindBy(id = "qc-scores-donut-chart")
 	public WebElement qcScoresDonutChart;
 
 	public WebElement getRowForQCScoresDonutChartTable(int rowNumber) {
-		return driver.findElement(By.xpath("//table[@id='qc-scores-donut-chart-table']/tr[" + rowNumber + "]"));
+		return this.driver.findElement(
+			By.xpath("//table[@id='qc-scores-donut-chart-table']/tr["
+				+ rowNumber + "]"));
 	}
 
 	@FindBy(id = "qc-scores-bar-chart")
