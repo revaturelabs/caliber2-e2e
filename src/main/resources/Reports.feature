@@ -15,20 +15,12 @@ Scenario Outline: Search Batch by Criteria
 	
 		Examples: 
 		|criteria|year|
-		|Natalie|2020|
-		|Church|2020|
-		|Java|2020|
 		|Dan|2020|
-		|Pega|2020|
 		|Pickles|2019|
-		|Jake|2019|
-		|BPM|2019|
 		|Shelby|2018|
-		|Hines|2018|
-		|Jee|2018|
 		
 Scenario Outline:  Select Week to view reports
-	Given The user selects a year "<year>"
+	When The user selects a year "<year>"
 	When The user selects a batch "<batch>"
 	Then A week selection drop down menu should be visible
 	And populated with how many "<entries>" they have in that batch
@@ -36,7 +28,7 @@ Scenario Outline:  Select Week to view reports
 	Examples:
 	|year|batch|entries|
 	|2020|Natalie Church - Full Stack Java/JEE - 11/9/2019|4|
-	|2019|Dan Pickles - PEGA BPM - 10/7/2019|4|
+	|2019|Dan Pickles - PEGA BPM - 10/7/2019|8|
 	|2018|James K - Full Stack Java/JEE - 7/9/2018|10|
 	
 Scenario Outline: Selecting All trainees and all weeks
@@ -55,7 +47,7 @@ Scenario Outline: Selecting specific trainees and All weeks
 	And The user selects a batch "<batch>"
 	And The user selects a trainee "<trainee>"
 	And The user selects all weeks
-	Then The dashboard will populate information
+	Then The dashboard will populate individual scores
 
 	Examples:
 	|year|batch|trainee|
@@ -66,7 +58,7 @@ Scenario Outline: Selecting specific trainees and specific week
 	And The user selects a batch "<batch>"
 	And The user selects a trainee "<trainee>"
 	And The user selects a week "<week>"
-	Then The dashboard will populate information
+	Then The dashboard will populate individual scores
 	
 	Examples:
 	|year|batch|trainee|week|
@@ -77,7 +69,7 @@ Scenario Outline: Selecting specific all trainees and specific week
 	And The user selects a batch "<batch>"
 	And The user selects all trainees
 	And The user selects a week "<week>"
-	Then The dashboard will populate information
+	Then The dashboard will populate charts
 
 	Examples:
 	|year|batch|week|

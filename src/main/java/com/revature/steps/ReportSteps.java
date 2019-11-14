@@ -16,7 +16,7 @@ public class ReportSteps {
 		throws Throwable {
 		// exception from this will act as a failed assertion
 		WebElement container =
-			PagesUtil.reportsPage.getDropdownSelectWeeksContainer();
+			PagesUtil.reportsPage.getSelectWeeksDropdownButton();
 		Assert.assertNotNull(container);
 	}
 
@@ -25,12 +25,11 @@ public class ReportSteps {
 		String numEntries) throws Throwable {
 
 		int entries = Integer.parseInt(numEntries);
-		final int allWeeksEntry = 1;
 
 		PagesUtil.reportsPage.getSelectWeeksDropdownButton().click();
 		List<WebElement> items = PagesUtil.reportsPage
 			.getDropdownSelectWeeksContainer().findElements(By.tagName("a"));
-		Assert.assertEquals(entries + allWeeksEntry, items.size());
+		Assert.assertEquals(entries, items.size());
 	}
 
 	@Then("^The batch dropdown should contain items matching the \"([^\"]*)\"$")
@@ -48,14 +47,27 @@ public class ReportSteps {
 	}
 
 	@Then("^The dashboard will populate information$")
-	public void the_dashboard_will_populate_information(String trainee)
-		throws Throwable {
+	public void the_dashboard_will_populate_information() throws Throwable {
 		// Check that we have a table, throws exception if it does not exist.
 		PagesUtil.reportsPage.getQcScoreTable();
 	}
 
+	@Then("^The dashboard will populate charts$")
+	public void the_dashboard_will_populate_charts() throws Throwable {
+		// Check that we have a table, throws exception if it does not exist.
+		PagesUtil.reportsPage.getDonutChartTable();
+	}
+
+	@Then("^The dashboard will populate individual scores$")
+	public void the_dashboard_will_populate_individual_scores()
+		throws Throwable {
+		// Check that we have a table, throws exception if it does not exist.
+		PagesUtil.reportsPage.getIndividualScoreTable();
+	}
+
 	@Then("^The select batch drop down is populated$")
 	public void the_select_batch_drop_down_is_populated() throws Throwable {
+		PagesUtil.reportsPage.getSelectBatchDropdownOpenButton().click();
 		Assert
 			.assertTrue(PagesUtil.reportsPage.getDropdownSelectBatchContainer()
 				.findElements(By.xpath(".//a")).size() > 0);
@@ -63,7 +75,7 @@ public class ReportSteps {
 
 	@When("^The user clicks the select batch dropdown$")
 	public void the_user_clicks_the_select_batch_dropdown() throws Throwable {
-		PagesUtil.reportsPage.getBatchSelectDropdownOpenButton().click();
+		PagesUtil.reportsPage.getSelectBatchDropdownOpenButton().click();
 	}
 
 	@When("^The user inputs a \"([^\"]*)\" into the search bar$")
@@ -74,7 +86,7 @@ public class ReportSteps {
 
 	@When("^The user selects a batch \"([^\"]*)\"$")
 	public void the_user_selects_a_batch(String batch) throws Throwable {
-		PagesUtil.reportsPage.getBatchSelectDropdownOpenButton().click();
+		PagesUtil.reportsPage.getSelectBatchDropdownOpenButton().click();
 		List<WebElement> items = PagesUtil.reportsPage
 			.getDropdownSelectBatchContainer().findElements(By.tagName("a"));
 		for (WebElement item : items) {
@@ -91,7 +103,7 @@ public class ReportSteps {
 		PagesUtil.reportsPage.getSelectTraineesDropdownButton().click();
 		PagesUtil.reportsPage.getDropdownSelectTraineeContainer()
 			.findElement(
-				By.xpath(".//[@id=\"shared-dropdown-menu-" + trainee + "\"]"))
+				By.xpath(".//a[@id=\"shared-dropdown-menu-" + trainee + "\"]"))
 			.click();
 	}
 
@@ -100,7 +112,7 @@ public class ReportSteps {
 		PagesUtil.reportsPage.getSelectWeeksDropdownButton().click();
 		PagesUtil.reportsPage.getDropdownSelectWeeksContainer()
 			.findElement(
-				By.xpath(".//[@id=\"shared-dropdown-menu-" + week + "\"]"))
+				By.xpath(".//a[@id=\"shared-dropdown-menu-" + week + "\"]"))
 			.click();
 	}
 
@@ -109,7 +121,7 @@ public class ReportSteps {
 		PagesUtil.reportsPage.getSelectYearDropdownButton().click();
 		PagesUtil.reportsPage.getDropdownSelectYearContainer()
 			.findElement(
-				By.xpath(".//[@id=\"shared-dropdown-menu-" + year + "\"]"))
+				By.xpath(".//a[@id=\"shared-dropdown-menu-" + year + "\"]"))
 			.click();
 	}
 
@@ -118,7 +130,8 @@ public class ReportSteps {
 		throws Throwable {
 		PagesUtil.reportsPage.getSelectYearDropdownButton().click();
 		PagesUtil.reportsPage.getDropdownSelectYearContainer()
-			.findElement(By.xpath(".//a[1]")).click();
+			.findElement(By.xpath(".//a[@id=\"shared-dropdown-menu-2019\"]"))
+			.click();
 	}
 
 	@When("^The user selects all trainees$")
@@ -126,7 +139,7 @@ public class ReportSteps {
 		PagesUtil.reportsPage.getSelectTraineesDropdownButton().click();
 		PagesUtil.reportsPage.getDropdownSelectTraineeContainer()
 			.findElement(By
-				.xpath(".//[@id=\"shared-dropdown-menu-Trainees (Overall)\"]"))
+				.xpath(".//a[@id=\"shared-dropdown-menu-Trainees (Overall)\"]"))
 			.click();
 	}
 
@@ -135,7 +148,7 @@ public class ReportSteps {
 		PagesUtil.reportsPage.getSelectWeeksDropdownButton().click();
 		PagesUtil.reportsPage.getDropdownSelectWeeksContainer()
 			.findElement(
-				By.xpath(".//[@id=\"shared-dropdown-menu-All Weeks\"]"))
+				By.xpath(".//a[@id=\"shared-dropdown-menu-All Weeks\"]"))
 			.click();
 	}
 

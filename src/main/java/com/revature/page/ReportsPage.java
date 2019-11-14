@@ -56,9 +56,10 @@ public class ReportsPage {
 			.get(dropdownNumber);
 	}
 
-	public WebElement getBatchSelectDropdownOpenButton() {
-		return this.driver
-			.findElement(By.id("batch-select-dropdown-open-button"));
+	public WebElement getSelectBatchDropdownOpenButton() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-batch-select-dropdown[@id='reports-toolbar-batch-dropdown']//li[@id='batch-select-dropdown-open-button']")));
 	}
 
 	public WebElement getSelectWeeksDropdownButton() {
@@ -76,7 +77,7 @@ public class ReportsPage {
 	public WebElement getSelectYearDropdownButton() {
 		return this.wait
 			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
-				"//app-shared-dropdown-menu[@id='reports-toolbar-year-dropdown']//li[@id='shared-dropdown-menu-button']")));
+				"//app-shared-dropdown-menu[@id='reports-toolbar-year-dropdown']//a[@id='shared-dropdown-menu-current-value']")));
 	}
 
 	public WebElement selectDropdownItem(String itemName) {
@@ -89,14 +90,24 @@ public class ReportsPage {
 			By.xpath("//table[@id='qc-scores-container-table-default']/tr["
 				+ rowNumber + "]"));
 	}
-	
+
 	public WebElement getQcScoreTable() {
 		return this.driver.findElement(
 			By.xpath("//table[@id='qc-scores-container-table-default']"));
 	}
 
+	public WebElement getIndividualScoreTable() {
+		return this.driver.findElement(
+			By.xpath("//table[@id='qc-scores-individual-results-table']"));
+	}
+
 	public WebElement getTableData(int columnNumber, WebElement row) {
 		return row.findElement(By.xpath("//td[" + columnNumber + "]"));
+	}
+
+	public WebElement getDonutChartTable() {
+		return this.driver.findElement(
+			By.xpath("//table[@id='qc-scores-donut-chart-table']"));
 	}
 
 	/**
