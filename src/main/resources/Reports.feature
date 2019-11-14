@@ -8,7 +8,7 @@ Scenario: Select Batch Year
 	Then The select batch drop down is populated
 	
 Scenario Outline: Search Batch by Criteria
-	When The user selects a "<year>"
+	When The user selects a year "<year>"
 	And The user clicks the select batch dropdown
 	And The user inputs a "<criteria>" into the search bar
 	Then The batch dropdown should contain items matching the "<criteria>"
@@ -28,8 +28,8 @@ Scenario Outline: Search Batch by Criteria
 		|Jee|2018|
 		
 Scenario Outline:  Select Week to view reports
-	Given The user selects a "<year>"
-	When The user selects a "<batch>"
+	Given The user selects a year "<year>"
+	When The user selects a batch "<batch>"
 	Then A week selection drop down menu should be visible
 	And populated with how many "<entries>" they have in that batch
 	
@@ -40,8 +40,8 @@ Scenario Outline:  Select Week to view reports
 	|2018|James K - Full Stack Java/JEE - 7/9/2018|10|
 	
 Scenario Outline: Selecting All trainees and all weeks
-	When The user selects a "<year>"
-	And The user selects a "<batch>"
+	When The user selects a year "<year>"
+	And The user selects a batch "<batch>"
 	And The user selects all trainees
 	And The user selects all weeks
 #	Then The dashboard will populate  information
@@ -50,9 +50,9 @@ Scenario Outline: Selecting All trainees and all weeks
 	|year|batch|
 	
 Scenario Outline: Selecting specific trainees and All weeks
-	When The user selects a "<year>"
-	And The user selects a"<batch>"
-	And The user selects a "<trainee>"
+	When The user selects a year "<year>"
+	And The user selects a batch "<batch>"
+	And The user selects a trainee "<trainee>"
 	And The user selects all weeks
 #Then The dashboard will populate  information
 
@@ -60,9 +60,9 @@ Scenario Outline: Selecting specific trainees and All weeks
 	|year|batch|trainee|
 	
 Scenario Outline: Selecting specific trainees and specific week
-	When The user selects a "<year>"
-	And The user selects a"<batch>"
-	And The user selects a "<trainee>"
+	When The user selects a year "<year>"
+	And The user selects a batch "<batch>"
+	And The user selects a trainee "<trainee>"
 	And The user selects "<week>"
 #Then The dashboard will populate  information
 	
@@ -70,8 +70,8 @@ Scenario Outline: Selecting specific trainees and specific week
 	|year|batch|trainee|week|
 	
 Scenario Outline: Selecting specific all trainees and specific week
-	When The user selects a "<year>"
-	And The user selects a"<batch>"
+	When The user selects a year "<year>"
+	And The user selects a batch "<batch>"
 	And The user selects all trainees
 	And The user selects "<week>"
 #Then The dashboard will populate  information

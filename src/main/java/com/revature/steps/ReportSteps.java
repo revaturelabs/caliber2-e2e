@@ -14,7 +14,7 @@ public class ReportSteps {
 	@When("^The user selects a year from the dropdown for year$")
 	public void the_user_selects_a_year_from_the_dropdown_for_year()
 		throws Throwable {
-		// TODO make sure this works
+		PagesUtil.reportsPage.getSelectYearDropdownButton().click();
 		PagesUtil.reportsPage.getDropdownSelectYearContainer()
 			.findElement(By.xpath(".//a[1]")).click();
 	}
@@ -26,11 +26,36 @@ public class ReportSteps {
 				.findElements(By.xpath(".//a")).size() > 0);
 	}
 
-	@When("^The user selects a \"([^\"]*)\"$")
-	public void the_user_selects_a(String year) throws Throwable {
+	@When("^The user selects a year \"([^\"]*)\"$")
+	public void the_user_selects_a_year(String year) throws Throwable {
 		PagesUtil.reportsPage.getSelectYearDropdownButton().click();
 		PagesUtil.reportsPage.getDropdownSelectYearContainer()
-			.findElement(By.id("shared-dropdown-menu-" + year)).click();
+			.findElement(
+				By.xpath(".//[@id=\"shared-dropdown-menu-" + year + "\"]"))
+			.click();
+	}
+
+	@When("^The user selects a batch \"([^\"]*)\"$")
+	public void the_user_selects_a_batch(String batch) throws Throwable {
+		PagesUtil.reportsPage.getBatchSelectDropdownOpenButton().click();
+		List<WebElement> items = PagesUtil.reportsPage
+			.getDropdownSelectBatchContainer().findElements(By.tagName("a"));
+		for (WebElement item : items) {
+			if (item.getText().contains(batch)) {
+				item.click();
+				return;
+			}
+		}
+		Assert.fail("Could not find batch");
+	}
+
+	@When("^The user selects a trainee \"([^\"]*)\"$")
+	public void the_user_selects_a_trainee(String trainee) throws Throwable {
+		PagesUtil.reportsPage.getSelectTraineesDropdownButton().click();
+		PagesUtil.reportsPage.getDropdownSelectTraineeContainer()
+			.findElement(
+				By.xpath(".//[@id=\"shared-dropdown-menu-" + trainee + "\"]"))
+			.click();
 	}
 
 	@When("^The user clicks the select batch dropdown$")

@@ -67,6 +67,12 @@ public class ReportsPage {
 				"//app-shared-dropdown-menu[@id='reports-toolbar-week-dropdown']//li[@id='shared-dropdown-menu-button']")));
 	}
 
+	public WebElement getSelectTraineesDropdownButton() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-shared-dropdown-menu[@id='reports-toolbar-trainees-dropdown']//li[@id='shared-dropdown-menu-button']")));
+	}
+
 	public WebElement getSelectYearDropdownButton() {
 		return this.wait
 			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
