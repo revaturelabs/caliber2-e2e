@@ -1,6 +1,11 @@
 package com.revature.utils;
 
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.revature.page.AddTraineeModal;
 import com.revature.page.AssessBatchPage;
@@ -20,7 +25,8 @@ import com.revature.page.ShowTraineesModal;
 
 public class PagesUtil {
 
-	public static WebDriver driver;
+	public static WebDriver driver = null;
+	public static WebDriverWait dWait = null;
 	public static AddTraineeModal addTraineeModal;
 	public static AssessBatchPage assessBatchPage;
 	public static CreateBatchModal createBatchModal;
@@ -37,8 +43,21 @@ public class PagesUtil {
 	public static SettingsTrainerPage trainersPage;
 	public static ShowTraineesModal traineesModal;
 	
-	public PagesUtil(WebDriver driver){
-		this.driver = driver;
+	static {
+//		Chrome driver
+		File file = new File("chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
+		driver = new ChromeDriver();
+		dWait = new WebDriverWait(driver, 3);
+		
+//		Firefox driver
+//		File file = new File("geckodriver.exe");
+//		System.setProperty("webdriver.gecko.driver", file.getAbsolutePath());
+//		driver = new FirefoxDriver();
+//		dWait = new WebDriverWait(driver, 3);
+		
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		
 		addTraineeModal = new AddTraineeModal(driver);
 		assessBatchPage = new AssessBatchPage(driver);
 		createBatchModal = new CreateBatchModal(driver);
@@ -54,5 +73,13 @@ public class PagesUtil {
 		locationsPage = new SettingsLocationsPage(driver);
 		trainersPage = new SettingsTrainerPage(driver);
 		traineesModal = new ShowTraineesModal(driver);
+	}
+	
+	
+	@Override
+	public void finalize() {
+		if(driver != null) {
+			driver.quit();
+		}
 	}
 }
