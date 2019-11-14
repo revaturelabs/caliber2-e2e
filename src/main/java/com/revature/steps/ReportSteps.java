@@ -1,7 +1,6 @@
 package com.revature.steps;
 
 import com.revature.utils.PagesUtil;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -28,9 +27,10 @@ public class ReportSteps {
 	}
 
 	@When("^The user selects a \"([^\"]*)\"$")
-	public void the_user_selects_a(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+	public void the_user_selects_a(String year) throws Throwable {
+		PagesUtil.reportsPage.getSelectYearDropdownButton().click();
+		PagesUtil.reportsPage.getDropdownSelectYearContainer()
+			.findElement(By.id("shared-dropdown-menu-" + year)).click();
 	}
 
 	@When("^The user clicks the select batch dropdown$")

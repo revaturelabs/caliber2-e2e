@@ -67,6 +67,12 @@ public class ReportsPage {
 				"//app-shared-dropdown-menu[@id='reports-toolbar-week-dropdown']//li[@id='shared-dropdown-menu-button']")));
 	}
 
+	public WebElement getSelectYearDropdownButton() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-shared-dropdown-menu[@id='reports-toolbar-year-dropdown']//li[@id='shared-dropdown-menu-button']")));
+	}
+
 	public WebElement selectDropdownItem(String itemName) {
 		return this.driver
 			.findElement(By.id("shared-dropdown-menu-" + itemName));
