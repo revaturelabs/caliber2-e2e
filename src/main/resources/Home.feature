@@ -36,35 +36,22 @@ Feature: On Caliber 2 homepage
 		|MI|Detroit|Detroit|
 		|FL|Tampa|Tampa|
 
-	Scenario Outline: The user removes a week
-		Given The user is on the home page
-		When The user clicks on "<Week>"
-		Then The table is updated
+	Scenario Outline: The table responds to removal of a week and adding it back
+		When The user clicks on week "<Week>"
+		Then The table is updated minus week "<Week>"
+		When The user clicks the include weeks button
+		When The user selects a week
+		Then The table is updated updated plus week "<Week>"
 		
 		Examples:
 		|Week|
-		|Week 1|
-		|Week 2|
-		|Week 3|
-		|Week 4|
-		|Week 5|
-		|Week 6|
+		|1|1|
+		|2|2|
+		|3|3|
+		|4|4|
+		|5|5|
+		|6|6|
 		
 	Scenario: The user removes all weeks
-		Given The user is on the home page
 		When The user removes all weeks
 		Then The table is empty
-			
-	Scenario: The user adds a week
-		Given The user is on the home page
-		When The user clicks the include weeks button
-		When The user selects a week
-		Then The table is updated
-		
-	Scenario: The user is viewing missing grade reports
-		Given The user is on the home page
-		When The user clicks on all weeks
-		Then The user sees no results
-		
-		When The user clicks on one week
-		Then The user sees all reports that include that week
