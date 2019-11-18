@@ -90,5 +90,136 @@ public class ManageBatchPage {
 	}
 	//***********************************************************************************************************************
 	
+	
+	//FINDING ELEMENTS ON THE TRAINEES TABLE***************************************************
+	public WebElement getTraineesTable() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("view-trainees-modal-tainess-list-table")));
+	}
+	
+	public WebElement getTraineesTableRow(int rowNumber) {
+		return getTraineesTable().findElement(By.xpath("//*[@id=\"view-trainees-modal-trainees-list-table\"]/tbody/tr["+rowNumber+"]"));
+	}
+	
+	public WebElement getTraineesTableData(WebElement row, int columnNumber) {
+		return row.findElement(By.xpath("//td["+columnNumber+"]"));
+	}
+	
+	public WebElement toggleActiveTraineesButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("view-trainees-modal-show-trainees-toggle-button")));
+	}
+	
+	public WebElement addTraineeButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("add-trainee-button")));
+	}
+	
+	public WebElement closeViewTraineesModalButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("view-trainees-modal-close-button")));
+	}
+	
+	public WebElement switchBatchButtonForRow(WebElement row) {
+		return row.findElement(By.id("trainee-actions-switch-button"));
+	}
+	
+	public WebElement editTraineeButtonForRow(WebElement row) {
+		return row.findElement(By.id("trainee-actions-edit-button"));
+	}
+	
+	public WebElement removeTraineeButtonForRow(WebElement row) {
+		return row.findElement(By.id("trainee-actions-remove-button"));
+	}
+	//*********************************************************************************
+	
+	
+	//SWITCH BATCH MODAL***************************************************************
+	public WebElement getDropdownSwitchBatch() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("switchedBatch")));
+	}
+	
+	public WebElement cancelSwitchBatchButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("switch-batch-modal-cancel-button")));
+	}
+	
+	public WebElement confirmSwitchBatchButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("switch-batch-modal-switch-button")));
+	}
+	//*********************************************************************************
+	
+	
+	//EDIT TRAINEE MODAL**************************************************************
+	public WebElement getEditTraineeFirstNameInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("firstName")));
+	}
+	
+	public WebElement getEditTraineeLastNameInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lastName")));
+	}
+	
+	public WebElement getEditTraineeEmailInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
+	}
+	
+	public WebElement getEditTraineePhoneNumberInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("phoneNumber")));
+	}
+	
+	public WebElement getDropdownTrainingStatus() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("trainingStatus")));
+	}
+	
+	public WebElement getEditSkypeInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("skypeId")));
+	}
+	
+	public WebElement getEditTraineeCollegeInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("college")));
+	}
+	
+	public WebElement getEditTraineeDegreeInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("degree")));
+	}
+	
+	public WebElement getEditTraineeMajorInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("major")));
+	}
+	
+	public WebElement getEditTraineeRecruiterInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("recruiterName")));
+	}
+	
+	public WebElement getEditTraineeProfileInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("profileUrl")));
+	}
+	
+	public WebElement getEditTraineeTechScreenerInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("techScreener")));
+	}
+	
+	public WebElement getEditTraineeProjectInput() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("projectCompletion")));
+	}
+	
+	public WebElement confirmEditTraineeButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("trainee-modal-cancel-button")));
+	}
+	
+	public WebElement cancelEditTraineeButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("trainee-modal-update-button")));
+	}
+	//********************************************************************************
+	
+	
+	//REMOVE TRAINEE MODAL************************************************************
+	public WebElement deleteTraineeButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-trainee-modal-delete-button")));
+	}
+	
+	public WebElement cancelDeleteTraineeButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-trainee-modal-cancel-button")));
+	}
+	
+	public WebElement confirmDeleteTraineeButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-trainee-modal-confirm-delete-button")));
+	}
+	//********************************************************************************
 }
 
