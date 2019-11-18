@@ -71,11 +71,11 @@ public class PagesUtil {
 		traineesModal = new ShowTraineesModal(driver);
 	}
 	
-	
-	@Override
-	public void finalize() {
+	public static void closeDriver() {
 		if(driver != null) {
 			driver.quit();
+			driver = null;
 		}
 	}
 }
+
