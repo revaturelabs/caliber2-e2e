@@ -8,11 +8,9 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Wait;
 
 import com.revature.page.HomePage;
 import com.revature.utils.PagesUtil;
-//import com.sun.tools.sjavac.Log;
 
 import cucumber.api.java.en.*;
 
