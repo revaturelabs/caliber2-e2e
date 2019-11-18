@@ -3,10 +3,10 @@ package com.revature.app;
 import com.revature.html.Generator;
 import com.revature.json.models.Feature;
 import com.revature.runner.ChromeRunner;
-import com.revature.utils.PagesUtil;
 import gherkin.deps.com.google.gson.Gson;
 import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+@SpringBootApplication
 public class Caliber2E2eApplication {
 
 	/**
@@ -67,24 +68,12 @@ public class Caliber2E2eApplication {
 	}
 
 	public static void main(String[] args) {
+		// SpringApplication.run(Caliber2E2eApplication.class, args);
 
-		@SuppressWarnings("unused")
-		PagesUtil p = new PagesUtil();
-		// Run the tests
+		// Run the junit tests
 		JUnitCore junit = new JUnitCore();
 		junit.addListener(new TextListener(System.out));
 		junit.run(ChromeRunner.class);
-
-		// String arguments[] =
-		// {"--glue", "classpath:BOOT-INF/classes/com/revature/steps",
-		// "--plugin", "pretty", "--plugin", "json:./cucumber.json",
-		// "classpath:BOOT-INF/classes/Reports.feature"};
-		// try {
-		// cucumber.api.cli.Main.main(arguments);
-		// }
-		// catch (Throwable e1) {
-		// e1.printStackTrace();
-		// }
 
 		// parse the json output
 		Gson gson = new Gson();
