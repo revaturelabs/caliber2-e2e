@@ -2,9 +2,14 @@ package com.revature.steps;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +24,7 @@ import com.revature.utils.PagesUtil;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.*;
 
+
 public class ManageBatchSteps
 {
 	WebDriver driver = PagesUtil.driver;
@@ -32,6 +38,7 @@ public class ManageBatchSteps
 	public void the_user_is_on_the_manage_batch_page() 
 	{
 	   driver.get("http://caliber-2-dev.revaturelabs.com.s3-website-us-east-1.amazonaws.com/caliber/vp/manage");
+	   //driver.manage().window().maximize();
 	}
 	
 	@When("^The user clicks on create batch$")
@@ -116,21 +123,21 @@ public class ManageBatchSteps
 	{
 		WebElement info = mbp.manageBatchTable;
 		List<WebElement> table = info.findElements(By.className("batch-row"));
-		for(WebElement row : table)
+		for(int i = 1; i <= table.size(); i++)
 		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
+			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
+			//System.out.println(match[0] + " == " + arg1);
 			
-			if(arg1 == mbp.getManageBatchTableData(row, 0).getText())
-		{
+			if(match[0].equals(arg1))
+			{//found in the table
 				Assert.assertTrue(true);
+				return;
 			}
-			else
-			{
-				//they newley created batch was not found in the list displayed on the front in
-				Assert.fail();
-			}
-			
 			
 		}
+		Assert.fail();
+		
+		
 	}
 	
 	
@@ -144,22 +151,32 @@ public class ManageBatchSteps
 	}
 
 	@When("^The user inputs json \"([^\"]*)\" into paste JSON field$")
-	public void the_user_inputs_json_into_paste_JSON_field(String arg1) {
-	    File importJson = new File("/src/main/resources/%s", arg1 );
-	    StringBuilder jsonString = new StringBuilder();
-	    try 
+	public void the_user_inputs_json_into_paste_JSON_field(String arg1) //////////////////////////////////
+	{
+		String file = "*\\src\\main\\resources\\" + arg1 + ".json";
+	    try
 	    {
-			Scanner sc = new Scanner(importJson);
-			while(sc.hasNext())
-			{
-				jsonString.append(sc.next());
-			}
-			mbp.inputBatchJSON().sendKeys(jsonString);
+	    	JSONParser parser = new JSONParser();
+    		Object obj = parser.parse(new FileReader(file));
+    		JSONObject jsonObject =  (JSONObject) obj;
+    		driver.findElement(By.id("gradeJsonObj")).sendKeys(jsonObject.toString());
 		} 
-	    catch (FileNotFoundException e) 
+	    catch (FileNotFoundException e1) 
 	    {
-			System.out.println("No file found");
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+	    catch (IOException e) 
+	    {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	    catch (ParseException e)
+{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 
 	}
 
 	@Then("^The user clicks import grades$")
@@ -168,19 +185,55 @@ public class ManageBatchSteps
 	}
 
 	@Then("^The imported batch \"([^\"]*)\" is in the list$")
-	public void the_imported_batch_is_in_the_list(String arg1) throws Throwable {////////////////////////////////////////////////
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	public void the_imported_batch_is_in_the_list(String arg1) {
+		WebElement info = mbp.manageBatchTable;
+		List<WebElement> table = info.findElements(By.className("batch-row"));
+		for(int i = 1; i <= table.size(); i++)
+		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
+			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
+			//System.out.println(match[0] + " == " + arg1);
+			
+			if(match[0].equals(arg1))
+			{//found in the table
+				Assert.assertTrue(true);
+				return;
+			}
+			
+		}
+		Assert.fail();
+		
+		
 	}
 
 	@When("^The user selects year (\\d+) in drop down$")
 	public void the_user_selects_year_in_drop_down(int arg1) {
-	    mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), arg1).click();
+	 //  mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), arg1).click();
+	    
+	    driver.findElement(By.id("shared-dropdown-menu-dropdown-container")).click();
+	    String elementid = "shared-dropdown-menu-" + 2019;
+	    driver.findElement(By.id(elementid)).click();
+	   
 	}
 
 	@Then("^The batch list displays result \"([^\"]*)\" that match$")
-	public void the_batch_list_displays_result_that_match(String arg1) {///////////////////////////////////////////////////////
-	    
+	public void the_batch_list_displays_result_that_match(String arg1) {
+		WebElement info = mbp.manageBatchTable;
+		List<WebElement> table = info.findElements(By.className("batch-row"));
+		for(int i = 1; i <= table.size(); i++)
+		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
+			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
+			//System.out.println(match[0] + " == " + arg1);
+			
+			if(match[0].equals(arg1))
+			{//found in the table
+				Assert.assertTrue(true);
+				return;
+			}
+			
+		}
+		Assert.fail();
+		
+		
 	}
 
 	@When("^The user selects year  (\\d+) in drop down for show trainees$")
@@ -201,9 +254,12 @@ public class ManageBatchSteps
 		
 	}
 
-	@Then("^Result \"([^\"]*)\" is displayed$")/////////////////////////////////////////////
+	@Then("^Result \"([^\"]*)\" is displayed$")
 	public void result_is_displayed(String arg1) {
-	    
+	    if(driver.findElement(By.className("ng-star-inserted")).isDisplayed())
+	    {
+	    	Assert.assertTrue(true);
+	    }
 	}
 
 	@When("^The user selectss year <year> in drop down$")
