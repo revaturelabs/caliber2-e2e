@@ -1,5 +1,6 @@
 package com.revature.steps;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
@@ -28,6 +29,7 @@ public class QualityAuditSteps {
 
 	@When("^User types \"([^\"]*)\" in search bar$")
 	public void user_types_in_search_bar(String arg1) throws Throwable {
+		qap.getBatchesSearchBarInput().click();
 		qap.getBatchesSearchBarInput().sendKeys(arg1);
 	}
 
@@ -42,7 +44,15 @@ public class QualityAuditSteps {
 
 	@When("^User selects a batch$")
 	public void user_selects_a_batch() throws Throwable {
-		qap.getDropdownSelectBatchesContainer().findElement(By.tagName("a")).click();
+		
+		List<WebElement> batches = qap.getDropdownSelectBatchesContainer().findElements(By.tagName("a"));
+		
+		for(WebElement elem : batches) {
+			if(elem.getText().contains("Dan Pickles - PEGA BPM - 10/7/2019")) {
+				elem.click();
+				break;
+			}
+		}
 	}
 
 
@@ -60,8 +70,8 @@ public class QualityAuditSteps {
 
 	@When("^User selects star under technical skills of first trainee$")
 	public void user_selects_star_under_technical_skills_of_first_trainee() throws Throwable {
-	    qap.getAssociateTechSkillsButton(qap.getTraineeRowByIndex(1)).click();
-	    qap.getAssociateTechSkillsContainer(qap.getTraineeRowByIndex(1)).findElements(By.tagName("em")).get(4).click();
+	    qap.getAssociateTechSkillsButton(qap.getTraineeRowByIndex(0)).click();
+	    qap.getAssociateTechSkillsContainer(qap.getTraineeRowByIndex(0)).findElements(By.tagName("em")).get(4).click();
 	    
 	}
 

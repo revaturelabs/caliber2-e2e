@@ -6,34 +6,39 @@ Feature: on Caliber 2 Quality Audit page
 	 Scenario Outline: search batch by first name, last name, curriculum
 	 	When User clicks on Select Batch
 	 	When User types "<search>" in search bar
+	 	When The User clicks the first option in the batch dropdown menu
 	 	Then The batch should be "<batch>"
 	 	
 	 Examples:
 	 |search|batch|
 	 |dan|Dan Pickles - PETA BPM - 10/7/2019|
 	 |church|Natalie Church - Full Stack Java/JEE - 7/9/20199|
-	 |pega bpm|Dan Pickles - PETA BPM - 10/7/2019|
+	 |peta bpm|Dan Pickles - PETA BPM - 10/7/2019|
 	 
 	 
 	 	
 	 Scenario: select week
+	 	When User clicks on Select Batch
 	 	When User selects a batch
 	 	When User selects a week
 	 	Then User views current trainees with results of technical skills and soft skills with notes of that week
 
 	 Scenario: update trainee technical skills
+	 	When User clicks on Select Batch
 	 	When User selects a batch
 	 	When User selects a week
 	 	When User selects star under technical skills of first trainee
 	 	Then First trainee has star in technical skills
 	 		
 	 Scenario: update trainee soft skills
+	 	When User clicks on Select Batch
 	 	When User selects a batch
 	 	When User selects a week
 	 	When User selects star under soft skills of first trainee
 	 	Then First trainee has star in soft skills
 	
 	 Scenario Outline: add trainee notes
+	 	When User clicks on Select Batch
 	 	When User selects a batch
 	 	When User selects a week
 	 	When User types "<comment>" in notes section
@@ -47,6 +52,7 @@ Feature: on Caliber 2 Quality Audit page
 	    
 	    
 	 Scenario Outline: Add comment
+	 When User clicks on Select Batch
 	 When User selects a batch
 	 When User click pencil icon beside trainee
 	 When User clicks Green flag
@@ -60,6 +66,7 @@ Feature: on Caliber 2 Quality Audit page
 	|good job|good job|
 	
 	Scenario: Delete comment
+	When User clicks on Select Batch
 	When User selects a batch
 	When User clicks flag icon beside trainee
 	When User clicks Delete Comment button
@@ -67,6 +74,7 @@ Feature: on Caliber 2 Quality Audit page
 	Then comment is deleted from trainee
 	
 	Scenario: Cancel update comment
+	When User clicks on Select Batch
 	When User selects a batch
 	When User clicks pencil icon beside trainee
 	When User clicks cancel button
@@ -97,12 +105,14 @@ Feature: on Caliber 2 Quality Audit page
 	
 	
 	 Scenario: update overall qc status
+	 	When User clicks on Select Batch
 	 	When User selects a batch
 	 	When User selects a week
 	 	When User selects smily face under overall QC Status
 	 	Then Smily face is displayed under overall QC Status
 	 
 	 Scenario Outline: add overall qc feedback
+	 	When User clicks on Select Batch
 	 	When User selects a batch
 	 	When User selects a week
 	 	When User types "<comment>" in Overall QC Feedback section
@@ -116,18 +126,21 @@ Feature: on Caliber 2 Quality Audit page
 	
 	 	
 	 Scenario: Don't add new week 
+	 	When User clicks on Select Batch
 	 	When User selects a batch
 	 	When User clicks + button next to latest week
 	 	When User clicks no
 	 	Then no changes are made to page
 	 
 	 Scenario: Do add new week
+	 	When User clicks on Select Batch
 	 	When User selects a batch
 	 	When User clicks + button next to latest week
 	 	When User clicks yes
 	 	Then new week is added to page
 	 
 	 Scenario Outline: add categories to current week
+	 	When User clicks on Select Batch
 	 	When User selects a batch
 	 	When User clicks + button next to categories this week:
 	 	When User clicks "<category>" from dropdown menu
@@ -140,6 +153,7 @@ Feature: on Caliber 2 Quality Audit page
 	 	|Jenkins|
 	 
 	 Scenario: save button works
+	 	When User clicks on Select Batch
 	 	When User selects a batch
 	 	When User clicks save button
 	 	Then Changes saved to page

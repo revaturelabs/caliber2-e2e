@@ -56,15 +56,12 @@ public class QualityAuditPage {
 	public WebElement selectBatchesDropdownButton;
 	
 	public WebElement getBatchesSearchBarInput() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
-				"//app-shared-dropdown-menu[@id='batch-select-toolbar-batches-dropdown']"
-				+ "//input[@id='batch-select-search-bar']")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-search-bar")));
+				
 	}
 	
 	public WebElement getDropdownSelectBatchesContainer() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
-				"//app-shared-dropdown-menu[@id='batch-select-toolbar-batches-dropdown']"
-				+ "//li[@id='batch-select-dropdown-list']")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-dropdown-list")));
 	}
 	
 	
