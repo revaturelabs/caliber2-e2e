@@ -57,7 +57,7 @@ public class HomeSteps {
 	public void the_table_is_updated_minus_week(String arg1) {
 		List<WebElement> rows = page.getMissingGradeRows();
 		for (WebElement webElement : rows) {
-			//assertFalse(webElement.findElement(By.tagName("span")).getText().contains(arg1));
+			assertFalse(webElement.findElement(By.tagName("span")).getText().contains(arg1));
 		}
 	}
 	
