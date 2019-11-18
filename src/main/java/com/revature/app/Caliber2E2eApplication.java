@@ -6,7 +6,6 @@ import com.revature.runner.ChromeRunner;
 import gherkin.deps.com.google.gson.Gson;
 import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-@SpringBootApplication
 public class Caliber2E2eApplication {
 
 	/**
