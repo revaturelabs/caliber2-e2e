@@ -27,11 +27,11 @@ Feature: On Caliber 2 homepage
 		|FL|Tampa|Tampa|
 
 	Scenario Outline: The user removes a week
-		When The user clicks on week "<Week>"
+		When The user removes a week "<Week>"
 		Then The table is updated minus week "<Week>"
 		
 		Examples:
-		|Week|
+		|Week|Week|
 		|1|1|
 		|2|2|
 		|3|3|
@@ -43,7 +43,17 @@ Feature: On Caliber 2 homepage
 		When The user removes all weeks
 		Then The table is empty
 			
-	Scenario: The user adds a week
+	Scenario Outline: The user adds a week
+		When The user removes all weeks
 		When The user clicks the include weeks button
-		When The user selects a week
-		Then The table is updated
+		When The user selects a week "<Week>"
+		Then The table is updated plus week "<Week>"
+		
+		Examples:
+		|Week|Week|
+		|1|1|
+		|2|2|
+		|3|3|
+		|4|4|
+		|5|5|
+		|6|6|

@@ -47,7 +47,7 @@ public class HomeSteps {
 	}
 	//Then The user can see stats for city
 	
-	@When("^The user clicks on week \"([^\"]*)\"$")
+	@When("^The user removes a week \"([^\"]*)\"$")
 	public void the_user_clicks_on_week(String arg1) {
 		int week = Integer.parseInt(arg1);
 		page.getWeekByWeekNumber(week).findElement(By.id("pills-pill-remove-week-button")).click();
@@ -61,8 +61,12 @@ public class HomeSteps {
 		}
 	}
 	
-	@Then("^The table is updated updated plus week \"([^\"]*)\"$")
+	@Then("^The table is updated plus week \"([^\"]*)\"$")
 	public void the_table_is_updated_updated_plus_week(String arg1) {
+		List<WebElement> rows = page.getMissingGradeRows();
+		for (WebElement webElement : rows) {
+			assertTrue(webElement.findElement(By.tagName("span")).getText().contains(arg1));
+		}
 	}
 
 	@When("^The user removes all weeks$")
@@ -80,10 +84,12 @@ public class HomeSteps {
 
 	@When("^The user clicks the include weeks button$")
 	public void the_user_clicks_the_include_weeks_button() {
-		
+		page.weekSorterButton.click();
 	}
 
-	@When("^The user selects a week$")
-	public void the_user_selects_a_week() {
-	}
+	@When("^The user selects a week \"([^\"]*)\"$")
+	public void the_user_selects_a_week(String arg1) {
+		int week = Integer.parseInt(arg1);
+		page.selectWeekSorterByIndex(week);	
+		}
 }
