@@ -91,6 +91,6 @@ public class HomeSteps {
 	public void the_user_selects_a_week(String arg1) {
 		int week = Integer.parseInt(arg1);
 		page.selectWeekSorterByIndex(week-1);	
-		}
+	}
 
 }
