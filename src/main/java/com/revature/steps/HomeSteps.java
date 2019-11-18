@@ -31,7 +31,7 @@ public class HomeSteps {
 	
 	@Then("^The user can see stats for \"([^\"]*)\"$")
 	public void the_user_can_see_stats_for(String arg1) {
-		assertTrue(page.getLastQAstateDropdown().getAttribute("value").equals(arg1) || page.getCityDropdown().getAttribute("value").equals(arg1));
+		assertTrue(page.getLastQAstateDropdown().getAttribute("value").equals(arg1) || page.getCityDropdown().getText().equals("All Cities\n" + arg1));
 	}
 	
 	@When("^The user clicks on the Cities dropdown$")
