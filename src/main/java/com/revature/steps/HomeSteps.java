@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.LinkedList;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -31,7 +32,7 @@ public class HomeSteps {
 	
 	@Then("^The user can see stats for \"([^\"]*)\"$")
 	public void the_user_can_see_stats_for(String arg1) {
-		assertTrue(page.getLastQAstateDropdown().getAttribute("value").equals(arg1) || page.getCityDropdown().getAttribute("value").equals(arg1));
+		assertTrue(page.getLastQAstateDropdown().getAttribute("value").equals(arg1) || page.getCityDropdown().getText().equals(arg1));
 	}
 	
 	@When("^The user clicks on the Cities dropdown$")
@@ -53,17 +54,45 @@ public class HomeSteps {
 	
 	@Then("^The table is updated minus week \"([^\"]*)\"$")
 	public void the_table_is_updated_minus_week(String arg1) {
+		List<Integer> pillList = new LinkedList<Integer>();
+		for(WebElement pill :page.getWeeksContainer().findElements(By.className("pillContent"))){
+			pillList.add(Integer.parseInt(pill.getText().split(" ")[1]));
+		}
 		List<WebElement> rows = page.getMissingGradeRows();
 		for (WebElement webElement : rows) {
-			assertFalse(webElement.findElement(By.tagName("span")).getText().contains(arg1));
+			boolean flag = false;
+			for(WebElement week :webElement.findElements(By.tagName("span"))) {
+				for(Integer i : pillList) {
+					if(Integer.parseInt(week.getText())==i) {
+						flag = true;
+						break;
+					}
+				}
+				if(flag)break;
+			}
+			assertTrue(flag);
 		}
 	}
 	
 	@Then("^The table is updated plus week \"([^\"]*)\"$")
 	public void the_table_is_updated_updated_plus_week(String arg1) {
+		List<Integer> pillList = new LinkedList<Integer>();
+		for(WebElement pill :page.getWeeksContainer().findElements(By.className("pillContent"))){
+			pillList.add(Integer.parseInt(pill.getText().split(" ")[1]));
+		}
 		List<WebElement> rows = page.getMissingGradeRows();
 		for (WebElement webElement : rows) {
-			assertTrue(webElement.findElement(By.tagName("span")).getText().contains(arg1));
+			boolean flag = false;
+			for(WebElement week :webElement.findElements(By.tagName("span"))) {
+				for(Integer i : pillList) {
+					if(Integer.parseInt(week.getText())==i) {
+						flag = true;
+						break;
+					}
+				}
+				if(flag)break;
+			}
+			assertTrue(flag);
 		}
 	}
 

@@ -47,7 +47,7 @@ public class HomePage {
 		Select select = new Select(getCityDropdown());
 		select.selectByVisibleText(city);
 	}
-	
+	//*[@id="home-toolbar-city-select"]/option[2]
 	public void selectLastQAState (String state){
 		Select select = new Select(getLastQAstateDropdown());
 		select.selectByVisibleText(state);
