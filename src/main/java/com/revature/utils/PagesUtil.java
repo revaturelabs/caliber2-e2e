@@ -1,12 +1,5 @@
 package com.revature.utils;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.revature.page.AddTraineeModal;
 import com.revature.page.AssessBatchPage;
 import com.revature.page.CreateBatchModal;
@@ -22,6 +15,10 @@ import com.revature.page.SettingsCategoriesPage;
 import com.revature.page.SettingsLocationsPage;
 import com.revature.page.SettingsTrainerPage;
 import com.revature.page.ShowTraineesModal;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
 
 public class PagesUtil {
 
@@ -42,44 +39,49 @@ public class PagesUtil {
 	public static SettingsLocationsPage locationsPage;
 	public static SettingsTrainerPage trainersPage;
 	public static ShowTraineesModal traineesModal;
-	
-	static {
-//		Chrome driver
-		File file = new File("chromedriver.exe");
-		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
-		driver = new ChromeDriver();
-		dWait = new WebDriverWait(driver, 3);
-		
-//		Firefox driver
-//		File file = new File("geckodriver.exe");
-//		System.setProperty("webdriver.gecko.driver", file.getAbsolutePath());
-//		driver = new FirefoxDriver();
-//		dWait = new WebDriverWait(driver, 3);
-		
-		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-		
-		addTraineeModal = new AddTraineeModal(driver);
-		assessBatchPage = new AssessBatchPage(driver);
-		createBatchModal = new CreateBatchModal(driver);
-		editBatchModal = new EditBatchModal(driver);
-		editTraineeModal = new EditTraineeModal(driver);
-		homePage = new HomePage(driver);
-		loginPage = new LoginPage(driver);
-		manageBatchPage = new ManageBatchPage(driver);
-		navBar = new NavigationBar(driver);
-		qualityAuditPage = new QualityAuditPage(driver);
-		reportsPage = new ReportsPage(driver);
-		categoriesPage = new SettingsCategoriesPage(driver);
-		locationsPage = new SettingsLocationsPage(driver);
-		trainersPage = new SettingsTrainerPage(driver);
-		traineesModal = new ShowTraineesModal(driver);
+
+	public static void setup(WebDriver driver) {
+		PagesUtil.driver = driver;
+		PagesUtil.dWait = new WebDriverWait(driver, 3);
+		PagesUtil.driver.manage().timeouts().implicitlyWait(3,
+			TimeUnit.SECONDS);
+		PagesUtil.addTraineeModal = new AddTraineeModal(driver);
+		PagesUtil.assessBatchPage = new AssessBatchPage(driver);
+		PagesUtil.createBatchModal = new CreateBatchModal(driver);
+		PagesUtil.editBatchModal = new EditBatchModal(driver);
+		PagesUtil.editTraineeModal = new EditTraineeModal(driver);
+		PagesUtil.homePage = new HomePage(driver);
+		PagesUtil.loginPage = new LoginPage(driver);
+		PagesUtil.manageBatchPage = new ManageBatchPage(driver);
+		PagesUtil.navBar = new NavigationBar(driver);
+		PagesUtil.qualityAuditPage = new QualityAuditPage(driver);
+		PagesUtil.reportsPage = new ReportsPage(driver);
+		PagesUtil.categoriesPage = new SettingsCategoriesPage(driver);
+		PagesUtil.locationsPage = new SettingsLocationsPage(driver);
+		PagesUtil.trainersPage = new SettingsTrainerPage(driver);
+		PagesUtil.traineesModal = new ShowTraineesModal(driver);
 	}
-	
-	
-	@Override
-	public void finalize() {
-		if(driver != null) {
-			driver.quit();
+
+	public static void tearDown() {
+		if (PagesUtil.driver != null) {
+			PagesUtil.driver.quit();
 		}
+		PagesUtil.driver = null;
+		PagesUtil.dWait = null;
+		PagesUtil.addTraineeModal = null;
+		PagesUtil.assessBatchPage = null;
+		PagesUtil.createBatchModal = null;
+		PagesUtil.editBatchModal = null;
+		PagesUtil.editTraineeModal = null;
+		PagesUtil.homePage = null;
+		PagesUtil.loginPage = null;
+		PagesUtil.manageBatchPage = null;
+		PagesUtil.navBar = null;
+		PagesUtil.qualityAuditPage = null;
+		PagesUtil.reportsPage = null;
+		PagesUtil.categoriesPage = null;
+		PagesUtil.locationsPage = null;
+		PagesUtil.trainersPage = null;
+		PagesUtil.traineesModal = null;
 	}
 }
