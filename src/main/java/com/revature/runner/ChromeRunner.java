@@ -6,7 +6,7 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/main/resources/Home.feature", glue = "com.revature.steps",plugin = {"pretty", "json:./cucumber.json"})
+@CucumberOptions(features = "src/main/resources", glue = "com.revature.steps",plugin = {"pretty", "json:./cucumber.json"})
 public class ChromeRunner {
 	// Run the test on Junit4 ONLY!~!~!~!
 
@@ -18,6 +18,11 @@ public class ChromeRunner {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@AfterClass
+	public void closeDriver() {
+		PagesUtil.closeDriver();
 	}
 
 }

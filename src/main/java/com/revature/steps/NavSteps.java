@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import com.revature.page.NavigationBar;
 import com.revature.utils.PagesUtil;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.*;
 
 public class NavSteps {
