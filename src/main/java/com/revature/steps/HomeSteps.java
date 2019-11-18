@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.Wait;
 
 import com.revature.page.HomePage;
 import com.revature.utils.PagesUtil;
-import com.sun.tools.sjavac.Log;
+//import com.sun.tools.sjavac.Log;
 
 import cucumber.api.java.en.*;
 
@@ -90,7 +90,7 @@ public class HomeSteps {
 	@When("^The user selects a week \"([^\"]*)\"$")
 	public void the_user_selects_a_week(String arg1) {
 		int week = Integer.parseInt(arg1);
-		page.selectWeekSorterByIndex(week);	
+		page.selectWeekSorterByIndex(week-1);	
 		}
 
 }
