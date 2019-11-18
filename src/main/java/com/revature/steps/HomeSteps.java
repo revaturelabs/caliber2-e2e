@@ -80,10 +80,11 @@ public class HomeSteps {
 
 	@When("^The user clicks the include weeks button$")
 	public void the_user_clicks_the_include_weeks_button() {
-		
+		page.weekSorterButton.click();
 	}
 
 	@When("^The user selects a week$")
 	public void the_user_selects_a_week() {
+		
 	}
 }
