@@ -264,8 +264,8 @@ public class ReportSteps {
 		}
 	}
 
-	@When("^The user selects a week \"([^\"]*)\"$")
-	public void the_user_selects_a_week(String week) throws Throwable {
+	@When("^The user selects a report week \"([^\"]*)\"$")
+	public void the_user_selects_a_report_week(String week) throws Throwable {
 		try {
 			Thread.sleep(250);
 			PagesUtil.reportsPage.getSelectWeeksDropdownButton().click();
