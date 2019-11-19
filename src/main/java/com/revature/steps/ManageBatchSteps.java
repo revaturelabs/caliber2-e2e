@@ -138,7 +138,7 @@ public class ManageBatchSteps
 		for(int i = 1; i <= table.size(); i++)
 		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
 			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
-			System.out.println(match[0] + " == " + batch.getTrainingname());
+			//System.out.println(match[0] + " == " + batch.getTrainingname());
 			
 			if(match[0].equals(batch.getTrainingname()))
 			{//found in the table
@@ -225,6 +225,7 @@ public class ManageBatchSteps
 			{//found in the table
 				WebElement batch = mbp.getManageBatchTableRow(i);
 				mbp.showTraineesButtonForRow(batch).click();
+				driver.switchTo().activeElement();
 			}
 			
 		}
@@ -234,72 +235,73 @@ public class ManageBatchSteps
 
 	@When("^The user clicks add trainee$")
 	public void the_user_clicks_add_trainee() {
-		driver.switchTo().activeElement();
+		
 		mbp.addTraineeButton().click();
+		driver.switchTo().activeElement();
 	}
 
-	@When("^The user inputs first name\"([^\"]*)\" in the first name field$")
-	public void the_user_inputs_first_name_in_the_first_name_field(String arg1)  {
+	@When("^The user inputs \"([^\"]*)\" in the first name field$")
+	public void the_user_inputs_in_the_first_name_field(String arg1)  {
 	    atm.inputFirstName().sendKeys(arg1);
 	}
 
-	@When("^The user inputs last name \"([^\"]*)\" in the last name field$")
-	public void the_user_inputs_last_name_in_the_last_name_field(String arg1) {
+	@When("^The user inputs \"([^\"]*)\" in the last name field$")
+	public void the_user_inputs_in_the_last_name_field(String arg1) {
 	   atm.inputLastName().sendKeys(arg1);
 	}
 
-	@When("^The user inputs email \"([^\"]*)\" in the email field$")
-	public void the_user_inputs_email_in_the_email_field(String arg1)  {
+	@When("^The user inputs \"([^\"]*)\" in the email field$")
+	public void the_user_inputs_in_the_email_field(String arg1)   {
 	   atm.inputEmail().sendKeys(arg1);
 	}
 
-	@When("^The user inputs phone number \"([^\"]*)\" in the phone number field$")
-	public void the_user_inputs_phone_number_in_the_phone_number_field(String arg1)  {
+	@When("^The user inputs \"([^\"]*)\" in the phone number field$")
+	public void the_user_inputs_in_the_phone_number_field(String arg1)  {
 	  atm.inputPhoneNumber().sendKeys(arg1);
 	}
 
-	@When("^The user selects training status (\\d+) from training status drop down$")
-	public void the_user_selects_training_status_from_training_status_drop_down(int arg1) {
+	@When("^The user selects (\\d+) from training status drop down$")
+	public void the_user_selects_from_training_status_drop_down(int arg1) {
 	   atm.trainingStatusDropdownNthOption(arg1).click();
 	}
 
-	@When("^The user inputs skype id \"([^\"]*)\" in the skype ID field$")
-	public void the_user_inputs_skype_id_in_the_skype_ID_field(String arg1)  {
+	@When("^The user inputs \"([^\"]*)\" in the skype ID field$")
+	public void the_user_inputs_in_the_skype_ID_field(String arg1)  {
 	    atm.inputSkypeId().sendKeys(arg1);
 	}
 
-	@When("^The user inputs college\"([^\"]*)\" in the college field$")
-	public void the_user_inputs_college_in_the_college_field(String arg1) {
+	@When("^The user inputs \"([^\"]*)\" in the college field$")
+	public void the_user_inputs_in_the_college_field(String arg1) {
 	    atm.inputCollege().sendKeys(arg1);
 	}
 
-	@When("^The user inputs degree\"([^\"]*)\" in the degree field$")
-	public void the_user_inputs_degree_in_the_degree_field(String arg1) {
+	@When("^The user inputs \"([^\"]*)\" in the degree field$")
+	public void the_user_inputs_in_the_degree_field(String arg1) {
 	    atm.inputDegree().sendKeys(arg1);
 	}
 
-	@When("^The user inputs major \"([^\"]*)\" in the major field$")
-	public void the_user_inputs_major_in_the_major_field(String arg1) {
+	@When("^The user inputs \"([^\"]*)\" in the major field$")
+	public void the_user_inputs_in_the_major_field(String arg1) {
 	    atm.inputMajor().sendKeys(arg1);
 	}
 
-	@When("^The user inputs recruiter \"([^\"]*)\" in the recruiter field$")
-	public void the_user_inputs_recruiter_in_the_recruiter_field(String arg1) {
+	@When("^The user inputs \"([^\"]*)\" in the recruiter field$")
+	public void the_user_inputs_in_the_recruiter_field(String arg1)  {
 		atm.inputRecruiterName().sendKeys(arg1);
 	}
 
-	@When("^The user inputs profile url \"([^\"]*)\" in the profile URL field$")
-	public void the_user_inputs_profile_url_in_the_profile_URL_field(String arg1) {
+	@When("^The user inputs \"([^\"]*)\" in the profile URL field$")
+	public void the_user_inputs_in_the_profile_URL_field(String arg1) {
 	    atm.inputProfileURL().sendKeys(arg1);
 	}
 
-	@When("^The user inputs tech screener \"([^\"]*)\" in the tech screener field$")
-	public void the_user_inputs_tech_screener_in_the_tech_screener_field(String arg1)  {
+	@When("^The user inputs \"([^\"]*)\" in the tech screener field$")
+	public void the_user_inputs_in_the_tech_screener_field(String arg1)  {
 	    atm.inputTechScreener().sendKeys(arg1);
 	}
 
-	@When("^The user inputs project completion \"([^\"]*)\" in the project completion field$")
-	public void the_user_inputs_project_completion_in_the_project_completion_field(String arg1) {
+	@When("^The user inputs \"([^\"]*)\" in the project completion field$")
+	public void the_user_inputs_in_the_project_completion_field(String arg1) {
 	   atm.inputProjectCompletion().sendKeys(arg1);
 	}
 
@@ -308,8 +310,8 @@ public class ManageBatchSteps
 	    atm.submitAddTrainerButton().click();
 	}
 
-	@Then("^Result  \"([^\"]*)\" is displayed in trainee list$")
-	public void result_is_displayed_in_trainee_list(String arg1)  {////////////////////////////////////////////////////////
+	@Then("^The trainee is displayed in trainee list$")
+	public void the_trainee_is_displayed_in_trainee_list() {////////////////////////////////////////////////////////
 	  List<WebElement> table = mbp.getTraineesTable().findElements(By.tagName("tr"));
 	  for(int i = 1; i <= table.size(); i++)
 	  {

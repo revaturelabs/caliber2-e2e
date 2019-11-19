@@ -1,7 +1,6 @@
 Feature: Manage Batch
 	Background: User on Caliber2
-		Given The user is on the Caliber2 home page
-		When the user clicks on manage batch
+		Given The user is on the manage batch page
 		
 	Scenario Outline: Create Batch
 		When The user clicks on create batch
@@ -34,13 +33,13 @@ Feature: Manage Batch
 		|importBatch.txt|Extreme Training|        
 		
 		Scenario Outline: Create trainee
-		When  The user clicks show trainees in "<batch>"
+		When  The user clicks show trainees in batch "<batch>" for create trainee
 		And The user clicks add trainee
 		And The user inputs "<fName>" in the first name field
 		And The user inputs "<lName>" in the last name field
 		And The user inputs "<email>" in the email field
 		And The user inputs "<phoneNumber>" in the phone number field
-		And The user selects "<trainingStatus>" from training status drop down
+		And The user selects <trainingStatus> from training status drop down
 		And The user inputs "<skypeId>" in the skype ID field
 		And The user inputs "<college>" in the college field
 		And The user inputs "<degree>" in the degree field
@@ -54,24 +53,24 @@ Feature: Manage Batch
 		
 		Examples:
 		|batch|fName|lName|email|phoneNumber|trainingStatus|skypeId|college|degree|major|recruiter|profileURL|techScreener|projectCompletion|
-		
+		|Extreme Training|Test|name|emailTest@test.com|8122837261|2|numberskype|my college|degree f|computer|major tom|thisisaurl.com|techtalk|today|
 		
 	Scenario Outline: Switch trainee to a different batch
-		Given The user clicks show trainees in "<originalBatch>"
-		When The user clicks on the switch batch button for a "<trainee>"
-		And The user selects "<newBatch>" from batch list drop down
+		Given The user clicks show trainees in original batch"<originalBatch>" for switch trainee
+		When The user clicks on the switch batch button for a trainee "<trainee>"
+		And The user selects new batch "<newBatch>" from batch list drop down
 		And The user clicks the swich button
 		And The user clicks the confirm button
-		And The user clicks on the show trainee button on "<newBatch>"
-		Then The "<traineeLName>" should appear in the trainee list
+		And The user clicks on the show trainee button on new batch "<newBatch>"
+		Then The trainee name  "<traineeLName>" should appear in the trainee list
 		
 		Examples:
 		|originalBatch|trainee|newBatch|
 		
 		
 	Scenario Outline: Edit trainee data
-		Given The user clicks show trainees in "<batch>"
-		When The user clicks the edit trainee button on "<trainee>"
+		Given The user clicks show trainees in batch "<batch>" for edit trainee
+		When The user clicks the edit trainee button on trainee "<trainee>"
 		And The user inputs "<fName>" in the first name field
 		And The user inputs "<lName>" in the last name field
 		And The user inputs "<email>" in the email field
@@ -93,11 +92,11 @@ Feature: Manage Batch
 	
 		
 	Scenario Outline: Remove trainee
-		When The user clicks show trainees in "<batch>"
-		And The user clicks remove trainee button on "<trainee>"
+		When The user clicks show trainees in batch "<batch>" for remove trainee
+		And The user clicks remove trainee button on trainee "<trainee>"
 		And The user clicks the delete button in alert
 		And The user clicks confirm delete button in next alert
-		Then The "<trainee>" should be removed from the trainee list
+		Then The trainee"<trainee>" should be removed from the trainee list
 		
 		Examples:
 		|batch|trainee|
@@ -122,10 +121,10 @@ Feature: Manage Batch
 		|1|TestTrainingName|2|2|2|2|2|01012020|03012020|80|60|
 		
 	Scenario Outline: Delete batch
-		When The user clicks the delete batch button on "<batch>"
+		When The user clicks the delete batch button on batch"<batch>"
 		And The user clicks the delete button in the alert
 		And The user clicks confirm delete in the next alert
-		Then The "<batch>" should be missing from batch list
+		Then The batch"<batch>" should be missing from batch list
 		
 		Examples:
 		|batch|
