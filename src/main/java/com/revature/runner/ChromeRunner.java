@@ -8,6 +8,7 @@ import cucumber.api.junit.Cucumber;
 
 import org.junit.AfterClass;
 import org.junit.runner.RunWith;
+import org.junit.AfterClass;
 
 @RunWith(Cucumber.class)
 //@CucumberOptions(features = "classpath:", glue = "com.revature.steps",plugin = {"pretty", "json:./cucumber.json"})
