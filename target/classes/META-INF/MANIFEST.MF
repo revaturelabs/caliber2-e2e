@@ -1,6 +1,5 @@
 Manifest-Version: 1.0
-Implementation-Title: caliber2-e2e
-Implementation-Version: 0.0.1-SNAPSHOT
-Build-Jdk-Spec: 1.8
+Built-By: Ches
+Build-Jdk: 1.8.0_231
 Created-By: Maven Integration for Eclipse
 
