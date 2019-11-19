@@ -15,7 +15,7 @@ import java.io.File;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-	features = "classpath:Reports.feature" /* "src/main/resources/features" */,
+	features = "classpath:features" /* "src/main/resources/features" */,
 	glue = "com.revature.steps",
 	plugin = {"pretty", "json:./" + Config.CUCUMBER_FILENAME})
 public class ChromeRunner {

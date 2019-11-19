@@ -92,10 +92,10 @@ public class TrainerSteps {
 					.equals(arg3)
 				&& element.findElement(By.xpath("//td[4]")).getText()
 					.equals(arg4)) {
-				Assert.assertTrue(true);
+				return;
 			}
 		}
-		Assert.assertFalse(false);
+		Assert.fail();
 	}
 
 	@When("^The user clicks submit$")
@@ -125,10 +125,10 @@ public class TrainerSteps {
 				page.inputEditTrainerName().clear();
 				page.inputEditTrainerName().sendKeys("New");
 				page.submitEditTrainer().click();
-				Assert.assertTrue(true);
+				return;
 			}
 		}
-		Assert.assertFalse(false);
+		Assert.fail();
 	}
 
 	@Then("^The trainers email should be \"([^\"]*)\"$")
@@ -136,10 +136,10 @@ public class TrainerSteps {
 		driver.navigate().refresh();
 		for (int i = 1; i < page.getTableRowsCount(); i++) {
 			if (page.getTableRowEmail(i).getText().equals(arg1)) {
-				Assert.assertTrue(true);
+				return;
 			}
 		}
-		Assert.assertFalse(false);
+		Assert.fail();
 	}
 
 	@Then("^The trainers title should be \"([^\"]*)\"$")
@@ -147,10 +147,10 @@ public class TrainerSteps {
 		driver.navigate().refresh();
 		for (int i = 1; i < page.getTableRowsCount(); i++) {
 			if (page.getTableRowTitle(i).getText().equals(arg1)) {
-				Assert.assertTrue(true);
+				return;
 			}
 		}
-		Assert.assertFalse(false);
+		Assert.fail();
 	}
 
 	@Then("^The trainers role should be \"([^\"]*)\"$")
@@ -158,10 +158,10 @@ public class TrainerSteps {
 		driver.navigate().refresh();
 		for (int i = 1; i < page.getTableRowsCount(); i++) {
 			if (page.getTableRowTier(i).getText().equals(arg1)) {
-				Assert.assertTrue(true);
+				return;
 			}
 		}
-		Assert.assertFalse(false);
+		Assert.fail();
 	}
 
 	@When("^The user clicks inactive on a trainer \"([^\"]*)\"$")
@@ -181,10 +181,10 @@ public class TrainerSteps {
 		for (int i = 1; i < page.getTableRowsCount(); i++) {
 			if (page.getTableRowName(i).getText().equals(arg1)
 				&& page.getTableRowTier(i).getText().equals("ROLE_INACTIVE")) {
-				Assert.assertTrue(true);
+				return;
 			}
 		}
-		Assert.assertFalse(false);
+		Assert.fail();
 	}
 
 	@When("^The user clicks update$")
