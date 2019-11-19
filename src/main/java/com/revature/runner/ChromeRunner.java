@@ -1,6 +1,7 @@
 package com.revature.runner;
 
 import com.revature.app.Caliber2E2eApplication;
+import com.revature.utils.Config;
 import com.revature.utils.PagesUtil;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
@@ -14,9 +15,11 @@ import java.io.File;
 
 @RunWith(Cucumber.class)
 // @CucumberOptions(features = "src/main/resources/Reports.feature", glue =
-// "com.revature.steps",plugin = {"pretty", "json:./cucumber.json"})
+// "com.revature.steps",plugin = {"pretty", "json:./" +
+// Config.CUCUMBER_FILENAME})
 @CucumberOptions(features = "classpath:Reports.feature",
-	glue = "com.revature.steps", plugin = {"pretty", "json:./cucumber.json"})
+	glue = "com.revature.steps",
+	plugin = {"pretty", "json:./" + Config.CUCUMBER_FILENAME})
 public class ChromeRunner {
 	// Run the test on Junit4 ONLY!~!~!~!
 

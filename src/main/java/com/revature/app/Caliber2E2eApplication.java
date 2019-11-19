@@ -119,7 +119,7 @@ public class Caliber2E2eApplication {
 			 * directory. That is, the 'java -jar' command should be run from
 			 * the directory the jar is in.
 			 */
-			File cucumberFile = new File("cucumber.json");
+			File cucumberFile = new File(Config.CUCUMBER_FILENAME);
 			cucumber = new FileReader(cucumberFile);
 		}
 		catch (Exception e) {
@@ -184,9 +184,11 @@ public class Caliber2E2eApplication {
 		System.out.println();
 		System.out.println(
 			"If '--help' is specified, will print this and not run anything.");
+		System.out.println("    You can also use '-h' for brevity.");
 		System.out.println(
 			"The '--html-output' flag is for specifying the name of the html file to");
 		System.out.println("    output results to, such as 'results.html'.");
+		System.out.println("    You can also use '-h' for brevity.");
 		System.out.println();
 	}
 }

@@ -8,6 +8,12 @@ public class Config {
 	private static String url = "";
 
 	/**
+	 * The name of the cucumber json output to use. Static for use in the runner
+	 * annotation.
+	 */
+	public static final String CUCUMBER_FILENAME = "cucumber.json";
+
+	/**
 	 * Returns the URL to run cucumber tests on.
 	 *
 	 * @return The URL of the home page for the web application.
