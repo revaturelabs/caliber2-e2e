@@ -18,6 +18,16 @@ public class Config {
 	}
 
 	/**
+	 * Returns the URL to run cucumber tests on.
+	 *
+	 * @return The URL of the home page for the web application.
+	 * @see #isURLSet()
+	 */
+	public static synchronized String get() {
+		return Config.url;
+	}
+
+	/**
 	 * Returns false if the URL is null or empty, otherwise returns true. This
 	 * indicates the URL has been set but does not validate that the URL is
 	 * valid.

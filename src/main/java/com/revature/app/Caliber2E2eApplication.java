@@ -69,6 +69,8 @@ public class Caliber2E2eApplication {
 	public static void main(String[] args) {
 		// SpringApplication.run(Caliber2E2eApplication.class, args);
 
+		String htmlFilename = "results.html";
+
 		if (args == null || args.length == 0) {
 			System.err.println("Please specify a url in the arguments.");
 			Caliber2E2eApplication.printHelp();
@@ -81,9 +83,24 @@ public class Caliber2E2eApplication {
 		}
 
 		if (args.length > 1) {
-			System.out.println(
-				"Warning: more than one argument provided, this may be an error.");
-			Caliber2E2eApplication.printHelp();
+			if (args[1].toLowerCase().matches("-(-)?h(tml-output)?")) {
+				if (args.length < 3) {
+					System.err.println("Missing filename for html output.");
+					Caliber2E2eApplication.printHelp();
+					return;
+				}
+				if (args[2] == null || args[2].isEmpty()) {
+					System.err.println("Filename for HTML output is empty.");
+					Caliber2E2eApplication.printHelp();
+					return;
+				}
+				htmlFilename = args[2];
+			}
+			else {
+				System.err.println("Unknown argument '" + args[1] + "'");
+				Caliber2E2eApplication.printHelp();
+				return;
+			}
 		}
 
 		Config.setURL(args[0]);
@@ -124,7 +141,7 @@ public class Caliber2E2eApplication {
 
 		// generate html
 		String webPage = Generator.toWebPage(parsed);
-		File output = new File("results.html");
+		File output = new File(htmlFilename);
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(output);
@@ -157,7 +174,8 @@ public class Caliber2E2eApplication {
 	 * Print out usage info for the jar.
 	 */
 	private static void printHelp() {
-		System.out.println("Usage: java -jar <jar name> [--help] <url>");
+		System.out.println(
+			"Usage: java -jar <jar name> [--help] <url> [--html-output <filename>]");
 		System.out.println();
 		System.out.println(
 			"    jar name : The name of the jar, such as 'caliber2-e2e-0.0.1-SNAPSHOT.jar'");
@@ -166,6 +184,9 @@ public class Caliber2E2eApplication {
 		System.out.println();
 		System.out.println(
 			"If '--help' is specified, will print this and not run anything.");
+		System.out.println(
+			"The '--html-output' flag is for specifying the name of the html file to");
+		System.out.println("    output results to, such as 'results.html'.");
 		System.out.println();
 	}
 }
