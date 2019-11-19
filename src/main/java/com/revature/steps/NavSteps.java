@@ -1,14 +1,13 @@
 package com.revature.steps;
 
-import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
-
 import com.revature.page.NavigationBar;
 import com.revature.utils.Config;
 import com.revature.utils.PagesUtil;
-
-import cucumber.api.PendingException;
-import cucumber.api.java.en.*;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.InvalidArgumentException;
+import org.openqa.selenium.WebDriver;
 
 public class NavSteps {
 
@@ -20,51 +19,56 @@ public class NavSteps {
 		if (!Config.isURLSet()) {
 			Assert.fail("URL has not been set.");
 		}
-		driver.get(Config.getURL());
+		try {
+			this.driver.get(Config.getURL());
+		}
+		catch (InvalidArgumentException e) {
+			Assert.fail("Invalid URL provided: '" + Config.getURL() + "'");
+		}
 	}
 
 	@When("^the user clicks on assess batch$")
 	public void the_user_clicks_on_assess_batch() throws Throwable {
-		navBar.assessbatch.click();
+		this.navBar.assessbatch.click();
 	}
 
 	@When("^the user clicks on manage batch$")
 	public void the_user_clicks_on_manage_batch() throws Throwable {
-		navBar.managebatch.click();
+		this.navBar.managebatch.click();
 	}
 
 	@When("^the user clicks on quality audit$")
 	public void the_user_clicks_on_quality_audit_page() throws Throwable {
-		navBar.qualitybatch.click();
+		this.navBar.qualitybatch.click();
 	}
 
 	@When("^the user clicks on reports$")
 	public void the_user_clicks_on_reports_tab() throws Throwable {
-		navBar.reports.click();
+		this.navBar.reports.click();
 	}
 
 	@When("^the user clicks on the settings$")
 	public void the_user_clicks_on_settings() throws Throwable {
-		navBar.settings.click();
+		this.navBar.settings.click();
 	}
 
 	@When("^the user clicks on the trainer$")
 	public void the_user_clicks_on_trainers() throws Throwable {
-		navBar.trainers.click();
+		this.navBar.trainers.click();
 	}
 
 	@When("^the user clicks on the location$")
 	public void the_user_clicks_on_locations() throws Throwable {
-		navBar.locations.click();
+		this.navBar.locations.click();
 	}
 
 	@When("^the_user_clicks_on_category$")
 	public void the_user_clicks_on_category() throws Throwable {
-		navBar.categories.click();
+		this.navBar.categories.click();
 	}
 
 	@When("^the_user_clicks_on_login$")
 	public void the_user_is_on_the_trainer_page() throws Throwable {
-		navBar.login.click();
+		this.navBar.login.click();
 	}
 }
