@@ -1,18 +1,13 @@
 package com.revature.steps;
 
-import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.revature.page.SettingsTrainerPage;
 import com.revature.utils.PagesUtil;
-
-import cucumber.api.PendingException;
-import cucumber.api.java.en.*;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class TrainerSteps {
 
@@ -41,27 +36,33 @@ public class TrainerSteps {
 
 	@When("^The user selects \"([^\"]*)\" from list$")
 	public void the_user_selects_from_list(String arg1) throws Throwable {
+		// TODO parameters should not be assigned
 		arg1 = arg1.replace("_", "-");
 		page.trainerTier().click();
-		page.trainerTierDropdown().findElement(By.id("user-add-trainer-" + arg1.toLowerCase())).click();
+		page.trainerTierDropdown()
+			.findElement(By.id("user-add-trainer-" + arg1.toLowerCase()))
+			.click();
 	}
-	
+
 	@When("^The user inputs \"([^\"]*)\" into edit name input$")
-	public void the_user_inputs_into_edit_name_input(String arg1) throws Throwable {
+	public void the_user_inputs_into_edit_name_input(String arg1)
+		throws Throwable {
 		page.inputEditTrainerName().clear();
-	    page.inputEditTrainerName().sendKeys(arg1);
-	    page.submitEditTrainer().click();
+		page.inputEditTrainerName().sendKeys(arg1);
+		page.submitEditTrainer().click();
 	}
 
 	@When("^The user inputs \"([^\"]*)\" into edit email input$")
-	public void the_user_inputs_into_edit_email_input(String arg1) throws Throwable {
+	public void the_user_inputs_into_edit_email_input(String arg1)
+		throws Throwable {
 		page.inputEditTrainerEmail().clear();
 		page.inputEditTrainerEmail().sendKeys(arg1);
 		page.submitEditTrainer().click();
 	}
 
 	@When("^The user inputs \"([^\"]*)\" into edit title input$")
-	public void the_user_inputs_into_edit_title_input(String arg1) throws Throwable {
+	public void the_user_inputs_into_edit_title_input(String arg1)
+		throws Throwable {
 		page.inputEditTrainerTitle().clear();
 		page.inputEditTrainerTitle().sendKeys(arg1);
 		page.submitEditTrainer().click();
@@ -69,20 +70,28 @@ public class TrainerSteps {
 
 	@When("^The user selects \"([^\"]*)\" from edit list$")
 	public void the_user_selects_from_edit_list(String arg1) throws Throwable {
+		// TODO parameters should not be assigned
 		arg1 = arg1.replace("_", "-");
 		page.trainerEditTierDropdown().click();
-		page.trainerEditTierDropdown().findElement(By.id("user-edit-trainer-" + arg1.toLowerCase())).click();
+		page.trainerEditTierDropdown()
+			.findElement(By.id("user-edit-trainer-" + arg1.toLowerCase()))
+			.click();
 	}
 
 	@Then("^The new trainer has information \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
-	public void the_new_trainer_has_information_and_and_and(String arg1, String arg2, String arg3, String arg4)
-			throws Throwable {
-		driver.navigate().refresh(); // because apparently stuff needs to refresh first...
-		for (WebElement element: page.getTableBody().findElements(By.tagName("tr"))) {
-			if (element.findElement(By.xpath("//td[1]")).getText().equals(arg1) 
-					&& element.findElement(By.xpath("//td[2]")).getText().equals(arg2)
-					&& element.findElement(By.xpath("//td[3]")).getText().equals(arg3)
-					&& element.findElement(By.xpath("//td[4]")).getText().equals(arg4)) {
+	public void the_new_trainer_has_information_and_and_and(String arg1,
+		String arg2, String arg3, String arg4) throws Throwable {
+		driver.navigate().refresh(); // because apparently stuff needs to
+										// refresh first...
+		for (WebElement element : page.getTableBody()
+			.findElements(By.tagName("tr"))) {
+			if (element.findElement(By.xpath("//td[1]")).getText().equals(arg1)
+				&& element.findElement(By.xpath("//td[2]")).getText()
+					.equals(arg2)
+				&& element.findElement(By.xpath("//td[3]")).getText()
+					.equals(arg3)
+				&& element.findElement(By.xpath("//td[4]")).getText()
+					.equals(arg4)) {
 				Assert.assertTrue(true);
 			}
 		}
@@ -95,11 +104,12 @@ public class TrainerSteps {
 	}
 
 	@When("^The user clicks edit trainer for trainer \"([^\"]*)\"$")
-	public void the_user_clicks_edit_trainer_for_trainer(String arg1) throws Throwable {
+	public void the_user_clicks_edit_trainer_for_trainer(String arg1)
+		throws Throwable {
 		for (int i = 1; i <= page.getTableRowsCount(); i++) {
 			if (page.getTableRowName(i).getText().equals(arg1)) {
-				//PagesUtil.dWait.until(ExpectedConditions.elementToBeClickable(page.getTableRow(i).findElement(By.className("pull-right")))).click();
-//				page.editTrainerButton(arg1).click();
+				// PagesUtil.dWait.until(ExpectedConditions.elementToBeClickable(page.getTableRow(i).findElement(By.className("pull-right")))).click();
+				// page.editTrainerButton(arg1).click();
 				return;
 			}
 		}
@@ -155,7 +165,8 @@ public class TrainerSteps {
 	}
 
 	@When("^The user clicks inactive on a trainer \"([^\"]*)\"$")
-	public void the_user_clicks_inactive_on_a_trainer(String arg1) throws Throwable {
+	public void the_user_clicks_inactive_on_a_trainer(String arg1)
+		throws Throwable {
 		page.inactiveTrainerButton(arg1).click();
 	}
 
@@ -168,8 +179,8 @@ public class TrainerSteps {
 	public void the_trainer_is_made_inactive(String arg1) throws Throwable {
 		driver.navigate().refresh();
 		for (int i = 1; i < page.getTableRowsCount(); i++) {
-			if (page.getTableRowName(i).getText().equals(arg1) 
-					&& page.getTableRowTier(i).getText().equals("ROLE_INACTIVE")) {
+			if (page.getTableRowName(i).getText().equals(arg1)
+				&& page.getTableRowTier(i).getText().equals("ROLE_INACTIVE")) {
 				Assert.assertTrue(true);
 			}
 		}

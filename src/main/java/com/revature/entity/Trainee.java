@@ -20,15 +20,17 @@ public class Trainee {
 	private String flagnotes;
 	private String flagauthoer;
 	private String flagtimestamp;
-	
+
 	public Trainee() {
 		super();
 	}
 
-	public Trainee(int traineeid, String resourceid, String name, String email, String trianingstatus, int batchid,
-			String phonenumber, String skypeid, String recruitername, String college, String degree, String major,
-			String techscreenername, int techscreenscore, String projectcompletion, String flagstatus, String flagnotes,
-			String flagauthoer, String flagtimestamp) {
+	public Trainee(int traineeid, String resourceid, String name, String email,
+		String trianingstatus, int batchid, String phonenumber, String skypeid,
+		String recruitername, String college, String degree, String major,
+		String techscreenername, int techscreenscore, String projectcompletion,
+		String flagstatus, String flagnotes, String flagauthoer,
+		String flagtimestamp) {
 		super();
 		this.traineeid = traineeid;
 		this.resourceid = resourceid;
@@ -205,8 +207,13 @@ public class Trainee {
 
 	@Override
 	public String toString() {
-		return this.getName() + " " + this.getEmail() + " " + this.getTrianingstatus() + " " + this.getPhonenumber() + " " + this.getSkypeid() + " " + this.getResourceid() + " " + this.getRecruitername() + " " + this.getCollege() + " " + this.getDegree() + "/"  + this.getMajor() + " " + this.getTechscreenername() + " " + this.getProjectcompletion();
-				
+		return this.getName() + " " + this.getEmail() + " "
+			+ this.getTrianingstatus() + " " + this.getPhonenumber() + " "
+			+ this.getSkypeid() + " " + this.getResourceid() + " "
+			+ this.getRecruitername() + " " + this.getCollege() + " "
+			+ this.getDegree() + "/" + this.getMajor() + " "
+			+ this.getTechscreenername() + " " + this.getProjectcompletion();
+
 	}
 
 	@Override
@@ -217,21 +224,31 @@ public class Trainee {
 		result = prime * result + ((college == null) ? 0 : college.hashCode());
 		result = prime * result + ((degree == null) ? 0 : degree.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((flagauthoer == null) ? 0 : flagauthoer.hashCode());
-		result = prime * result + ((flagnotes == null) ? 0 : flagnotes.hashCode());
-		result = prime * result + ((flagstatus == null) ? 0 : flagstatus.hashCode());
-		result = prime * result + ((flagtimestamp == null) ? 0 : flagtimestamp.hashCode());
+		result = prime * result
+			+ ((flagauthoer == null) ? 0 : flagauthoer.hashCode());
+		result =
+			prime * result + ((flagnotes == null) ? 0 : flagnotes.hashCode());
+		result =
+			prime * result + ((flagstatus == null) ? 0 : flagstatus.hashCode());
+		result = prime * result
+			+ ((flagtimestamp == null) ? 0 : flagtimestamp.hashCode());
 		result = prime * result + ((major == null) ? 0 : major.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((phonenumber == null) ? 0 : phonenumber.hashCode());
-		result = prime * result + ((projectcompletion == null) ? 0 : projectcompletion.hashCode());
-		result = prime * result + ((recruitername == null) ? 0 : recruitername.hashCode());
-		result = prime * result + ((resourceid == null) ? 0 : resourceid.hashCode());
+		result = prime * result
+			+ ((phonenumber == null) ? 0 : phonenumber.hashCode());
+		result = prime * result
+			+ ((projectcompletion == null) ? 0 : projectcompletion.hashCode());
+		result = prime * result
+			+ ((recruitername == null) ? 0 : recruitername.hashCode());
+		result =
+			prime * result + ((resourceid == null) ? 0 : resourceid.hashCode());
 		result = prime * result + ((skypeid == null) ? 0 : skypeid.hashCode());
-		result = prime * result + ((techscreenername == null) ? 0 : techscreenername.hashCode());
+		result = prime * result
+			+ ((techscreenername == null) ? 0 : techscreenername.hashCode());
 		result = prime * result + techscreenscore;
 		result = prime * result + traineeid;
-		result = prime * result + ((trianingstatus == null) ? 0 : trianingstatus.hashCode());
+		result = prime * result
+			+ ((trianingstatus == null) ? 0 : trianingstatus.hashCode());
 		return result;
 	}
 
@@ -249,77 +266,92 @@ public class Trainee {
 		if (college == null) {
 			if (other.college != null)
 				return false;
-		} else if (!college.equals(other.college))
+		}
+		else if (!college.equals(other.college))
 			return false;
 		if (degree == null) {
 			if (other.degree != null)
 				return false;
-		} else if (!degree.equals(other.degree))
+		}
+		else if (!degree.equals(other.degree))
 			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
-		} else if (!email.equals(other.email))
+		}
+		else if (!email.equals(other.email))
 			return false;
 		if (flagauthoer == null) {
 			if (other.flagauthoer != null)
 				return false;
-		} else if (!flagauthoer.equals(other.flagauthoer))
+		}
+		else if (!flagauthoer.equals(other.flagauthoer))
 			return false;
 		if (flagnotes == null) {
 			if (other.flagnotes != null)
 				return false;
-		} else if (!flagnotes.equals(other.flagnotes))
+		}
+		else if (!flagnotes.equals(other.flagnotes))
 			return false;
 		if (flagstatus == null) {
 			if (other.flagstatus != null)
 				return false;
-		} else if (!flagstatus.equals(other.flagstatus))
+		}
+		else if (!flagstatus.equals(other.flagstatus))
 			return false;
 		if (flagtimestamp == null) {
 			if (other.flagtimestamp != null)
 				return false;
-		} else if (!flagtimestamp.equals(other.flagtimestamp))
+		}
+		else if (!flagtimestamp.equals(other.flagtimestamp))
 			return false;
 		if (major == null) {
 			if (other.major != null)
 				return false;
-		} else if (!major.equals(other.major))
+		}
+		else if (!major.equals(other.major))
 			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name))
+		}
+		else if (!name.equals(other.name))
 			return false;
 		if (phonenumber == null) {
 			if (other.phonenumber != null)
 				return false;
-		} else if (!phonenumber.equals(other.phonenumber))
+		}
+		else if (!phonenumber.equals(other.phonenumber))
 			return false;
 		if (projectcompletion == null) {
 			if (other.projectcompletion != null)
 				return false;
-		} else if (!projectcompletion.equals(other.projectcompletion))
+		}
+		else if (!projectcompletion.equals(other.projectcompletion))
 			return false;
 		if (recruitername == null) {
 			if (other.recruitername != null)
 				return false;
-		} else if (!recruitername.equals(other.recruitername))
+		}
+		else if (!recruitername.equals(other.recruitername))
 			return false;
 		if (resourceid == null) {
 			if (other.resourceid != null)
 				return false;
-		} else if (!resourceid.equals(other.resourceid))
+		}
+		else if (!resourceid.equals(other.resourceid))
 			return false;
 		if (skypeid == null) {
 			if (other.skypeid != null)
 				return false;
-		} else if (!skypeid.equals(other.skypeid))
+		}
+		else if (!skypeid.equals(other.skypeid))
 			return false;
 		if (techscreenername == null) {
 			if (other.techscreenername != null)
 				return false;
-		} else if (!techscreenername.equals(other.techscreenername))
+		}
+		else if (!techscreenername.equals(other.techscreenername))
 			return false;
 		if (techscreenscore != other.techscreenscore)
 			return false;
@@ -328,11 +360,10 @@ public class Trainee {
 		if (trianingstatus == null) {
 			if (other.trianingstatus != null)
 				return false;
-		} else if (!trianingstatus.equals(other.trianingstatus))
+		}
+		else if (!trianingstatus.equals(other.trianingstatus))
 			return false;
 		return true;
 	}
-	
-	
 
 }
