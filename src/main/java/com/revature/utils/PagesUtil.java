@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.revature.page.AddTraineeModal;
 import com.revature.page.AssessBatchPage;
@@ -25,6 +26,7 @@ import com.revature.page.ShowTraineesModal;
 public class PagesUtil {
 
 	public static WebDriver driver = null;
+	public static WebDriverWait dWait;
 	public static AddTraineeModal addTraineeModal;
 	public static AssessBatchPage assessBatchPage;
 	public static CreateBatchModal createBatchModal;
@@ -53,6 +55,7 @@ public class PagesUtil {
 //		driver = new FirefoxDriver();
 		
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		dWait = new WebDriverWait(driver, 3);
 		
 		addTraineeModal = new AddTraineeModal(driver);
 		assessBatchPage = new AssessBatchPage(driver);
