@@ -98,7 +98,7 @@ public class TrainerSteps {
 	public void the_user_clicks_edit_trainer_for_trainer(String arg1) throws Throwable {
 		for (int i = 1; i <= page.getTableRowsCount(); i++) {
 			if (page.getTableRowName(i).getText().equals(arg1)) {
-				PagesUtil.dWait.until(ExpectedConditions.elementToBeClickable(page.getTableRow(i).findElement(By.className("pull-right")))).click();
+				//PagesUtil.dWait.until(ExpectedConditions.elementToBeClickable(page.getTableRow(i).findElement(By.className("pull-right")))).click();
 //				page.editTrainerButton(arg1).click();
 				return;
 			}

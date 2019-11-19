@@ -3,7 +3,6 @@ Feature: Assess Batch
 	Background: the user is on the assess batch tab
 		Given The user is on the Caliber2 home page
 		When the user clicks on assess batch
-		Then the user should be on the assess batch page
 		
 	Scenario Outline: find batch based on criteria
 		When the user clicks on the year dropdown
@@ -18,14 +17,14 @@ Feature: Assess Batch
 		Examples:
 		|year|quarter|criteria|traineename|
 		|2019|Q4|natalie|Saddiqi, Joseph|
-		|2019|Q4|church|Saddiqi, Joseph|
-		|2019|Q4|java|Tyrone Lopez|
-		|2019|Q4|dan|Martin, Andrew|
-		|2019|Q4|pickles|Martin, Andrew|
-		|2019|Q4|pega|Martin, Andrew|
-		|2018|Q3|shelby|Prithi Kransodar|
-		|2018|Q3|levinson|Prithi Kransodar|
-		|2018|Q3|java|Prithi Kransodar|
+#		|2019|Q4|church|Saddiqi, Joseph|
+#		|2019|Q4|java|name, Test|
+#		|2019|Q4|dan|Martin, Andrew|
+#		|2019|Q4|pickles|Martin, Andrew|
+#		|2019|Q4|pega|Martin, Andrew|
+#		|2018|Q3|shelby|Prithi Kransodar|
+#		|2018|Q3|levinson|Prithi Kransodar|
+#		|2018|Q3|java|Prithi Kransodar|
 		
 	Scenario: select a week to view and assess
 		Given the user is on a specific batch page

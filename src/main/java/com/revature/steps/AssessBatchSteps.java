@@ -19,13 +19,6 @@ public class AssessBatchSteps {
 	public static AssessBatchPage batchpage = PagesUtil.assessBatchPage;
 	public static WebDriver driver = PagesUtil.driver;
 
-	@Then("^the user should be on the assess batch page$")
-	public void the_user_should_be_on_the_assess_batch_page() throws Throwable {
-		driver.get("http://caliber-2-dev.revaturelabs.com.s3-website-us-east-1.amazonaws.com/caliber/vp/home");
-		navbar.assessbatch.click();
-		Assert.assertEquals("http://caliber-2-dev.revaturelabs.com.s3-website-us-east-1.amazonaws.com/caliber/vp/assess", driver.getTitle());
-	}
-
 	@When("^the user clicks on the year dropdown$")
 	public void the_user_clicks_on_the_year_dropdown() throws Throwable {
 	    batchpage.getYearDropdown().click();
@@ -58,12 +51,12 @@ public class AssessBatchSteps {
 
 	@When("^the user clicks on the first displayed result$")
 	public void the_user_clicks_on_the_first_displayed_result() throws Throwable {
-	    batchpage.getSelectedBatch();
+	    batchpage.selectBatch("");
 	}
 
 	@Then("^the page should display information for \"([^\"]*)\"$")
 	public void the_page_title_should_display_information_for(String arg1) throws Throwable {
-		Assert.assertEquals(arg1, batchpage.getTrainerName(1));
+		Assert.assertEquals(arg1, batchpage.getTrainerName(0).getText());
 	}
 
 	@Given("^the user is on a specific batch page$")
@@ -71,10 +64,10 @@ public class AssessBatchSteps {
 		batchpage.getYearDropdown().click();
 		batchpage.selectYear("2018");
 		batchpage.getQuarterDropdown().click();
-		batchpage.selectQuarter("Q3");
+		batchpage.selectQuarter("Q4");
 		batchpage.getBatchesDropdown().click();
-		batchpage.getBatchSearchBar().sendKeys("Ravi Singh");
-		batchpage.getSelectedBatch();
+		batchpage.getBatchSearchBar().sendKeys("Ravi");
+		batchpage.selectBatch("");
 	}
 
 	@When("^the user clicks on a specific week$")
@@ -99,7 +92,7 @@ public class AssessBatchSteps {
 
 	@Then("^a new week should be displayed on the batch page$")
 	public void a_new_week_should_be_displayed_on_the_batch_page() throws Throwable {
-	    Assert.assertEquals(batchpage.getWeeksContainer().findElement(By.tagName("b")).getText(), "Week 6");
+	    Assert.assertEquals(batchpage.getWeeksContainer().findElement(By.tagName("a")).getText(), "Week 6");
 	}
 
 	@When("^the user clicks create assessment$")
@@ -109,8 +102,8 @@ public class AssessBatchSteps {
 
 	@When("^the user fills out assessment information$")
 	public void the_user_fills_out_assessment_information() throws Throwable {
-	    batchpage.selectCreateAssessmentType(1);
-	    batchpage.getAssessmentPercent(1).click();
+	    batchpage.selectCreateAssessmentType(0);
+	    batchpage.getAssessmentPercent(0).click();
 	    batchpage.getCategoriesUpdateDropdown();
 	}
 
@@ -142,14 +135,14 @@ public class AssessBatchSteps {
 		batchpage.getQuarterDropdown().click();
 		batchpage.selectQuarter("Q1");
 		batchpage.getBatchesDropdown().click();
-		batchpage.getBatchSearchBar().sendKeys("Jake Smith");
-		batchpage.getSelectedBatch();
+		batchpage.getBatchSearchBar().sendKeys("Jake");
+		batchpage.selectBatch("");
 	}
 
 	@When("^the user changes an assessment grade for a specific associate$")
 	public void the_user_changes_an_assessment_grade_for_a_specific_associate() throws Throwable {
-	    batchpage.getUpdateAssessmentButton(1);
-	    batchpage.selectUpdateAssessmentType(1);
+	    batchpage.getUpdateAssessmentButton(0);
+	    batchpage.selectUpdateAssessmentType(0);
 	}
 
 	@Then("^the statistics at the bottom of the page should update correctly$")
@@ -162,10 +155,10 @@ public class AssessBatchSteps {
 		batchpage.getYearDropdown().click();
 		batchpage.selectYear("2018");
 		batchpage.getQuarterDropdown().click();
-		batchpage.selectQuarter("Q3");
+		batchpage.selectQuarter("Q4");
 		batchpage.getBatchesDropdown().click();
-		batchpage.getBatchSearchBar().sendKeys("Ravi Singh");
-		batchpage.getSelectedBatch();
+		batchpage.getBatchSearchBar().sendKeys("Ravi");
+		batchpage.selectBatch("");
 	}
 
 	@When("^the user clicks save changes$")

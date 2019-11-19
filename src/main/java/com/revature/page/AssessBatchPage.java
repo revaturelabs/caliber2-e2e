@@ -47,7 +47,7 @@ public class AssessBatchPage {
 	
 	// Quarter
 	public WebElement getQuarterDropdown() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-toolbar-quaters-dropdown"))).findElement(By.tagName("a"));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-toolbar-quarters-dropdown"))).findElement(By.tagName("a"));
 	}
 	
 	public WebElement getSelectedQuarter() {
@@ -59,14 +59,14 @@ public class AssessBatchPage {
 	}
 	
 	public void selectQuarter(String quarter) {
-		WebElement container = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("shared-dropdown-menu-dropdown-container")));
-		
-		for (WebElement element : container.findElements(By.tagName("a"))) {
-			if (element.getText().contains(quarter)) {
-				element.click();
-				return;
-			}
-		}
+		WebElement container = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("shared-dropdown-menu-"+quarter+"")));
+		container.click();
+//		for (WebElement element : container.findElements(By.tagName("a"))) {
+//			if (element.getText().contains(quarter)) {
+//				element.click();
+//				return;
+//			}
+//		}
 	}
 	
 	// Batch #
@@ -85,10 +85,13 @@ public class AssessBatchPage {
 		WebElement container = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-dropdown-list")));
 		
 		for (WebElement element : container.findElements(By.tagName("a"))) {
-			if (element.getText().contains(batch)) {
-				element.click();
-				return;
-			}
+			element.click();
+			return;
+			
+//			if (element.getText().contains(batch)) {
+//				element.click();
+//				return;
+//			}
 		}
 	}
 	
@@ -186,7 +189,7 @@ public class AssessBatchPage {
 	}
 	
 	public WebElement getAddWeekButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("shared-week-selector-addweek")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("shared-week-selector-addweek")));
 	}
 	
 	// Add Week Window
