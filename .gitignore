@@ -35,3 +35,4 @@ build/
 *.json
 *.html
 *.exe
+target/classes/META-INF/MANIFEST.MF

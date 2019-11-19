@@ -19,16 +19,19 @@ public class SettingsLocationsPage {
 		wait = new WebDriverWait(driver, 3);
 	}
 	
-	@FindBy(id="locationspage-component-displayaddlocationmodal")
-	public WebElement createLocationButton;
+	public WebElement createLocationButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("locationspage-component-displayaddlocationmodal")));
+
+	}
 	
 	public WebElement getTableRow(int rowNumber) {
-		return driver.findElement(By.xpath("//table[@id='locationspage-component-locations-table']/tr["+rowNumber+"]"));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='locationspage-component-locations-table']//tr["+rowNumber+"]")));
 	}
 	
 	public WebElement getTableData(int columnNumber, WebElement row){
 		return row.findElement(By.xpath("//td["+columnNumber+"]"));
 	}
+	
 	
 	//Create Location Modal**********************************
 	
@@ -37,15 +40,15 @@ public class SettingsLocationsPage {
 	}
 	
 	public WebElement inputLocationStreet() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addLocationModal']//input[@id='locationCity']")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addLocationModal']//input[@placeholder='Enter Street Address']")));
 	}
 	
 	public WebElement inputCity() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addLocationModal']//input[@id='locationStreet']")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addLocationModal']//input[@placeholder='Enter City']")));
 	}
 	
 	public WebElement stateDropdown() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addLocationModal']//input[@id='locationState']")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='addLocationModal']//select[@id='locationState']")));
 	}
 	
 	public WebElement chooseStateByStateAbrv(String stateAbrv) {
@@ -76,19 +79,19 @@ public class SettingsLocationsPage {
 	}
 	
 	public WebElement inputEditLocationStreet() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editLocationModal']//input[@id='locationCity']")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editLocationModal']//input[@placeholder='Enter Street Address']")));
 	}
 	
 	public WebElement inputEditCity() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editLocationModal']//input[@id='locationStreet']")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editLocationModal']//input[@placeholder='Enter City']")));
 	}
 	
 	public WebElement stateEditDropdown() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editLocationModal']//input[@id='locationState']")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editLocationModal']//select[@id='locationState']")));
 	}
 	
 	public WebElement chooseEditStateByStateAbrv(String stateAbrv) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("locationspage-editLocationModal-"+stateAbrv+"option")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("locationspage-editlocationmodal-"+stateAbrv+"option")));
 	}
 	public WebElement chooseEditNthState(int n) {
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='editLocationModal']//select[@id='locationState']//option["+n+"]")));
@@ -110,7 +113,7 @@ public class SettingsLocationsPage {
 	//Change Location Status Modal*****************************************************************
 	
 	public WebElement deactivateLocationButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("location-disablelocation-updatelocation-Deactivate")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='btn btn-lg btn-danger']")));
 	}
 	
 	public WebElement cancelDeleteButton() {
@@ -118,7 +121,7 @@ public class SettingsLocationsPage {
 	}
 	
 	public WebElement reactivateLocationButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("location-disablelocation-updatelocation-Reactivate")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='btn btn-lg btn-danger']")));
 	}
 
 }
