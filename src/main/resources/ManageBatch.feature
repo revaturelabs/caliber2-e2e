@@ -6,15 +6,15 @@ Feature: Manage Batch
 	Scenario Outline: Create Batch
 		When The user clicks on create batch
 		And The user fills in training name "<trainingName>"
-		And The user selects training type "<trainingType>"
-		And The user selects skill type "<skillType>"
-		And the user selects location "<location>"
-		And The user selects trainer "<trainer>" 
-		And The user selects co-trainer "<co-trainer>"
-		And The user fills in startdate "<startDate>" 
-		And The user fills in end date"<endDate>"
-		And the user fills in good grades"<goodGrade>"
-		And The user fills in passing grades"<passingGrade>"
+		And The user selects training type <trainingType>
+		And The user selects skill type <skillType>
+		And the user selects location <location>
+		And The user selects trainer <trainer>
+		And The user selects co-trainer <co-trainer>
+		And The user fills in startdate <startDate>
+		And The user fills in end date <endDate>
+		And the user fills in good gradesm <goodGrade>
+		And The user fills in passing grades <passingGrade>
 		Then The newly created batch should reflect the information given
 
 			Examples:
