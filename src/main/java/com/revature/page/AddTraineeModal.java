@@ -56,7 +56,7 @@ public class AddTraineeModal {
 	}
 	
 	public WebElement trainingStatusDropdownNthOption(int n) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='trainingStatus]//option["+n+"]")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"trainingStatus\"]/option["+n+"]")));
 	}
 	
 	public WebElement trainingStatusDropdownOptionByName(String option) {
