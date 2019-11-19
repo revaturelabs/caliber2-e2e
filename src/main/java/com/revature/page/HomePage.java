@@ -22,17 +22,22 @@ public class HomePage {
 		wait = new WebDriverWait(driver, 3);
 	}
 	
-	@FindBy(id="last-quality-audit-panel")
-	public WebElement lastQAContainer;
+	public WebElement getLastQAcontainer() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("last-quality-audit-panel")));
+	}
 	
-	@FindBy(id="home-toolbar-state-select")
-	public WebElement lastQAStateDropdown;
+	public WebElement getLastQAstateDropdown() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("home-toolbar-state-select")));
+	}
 	
-	@FindBy(id="last-quality-audit-graph-base-chart-canvas")
-	public WebElement lastQACanvas;
+	public WebElement getLastQAcanvas() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("last-quality-audit-graph-base-chart-canvas")));
+	}
 	
-	@FindBy(id="lastQATable")
-	public WebElement lastQATable;
+	public WebElement getLastQAtable() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lastQATable")));
+	}
+
 
 	public WebElement getCityDropdown() {
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("home-toolbar-city-select")));
@@ -42,9 +47,9 @@ public class HomePage {
 		Select select = new Select(getCityDropdown());
 		select.selectByVisibleText(city);
 	}
-	
+	//*[@id="home-toolbar-city-select"]/option[2]
 	public void selectLastQAState (String state){
-		Select select = new Select(lastQAStateDropdown);
+		Select select = new Select(getLastQAstateDropdown());
 		select.selectByVisibleText(state);
 	}
 	/**
@@ -52,7 +57,7 @@ public class HomePage {
 	 * if the name matches the trainer we are looking for, return the row. else return null
 	 */
 	public WebElement lastQARowByTrainer(String trainer) {
-		for(WebElement elem : this.lastQATable.findElements(By.tagName("tr"))){
+		for(WebElement elem : this.getLastQAtable().findElements(By.tagName("tr"))){
 			if(elem.findElement(By.tagName("th")).getText().contains(trainer)) {
 				return elem;
 			}
@@ -82,11 +87,12 @@ public class HomePage {
 		}
 	}
 	
-	@FindBy(id="pill-box-container")
-	public WebElement weeksContainer;
+	public WebElement getWeeksContainer() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("pill-box-container")));
+	}
 	
 	public WebElement getWeekByIndex(int weekIndex) {
-		return this.weeksContainer.findElements(By.tagName("app-pill")).get(weekIndex);
+		return this.getWeeksContainer().findElements(By.tagName("app-pill")).get(weekIndex);
 	}
 	
 	/**
@@ -94,7 +100,7 @@ public class HomePage {
 	 * if the found number matches what we are looking for return the pill, else return null
 	 */
 	public WebElement getWeekByWeekNumber(int week) {
-		for(WebElement elem: this.weeksContainer.findElements(By.tagName("app-pill"))) {
+		for(WebElement elem: this.getWeeksContainer().findElements(By.tagName("app-pill"))) {
 			if(Integer.parseInt(elem.findElement(By.className("pillContent")).getText().split(" ")[1])==week) {
 				return elem;
 			}
@@ -102,15 +108,16 @@ public class HomePage {
 		return null;
 	}
 	
-	@FindBy(id="missing-grades-list-table")
-	public WebElement missingGradesTable;
+	public WebElement getMissingGradesTable() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("missing-grades-list-table")));
+	}
 	
 	/**
 	 * iterate through rows in the table, checking the first td where the trainer name is stored
 	 * if the name matches the trainer we are looking for, return the row. else return null
 	 */
 	public WebElement getMissingGradeRowByTrainer(String trainer) {
-		for(WebElement elem : this.missingGradesTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"))) {
+		for(WebElement elem : this.getMissingGradesTable().findElement(By.tagName("tbody")).findElements(By.tagName("tr"))) {
 			if(elem.findElement(By.tagName("td")).getText().contains(trainer)) {
 				return elem;
 			}
@@ -120,7 +127,7 @@ public class HomePage {
 	
 	public List<WebElement> getMissingGradeRows() {
 		try {
-			return this.missingGradesTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+			return this.getMissingGradesTable().findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
 		} catch (Exception e) { // Empty table
 			return null;
 		}
