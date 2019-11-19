@@ -46,7 +46,7 @@ Feature: On Caliber 2 homepage
 	Scenario Outline: The user adds a week
 		When The user removes all weeks
 		When The user clicks the include weeks button
-		When The user selects a week "<Week>"
+		When The user clicks a week "<Week>"
 		Then The table is updated plus week "<Week>"
 		
 		Examples:

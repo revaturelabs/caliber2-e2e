@@ -1,8 +1,12 @@
 package com.revature.runner;
 
 import com.revature.app.Caliber2E2eApplication;
+import com.revature.utils.PagesUtil;
+
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+
+import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
