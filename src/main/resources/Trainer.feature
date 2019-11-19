@@ -73,4 +73,3 @@ Feature: caliber 2 trainer page
 		|listed_name|trainer_role|trainer_role|
 		|temp|ROLE_TRAINER|ROLE_TRAINER|		
 		
-		

@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.revature.page.AddTraineeModal;
 import com.revature.page.AssessBatchPage;
@@ -26,7 +25,6 @@ import com.revature.page.ShowTraineesModal;
 public class PagesUtil {
 
 	public static WebDriver driver = null;
-	public static WebDriverWait dWait = null;
 	public static AddTraineeModal addTraineeModal;
 	public static AssessBatchPage assessBatchPage;
 	public static CreateBatchModal createBatchModal;
@@ -48,13 +46,11 @@ public class PagesUtil {
 		File file = new File("chromedriver.exe");
 		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
 		driver = new ChromeDriver();
-		dWait = new WebDriverWait(driver, 3);
 		
 //		Firefox driver
 //		File file = new File("geckodriver.exe");
 //		System.setProperty("webdriver.gecko.driver", file.getAbsolutePath());
 //		driver = new FirefoxDriver();
-//		dWait = new WebDriverWait(driver, 3);
 		
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		
@@ -75,11 +71,11 @@ public class PagesUtil {
 		traineesModal = new ShowTraineesModal(driver);
 	}
 	
-	
-	@Override
-	public void finalize() {
+	public static void closeDriver() {
 		if(driver != null) {
 			driver.quit();
+			driver = null;
 		}
 	}
 }
+

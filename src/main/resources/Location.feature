@@ -9,15 +9,15 @@ Feature: using the Caliber 2 Location Page
 		When The user types "<company>" into Company Name
 		When The user types "<address>" into Street Address
 		When The user types "<city>" into City
-		When The user clicks on the State dropdown menu
+		When The user clicks on the Add State dropdown menu
 		When The user selects "<state>"
 		When The user types "<zip>" into Zipcode
 		When The user clicks Save
-		Then The location is added to the list of locations
+		Then The location named "<company>" is added to the list of locations
 		
 		Examples:
 		|company|address|city|state|zip|
-		|Test Loc|1234 Testing St||WY|13579|
+		|Test Loc|1234 Testing St|Cheyanne|WY|13579|
 		
 	Scenario Outline: The Edit Location modal is populated
 		When The user clicks on edit location for row <rowNum>
@@ -34,19 +34,20 @@ Feature: using the Caliber 2 Location Page
 		
 	Scenario Outline: The user modifies location Name
 		When The user clicks on edit location for row <rowNum>
-		When The user types "<company>" into Company Name
-		When The user clicks Save
-		Then The location at row <rowNum> is updated with "<company>"
+		When The user types "<company>" into edit Company Name
+		When The user clicks Save edit
+		Then The name field for the location at row <rowNum> is updated with "<company>"
+
 		Examples:
 		|rowNum|company|
 		|1|Nintendo|
-		|1||Sony|
+		|1|Sony|
 		
 	Scenario Outline: The user modifies location Address
 		When The user clicks on edit location for row <rowNum>
-		When The user types "<address>" into Street Address
-		When The user clicks Save
-		Then The location at row <rowNum> is updated with "<address>"
+		When The user types "<address>" into edit Street Address
+		When The user clicks Save edit
+		Then The address field for the location at row <rowNum> is updated with "<address>"
 		
 		Examples:
 		|rowNum|address|
@@ -55,9 +56,9 @@ Feature: using the Caliber 2 Location Page
 	
 	Scenario Outline: The user modifies location City
 		When The user clicks on edit location for row <rowNum>
-		When The user types "<city>" into City
-		When The user clicks Save
-		Then The location at row <rowNum> is updated with "<city>"
+		When The user types "<city>" into edit City
+		When The user clicks Save edit
+		Then The city field for the location at row <rowNum> is updated with "<city>"
 		
 		Examples:
 		|rowNum|city|
@@ -66,10 +67,10 @@ Feature: using the Caliber 2 Location Page
 		
 	Scenario Outline: The user modifies location State
 		When The user clicks on edit location for row <rowNum>
-		When The user clicks on the State dropdown menu
-		When The user selects "<state>"
-		When The user clicks Save
-		Then The location at row <rowNum> is updated with "<state>"
+		When The user clicks on the Edit State dropdown menu
+		When The user selects "<state>" edit
+		When The user clicks Save edit
+		Then The state field for the location at row <rowNum> is updated with "<state>"
 		
 		Examples:
 		|rowNum|state|
@@ -78,9 +79,9 @@ Feature: using the Caliber 2 Location Page
 		
 	Scenario Outline: The user modifies location Zipcode
 		When The user clicks on edit location for row <rowNum>
-		When The user types "<zip>" into Zipcode
-		When The user clicks Save
-		Then The location at row <rowNum> is updated with "<zip>"
+		When The user types "<zip>" into edit Zipcode
+		When The user clicks Save edit
+		Then The zipcode field for the location at row <rowNum> is updated with "<zip>"
 		
 		Examples:
 		|rowNum|zip|
@@ -88,13 +89,14 @@ Feature: using the Caliber 2 Location Page
 		|1|98765|
 		
 		
-	Scenario: The user makes a location inactive
-		When The user clicks on make inactive for first active location
-		When The user clicks Reactivate
-		Then The location is made inactive
+	Scenario: The user makes a location inactive or active
+		When The user clicks on make inactive or make active for first location
+		When The user clicks Reactivate or Deactivate
+		Then The location is made inactive or active
 		
-	Scenario: The user makes a location active
-		When The user clicks on make active for first inactive location
-		When The user clicks Delete
-		Then The location is made active
+	Scenario: The user makes a location inactive or active
+		When The user clicks on make inactive or make active for first location
+		When The user clicks Reactivate or Deactivate
+		Then The location is made inactive or active
 		
+

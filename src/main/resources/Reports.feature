@@ -28,7 +28,7 @@ Scenario Outline:  Select Week to view reports
 	Examples:
 	|year|batch|entries|
 	|2020|Natalie Church - Full Stack Java/JEE - 11/9/2019|4|
-	|2019|Dan Pickles - PEGA BPM - 10/7/2019|8|
+	|2019|Dan Pickles - PEGA BPM - 10/7/2019|9|
 	|2018|James K - Full Stack Java/JEE - 7/9/2018|10|
 	
 Scenario Outline: Selecting All trainees and all weeks
@@ -37,6 +37,8 @@ Scenario Outline: Selecting All trainees and all weeks
 	And The user selects all trainees
 	And The user selects all weeks
 	Then The dashboard will populate information
+	And The table should have the correct number of week columns
+	And All cells should have an icon
 	
 	Examples:
 	|year|batch|
