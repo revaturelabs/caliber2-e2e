@@ -68,7 +68,7 @@ public class LocationSteps {
 
 	@When("^The user clicks on edit location for row (\\d+)$")
 	public void the_user_clicks_on_edit_location_for_row(int arg1) throws Throwable {
-	    WebElement row = lc.getTableRow(arg1+1);
+	    WebElement row = lc.getTableRow(arg1);
 	    //The fourth column is the edit button
 	    lc.getTableData(4,row).findElement(By.id("locationspage-locationrow-displaylocationeditmodal")).click();
 	    
@@ -142,11 +142,12 @@ public class LocationSteps {
 	@When("^The user clicks Save edit$")
 	public void the_user_clicks_Save_edit() throws Throwable {
 	    lc.saveEditLocationButton().click();
+	    Thread.sleep(1000);
 	}
 
 	@Then("^The name field for the location at row (\\d+) is updated with \"([^\"]*)\"$")
 	public void the_name_field_for_the_location_at_row_is_updated_with(int arg1, String arg2) throws Throwable {
-		WebElement row = lc.getTableRow(arg1+1);
+		WebElement row = lc.getTableRow(arg1);
 		String actualName = lc.getTableData(2, row).getText();
 		Assert.assertEquals(arg2, actualName);
 	}
