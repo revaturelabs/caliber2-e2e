@@ -14,8 +14,6 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(Cucumber.class)
-
-
 @CucumberOptions(features = "src/main/resources/Location.feature", glue = "com.revature.steps",plugin = {"pretty", "json:./cucumber.json"})
 //@CucumberOptions(features = "classpath:", glue = "com.revature.steps",plugin = {"pretty", "json:./cucumber.json"})
 public class ChromeRunner {

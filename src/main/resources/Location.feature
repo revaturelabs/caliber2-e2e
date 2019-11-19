@@ -37,6 +37,7 @@ Feature: using the Caliber 2 Location Page
 		When The user types "<company>" into edit Company Name
 		When The user clicks Save edit
 		Then The name field for the location at row <rowNum> is updated with "<company>"
+
 		Examples:
 		|rowNum|company|
 		|1|Nintendo|
