@@ -13,7 +13,7 @@ Feature: On Caliber 2 homepage
 		|MI|MI|
 		|FL|FL|
 		
-	Scenario Outline: The user is viewing the A given State
+	Scenario Outline: The user is viewing the given State
 		When The user clicks on the States dropdown
 		When The user clicks on state "<State>"		
 		When The user clicks on the Cities dropdown
@@ -27,7 +27,7 @@ Feature: On Caliber 2 homepage
 		|FL|Tampa|Tampa|
 
 	Scenario Outline: The user removes a week
-		When The user removes a week "<Week>"
+		When The user removes week "<Week>"
 		Then The table is updated minus week "<Week>"
 		
 		Examples:
