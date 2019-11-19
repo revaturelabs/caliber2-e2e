@@ -151,7 +151,7 @@ public class ManageBatchSteps
 	}
 
 	@When("^The user inputs json \"([^\"]*)\" into paste JSON field$")
-	public void the_user_inputs_json_into_paste_JSON_field(String arg1) //////////////////////////////////
+	public void the_user_inputs_json_into_paste_JSON_field(String arg1) 
 	{
 		String file = "src/main/resources/" + arg1;
 	    try
@@ -164,7 +164,7 @@ public class ManageBatchSteps
 	    		text.append(scan.next());
 	    	}
 	    	mbp.inputBatchJSON().sendKeys(text);
-	    	
+	    	scan.close();
 		} 
 	    catch (FileNotFoundException e1) 
 	    {
@@ -199,18 +199,8 @@ public class ManageBatchSteps
 		
 	}
 
-	@When("^The user selects year (\\d+) in drop down$")
-	public void the_user_selects_year_in_drop_down(int arg1) {
-	 //  mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), arg1).click();
-	    
-	    driver.findElement(By.id("shared-dropdown-menu-dropdown-container")).click();
-	    String elementid = "shared-dropdown-menu-" + 2019;
-	    driver.findElement(By.id(elementid)).click();
-	   
-	}
-
-	@Then("^The batch list displays result \"([^\"]*)\" that match$")
-	public void the_batch_list_displays_result_that_match(String arg1) {
+	@When("^The user clicks show trainees in batch \"([^\"]*)\" for create trainee$")
+	public void the_user_clicks_show_trainees_in_batch_for_create_trainee(String arg1)  {
 		WebElement info = mbp.manageBatchTable;
 		List<WebElement> table = info.findElements(By.className("batch-row"));
 		for(int i = 1; i <= table.size(); i++)
@@ -220,62 +210,15 @@ public class ManageBatchSteps
 			
 			if(match[0].equals(arg1))
 			{//found in the table
-				Assert.assertTrue(true);
-				return;
+				mbp.showTraineesButtonForRow(table.get(i)).click();;
 			}
 			
-		}
-		Assert.fail();
-		
-		
-	}
-
-	@When("^The user selects year  (\\d+) in drop down for show trainees$")
-	public void the_user_selects_year_in_drop_down_for_show_trainees(int arg1){
-		 mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), arg1).click();
-	}
-
-	@When("^The user clicks show trainees in batch \"([^\"]*)\" for show trainees$")
-	public void the_user_clicks_show_trainees_in_batch_for_show_trainees(String arg1){
-		List<WebElement> listElements = mbp.manageBatchTable.findElements(By.className("batch-row"));
-		for(WebElement rows: listElements)
-		{
-			if(rows.getText() == arg1)
-			{
-				mbp.showTraineesButtonForRow(rows).click();
-			}
-		}
-		
-	}
-
-	@Then("^Result \"([^\"]*)\" is displayed$")
-	public void result_is_displayed(String arg1) {
-	    if(driver.findElement(By.className("ng-star-inserted")).isDisplayed())
-	    {
-	    	Assert.assertTrue(true);
-	    }
-	}
-
-	@When("^The user selectss year <year> in drop down$")
-	public void the_user_selectss_year_year_in_drop_down(){
-		mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), 1).click();
-	}
-
-	@When("^The user clicks show trainees in batch \"([^\"]*)\" for create trainee$")
-	public void the_user_clicks_show_trainees_in_batch_for_create_trainee(String arg1)  {
-		List<WebElement> listElements = mbp.manageBatchTable.findElements(By.className("batch-row"));
-		for(WebElement rows: listElements)
-		{
-			if(rows.getText() == arg1)
-			{
-				mbp.showTraineesButtonForRow(rows).click();
-			}
 		}
 	}
 
 	@When("^The user clicks add trainee$")
 	public void the_user_clicks_add_trainee() throws Throwable {
-	  driver.findElement(By.xpath("//*[@id=\"add-trainee-button\"]/a")).click();
+		mbp.addTraineeButton().click();
 	}
 
 	@When("^The user inputs first name\"([^\"]*)\" in the first name field$")
@@ -350,12 +293,12 @@ public class ManageBatchSteps
 
 	@Then("^Result  \"([^\"]*)\" is displayed in trainee list$")
 	public void result_is_displayed_in_trainee_list(String arg1)  {////////////////////////////////////////////////////////
-	    
-	}
-
-	@Given("^The user selects a year (\\d+) in drop down for show in different batch$")
-	public void the_user_selects_a_year_in_drop_down_for_show_in_different_batch(int arg1)  {
-		mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), arg1).click();
+	  List<WebElement> table = mbp.getTraineesTable().findElements(By.tagName("tr"));
+	  for(int i = 1; i <= table.size(); i++)
+	  {
+		  System.out.println(table.get(i).toString());
+	  }
+	  
 	}
 
 	@Given("^The user clicks show trainees in original batch \"([^\"]*)\"$")
@@ -407,12 +350,6 @@ public class ManageBatchSteps
 	   
 	}
 
-	@Given("^The user selects a year (\\d+) in drop down$")
-	public void the_user_selects_a_year_in_drop_down(int arg1) {
-		mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), arg1).click();
-	}
-
-	
 	@Given("^The user clicks show trainees in  batch (\\d+) for edit trainee$")
 	public void the_user_clicks_show_trainees_in_batch_for_edit_trainee(int arg1) {
 		WebElement batch = mbp.getManageBatchTableRow(arg1);
@@ -447,11 +384,6 @@ public class ManageBatchSteps
 	   
 	}
 
-	@Given("^The user selects a year (\\d+) in drop down for edit trainee status$")
-	public void the_user_selects_a_year_in_drop_down_for_edit_trainee_status(int arg1)  {
-		mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), arg1).click();
-	}
-
 	@Given("^The user clicks show trainees in batch  (\\d+) for edit trainee status$")
 	public void the_user_clicks_show_trainees_in_batch_for_edit_trainee_status(int arg1) {
 		WebElement row = mbp.getManageBatchTableRow(arg1);
@@ -467,11 +399,6 @@ public class ManageBatchSteps
 	public void the_trainee_training_status_field_should_match_contents(String arg1, String arg2) throws Throwable {//////////////////////////////////////
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
-	}
-
-	@Given("^The user selects a year (\\d+) in drop down for remove trainee$")
-	public void the_user_selects_a_year_in_drop_down_for_remove_trainee(int arg1) {
-		mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), arg1).click();
 	}
 
 	@Given("^The user clicks show trainees in batch batch (\\d+)$")
@@ -511,11 +438,6 @@ public class ManageBatchSteps
 	   
 	}
 
-	@Given("^The user selects a year (\\d+) in drop down for edit batch by text$")
-	public void the_user_selects_a_year_in_drop_down_for_edit_batch_by_text(int arg1) {
-		mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), arg1).click();
-	}
-
 	@When("^user click on the edit batch button on batch (\\d+)$")
 	public void user_click_on_the_edit_batch_button_on_batch(int arg1) {
 		WebElement row = mbp.getManageBatchTableRow(arg1);
@@ -528,20 +450,10 @@ public class ManageBatchSteps
 	    throw new PendingException();
 	}
 
-	@Given("^The user selects a year (\\d+) in drop down for edit batch by selection$")
-	public void the_user_selects_a_year_in_drop_down_for_edit_batch_by_selection(int arg1) throws Throwable {
-		mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), arg1).click();
-	}
-
 	@When("^The user selects contents \"([^\"]*)\" in field \"([^\"]*)\" dropdown$")
 	public void the_user_selects_contents_in_field_dropdown(String arg1, String arg2) throws Throwable {////////////////////////////////////////
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
-	}
-
-	@Given("^The user selects a year (\\d+) in drop down for delete batch$")
-	public void the_user_selects_a_year_in_drop_down_for_delete_batch(int arg1) {
-		mbp.getItemByItemNumber(mbp.getDropdownSelectYearContainer(), arg1).click();
 	}
 
 	@When("^The user clicks the delete batch button on batch (\\d+)$")
