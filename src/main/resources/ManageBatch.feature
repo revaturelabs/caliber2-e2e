@@ -66,6 +66,8 @@ Feature: Manage Batch
 		
 		Examples:
 		|originalBatch|trainee|newBatch|
+		|Extreme Training|name, Test|GCP|
+		|GCP|name, Test|Extreme Training|
 		
 		
 	Scenario Outline: Edit trainee data
@@ -89,8 +91,8 @@ Feature: Manage Batch
 		
 		 Examples:
 		 |batch|trainee|fName|lName|email|phoneNumber|trainingStatus|skypeId|college|degree|major|recruiter|profileURL|techScreener|projectCompletion|
-	
-		
+		 |Extreme Training|name, Test|newFName|newLName|newEmail@email.com|3|newSkypeID|newCollege|newDegree|newMajor|newrecruiter|newURL.com|newTechScreener|newProjectCompletion|
+		 |Extreme Training|newLName, newFName|Test|name|emailTest@test.com|2|numberskype|my college|degree f|computer|major tom|thisisaurl.com|techtalk|today|
 	Scenario Outline: Remove trainee
 		When The user clicks show trainees in batch "<batch>" for remove trainee
 		And The user clicks remove trainee button on trainee "<trainee>"
@@ -100,6 +102,7 @@ Feature: Manage Batch
 		
 		Examples:
 		|batch|trainee|
+		|Extreme Training|name, Test|
 		
 	Scenario Outline: Edit batch details fields by text entry
 		When user click on the edit batch button on "<batch>"
@@ -128,6 +131,7 @@ Feature: Manage Batch
 		
 		Examples:
 		|batch|
+		|Extreme Training|
 	
 	
 	
