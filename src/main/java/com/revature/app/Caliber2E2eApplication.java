@@ -124,7 +124,7 @@ public class Caliber2E2eApplication {
 
 		// generate html
 		String webPage = Generator.toWebPage(parsed);
-		File output = new File("test.html");
+		File output = new File("results.html");
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(output);
