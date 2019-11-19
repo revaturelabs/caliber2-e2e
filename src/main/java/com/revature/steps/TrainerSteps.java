@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class TrainerSteps {
 
@@ -108,8 +109,11 @@ public class TrainerSteps {
 		throws Throwable {
 		for (int i = 1; i <= page.getTableRowsCount(); i++) {
 			if (page.getTableRowName(i).getText().equals(arg1)) {
-				// PagesUtil.dWait.until(ExpectedConditions.elementToBeClickable(page.getTableRow(i).findElement(By.className("pull-right")))).click();
-				// page.editTrainerButton(arg1).click();
+				PagesUtil.dWait.until(
+					ExpectedConditions.elementToBeClickable(page.getTableRow(i)
+						.findElement(By.className("pull-right"))))
+					.click();
+				page.editTrainerButton(arg1).click();
 				return;
 			}
 		}
