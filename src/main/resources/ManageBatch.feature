@@ -40,7 +40,7 @@ Feature: Manage Batch
 		|year|result|
 		
 		
-	Scenario Outline: Show traniees
+	Scenario Outline: Show trainees
 		When The user selectss "<year>" in drop down
 		And The user clicks show trainees in "<batch>"
 		Then "<result>" is displayed
@@ -49,8 +49,8 @@ Feature: Manage Batch
 		|year|batch|result|
 		
 		
-		Scenario Outline: Show traniees
-		When The user selectss "<year>" in drop down
+		Scenario Outline: Create trainee
+		When The user selects "<year>" in drop down
 		And The user clicks show trainees in "<batch>"
 		And The user clicks add trainee
 		And The user inputs "<fName>" in the first name field
@@ -91,24 +91,36 @@ Feature: Manage Batch
 		Given The user selects a "<year>" in drop down
 		And The user clicks show trainees in "<batch>"
 		When The user clicks the edit trainee button on "<trainee>"
-#		And The user updates "<contents>" in "<field>"
+		And The user inputs "<fName>" in the first name field
+		And The user inputs "<lName>" in the last name field
+		And The user inputs "<email>" in the email field
+		And The user inputs "<phoneNumber>" in the phone number field
+		And The user selects "<trainingStatus>" from training status drop down
+		And The user inputs "<skypeId>" in the skype ID field
+		And The user inputs "<college>" in the college field
+		And The user inputs "<degree>" in the degree field
+		And The user inputs "<major>" in the major field
+		And The user inputs "<recruiter>" in the recruiter field
+		And The user inputs "<profileURL>" in the profile URL field
+		And The user inputs "<techScreener>" in the tech screener field
+		And The user inputs "<projectCompletion>" in the project completion field
 		And The user clicks the update button
-		Then The "<trainee>" "<field>" should match "<contents>"
+		Then The "<trainee>" should reflect changes
 		
 		 Examples:
-		 |year|batch|trainee|contents|field|
+		 |year|batch|trainee|fName|lName|email|phoneNumber|trainingStatus|skypeId|college|degree|major|recruiter|profileURL|techScreener|projectCompletion|
 		 
 		 
 	Scenario Outline: Edit trainee status
 		Given The user selects a "<year>" in drop down
 		And The user clicks show trainees in "<batch>"
 		When The user clicks the edit trainee button on "<trainee>"
-		And The user selects "<contents>" in training status drop down
+		And The user selects <trainingStatis> on training status
 		And The user clicks the update button
-		Then The "<trainee>" training status field  should match "<contents>"
+		Then The "<trainee>" training status field  should reflect changes
 		
 		Examples:
-		|year|batch|trainee|contents|
+		|year|batch|trainee|trainingStatus|
 		
 	
 		
