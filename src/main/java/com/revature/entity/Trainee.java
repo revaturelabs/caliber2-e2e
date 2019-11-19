@@ -205,13 +205,8 @@ public class Trainee {
 
 	@Override
 	public String toString() {
-		return "trainee [traineeid=" + traineeid + ", resourceid=" + resourceid + ", name=" + name + ", email=" + email
-				+ ", trianingstatus=" + trianingstatus + ", batchid=" + batchid + ", phonenumber=" + phonenumber
-				+ ", skypeid=" + skypeid + ", recruitername=" + recruitername + ", college=" + college + ", degree="
-				+ degree + ", major=" + major + ", techscreenername=" + techscreenername + ", techscreenscore="
-				+ techscreenscore + ", projectcompletion=" + projectcompletion + ", flagstatus=" + flagstatus
-				+ ", flagnotes=" + flagnotes + ", flagauthoer=" + flagauthoer + ", flagtimestamp=" + flagtimestamp
-				+ "]";
+		return this.getName() + " " + this.getEmail() + " " + this.getTrianingstatus() + " " + this.getPhonenumber() + " " + this.getSkypeid() + " " + this.getResourceid() + " " + this.getRecruitername() + " " + this.getCollege() + " " + this.getDegree() + "/"  + this.getMajor() + " " + this.getTechscreenername() + " " + this.getProjectcompletion();
+				
 	}
 
 	@Override

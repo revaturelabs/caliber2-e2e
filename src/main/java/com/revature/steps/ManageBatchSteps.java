@@ -328,32 +328,62 @@ Trainee trainee = new Trainee();
 	}
 
 	@Then("^The trainee is displayed in trainee list$")
-	public void the_trainee_is_displayed_in_trainee_list() ////////////////////////////////////////////////////////////
+	public void the_trainee_is_displayed_in_trainee_list()
 	{
+		List<WebElement> rows = mbp.getTraineesTable().findElements(By.tagName("tr"));
 		
+		for(WebElement row : rows)
+		{
+			if(row.getText().equals(trainee.toString()))
+			{
+				Assert.assertTrue(true);
+				return;
+			}
+		}
+		Assert.fail();
 	  
 	}
 
 	@Given("^The user clicks show trainees in original batch \"([^\"]*)\"$")
 	public void the_user_clicks_show_trainees_in_original_batch(String arg1) {
-		List<WebElement> listElements = mbp.manageBatchTable.findElements(By.className("batch-row"));
-		for(WebElement rows: listElements)
-		{
-			if(rows.getText() == arg1)
-			{
-				mbp.showTraineesButtonForRow(rows).click();
+		WebElement info = mbp.manageBatchTable;
+		List<WebElement> table = info.findElements(By.className("batch-row"));
+		for(int i = 1; i <= table.size(); i++)
+		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
+			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
+			System.out.println(match[0] + " == " + arg1);
+			
+			if(match[0].equals(arg1))
+			{//found in the table
+				WebElement batch = mbp.getManageBatchTableRow(i);
+				mbp.showTraineesButtonForRow(batch).click();
+				return;
 			}
+			
 		}
 	}
-
+String temp = "";
 	@When("^The user clicks on the switch batch button for a trainee \"([^\"]*)\"$")
-	public void the_user_clicks_on_the_switch_batch_button_for_a_trainee(String arg1) throws Throwable {//////////////////////////////////////////////////
-	   
+	public void the_user_clicks_on_the_switch_batch_button_for_a_trainee(String arg1) throws Throwable {
+		List<WebElement> rows = mbp.getTraineesTable().findElements(By.tagName("tr"));
+				
+			for(WebElement row : rows)
+				{
+					if(row.getText().subSequence(0, arg1.length()) == arg1)
+					{
+						//found the trainee
+						mbp.editBatchButtonForRow(row).click();
+					}
+				}
 	}
 
 	@When("^The user selects new batch \"([^\"]*)\" from batch list drop down$")
 	public void the_user_selects_new_batch_from_batch_list_drop_down(String arg1) {///////////////////////////////////////////////
-	    
+	       List<WebElement> selections = mbp.getDropdownSwitchBatch().findElements(By.tagName("option"));
+	       for(WebElement selection : selections)
+	       {
+	    	   System.out.println(selection.getText());
+	       }
 	}
 
 	@When("^The user clicks the swich button$")
@@ -368,13 +398,20 @@ Trainee trainee = new Trainee();
 
 	@When("^The user clicks on the show trainee button on new batch \"([^\"]*)\"$")
 	public void the_user_clicks_on_the_show_trainee_button_on_new_batch(String arg1) {
-		List<WebElement> listElements = mbp.manageBatchTable.findElements(By.className("batch-row"));
-		for(WebElement rows: listElements)
-		{
-			if(rows.getText() == arg1)
-			{
-				mbp.showTraineesButtonForRow(rows).click();
+		WebElement info = mbp.manageBatchTable;
+		List<WebElement> table = info.findElements(By.className("batch-row"));
+		for(int i = 1; i <= table.size(); i++)
+		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
+			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
+			System.out.println(match[0] + " == " + arg1);
+			
+			if(match[0].equals(arg1))
+			{//found in the table
+				WebElement batch = mbp.getManageBatchTableRow(i);
+				mbp.showTraineesButtonForRow(batch).click();
+				return;
 			}
+			
 		}
 	}
 
@@ -385,36 +422,21 @@ Trainee trainee = new Trainee();
 
 	@Given("^The user clicks show trainees in  batch (\\d+) for edit trainee$")
 	public void the_user_clicks_show_trainees_in_batch_for_edit_trainee(int arg1) {
-		WebElement batch = mbp.getManageBatchTableRow(arg1);
-		mbp.showTraineesButtonForRow(batch).click();
-	}
-	    
-	
-	@When("^The user clicks the edit trainee button on trainee \"([^\"]*)\"$")//////////////////////////////////////////////////////
-	public void the_user_clicks_the_edit_trainee_button_on_trainee(String arg1) {
-		List<WebElement> rows = driver.findElements(By.xpath("//*[@id=\"view-trainees-modal-trainees-list-table\"]/tbody/tr"));
-		for(WebElement row : rows)
-		{
-			if(row.findElement(By.tagName("td")).getText() == arg1)
-			{
-				row.findElement(By.id("trainee-actions-edit-button")).click();
+		WebElement info = mbp.manageBatchTable;
+		List<WebElement> table = info.findElements(By.className("batch-row"));
+		for(int i = 1; i <= table.size(); i++)
+		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
+			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
+			System.out.println(match[0] + " == " + arg1);
+			
+			if(match[0].equals(arg1))
+			{//found in the table
+				WebElement batch = mbp.getManageBatchTableRow(i);
+				mbp.showTraineesButtonForRow(batch).click();
+				return;
 			}
+			
 		}
-	}
-
-	@When("^The user updates contents \"([^\"]*)\" in field \"([^\"]*)\"$")
-	public void the_user_updates_contents_in_field(String arg1, String arg2) {/////////////////////////////////this needs to be changed to explicitly say which field its changing to which contents ///////////////////////////////////
-	    
-	}
-
-	@When("^The user clicks the update button$")
-	public void the_user_clicks_the_update_button() {
-	    atm.submitAddTrainerButton().click();
-	}
-
-	@Then("^The trainee \"([^\"]*)\" field\"([^\"]*)\" should match contents \"([^\"]*)\"$")
-	public void the_trainee_field_should_match_contents(String arg1, String arg2, String arg3){///////////////////////////////////////////
-	   
 	}
 
 	@Given("^The user clicks show trainees in batch  (\\d+) for edit trainee status$")
@@ -425,7 +447,7 @@ Trainee trainee = new Trainee();
 
 	@When("^The user selects contents \"([^\"]*)\" in training status drop down$")
 	public void the_user_selects_contents_in_training_status_drop_down(String arg1) {//////////////////////////////need this in pom
-	 
+		
 	}
 
 	@Then("^The trainee \"([^\"]*)\" training status field  should match contents \"([^\"]*)\"$")

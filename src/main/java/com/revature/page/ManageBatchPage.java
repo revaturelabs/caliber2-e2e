@@ -93,7 +93,7 @@ public class ManageBatchPage {
 	
 	//FINDING ELEMENTS ON THE TRAINEES TABLE***************************************************
 	public WebElement getTraineesTable() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("view-trainees-modal-tainess-list-table")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"view-trainees-modal-trainees-list-table\"]/tbody")));
 	}
 	
 	public WebElement getTraineesTableRow(int rowNumber) {
