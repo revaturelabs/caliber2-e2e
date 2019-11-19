@@ -153,29 +153,23 @@ public class ManageBatchSteps
 	@When("^The user inputs json \"([^\"]*)\" into paste JSON field$")
 	public void the_user_inputs_json_into_paste_JSON_field(String arg1) //////////////////////////////////
 	{
-		String file = "*\\src\\main\\resources\\" + arg1 + ".json";
+		String file = "src/main/resources/" + arg1;
 	    try
 	    {
-	    	JSONParser parser = new JSONParser();
-    		Object obj = parser.parse(new FileReader(file));
-    		JSONObject jsonObject =  (JSONObject) obj;
-    		driver.findElement(By.id("gradeJsonObj")).sendKeys(jsonObject.toString());
+	    	StringBuilder text = new StringBuilder();
+	    	File textFile = new File(file);
+	    	Scanner scan = new Scanner(textFile);
+	    	while(scan.hasNext())
+	    	{
+	    		text.append(scan.next());
+	    	}
+	    	mbp.inputBatchJSON().sendKeys(text);
+	    	
 		} 
 	    catch (FileNotFoundException e1) 
 	    {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("File not found");
 		} 
-	    catch (IOException e) 
-	    {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    catch (ParseException e)
-{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	 
 	}
 

@@ -1,0 +1,1 @@
+{"batchId": 0, "trainingName": "Extreme Training", "trainingType": "Other", "skillType": "JAVA", "trainer": "Richard Orr", "coTrainer": "None", "location": "Ford, 111 Ford Street, Detroit, MI 33333", "locationId": 6, "startDate": "08/15/2019", "endDate": "11/15/2019", "goodGrade": 99, "passingGrade": 98, "traineeCount": 0, "weeks": 12}
