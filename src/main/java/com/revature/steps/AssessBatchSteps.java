@@ -132,7 +132,7 @@ public class AssessBatchSteps {
 
 	@Then("^the batch page will be updated with the new information$")
 	public void the_batch_page_will_be_updated_with_the_new_information() throws Throwable {
-	    //Assert.assertEquals(expected, actual);
+	    Assert.assertNotNull(batchpage.getTrainerContainer(1));
 	}
 
 	@Given("^the user is on a specific batch page with existing assessments$")
@@ -154,7 +154,7 @@ public class AssessBatchSteps {
 
 	@Then("^the statistics at the bottom of the page should update correctly$")
 	public void the_statistics_at_the_bottom_of_the_page_should_update_correctly() throws Throwable {
-	    //Assert.assertTrue(oldaverage != newaverage);
+	    Assert.assertTrue(!(batchpage.getWeeklyAverage().getText().equals("0.00%")));
 	}
 
 	@Given("^the user is on a specific batch page and has made changes to the existing data$")
@@ -175,7 +175,7 @@ public class AssessBatchSteps {
 
 	@Then("^the batch information should update accordingly$")
 	public void the_batch_information_should_update_accordingly() throws Throwable {
-	    //Assert.assertEquals(expected, actual);
+	    Assert.assertNotNull(batchpage.getTrainerContainer(1));
 	}
 	
 }
