@@ -7,14 +7,8 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import org.junit.AfterClass;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 @RunWith(Cucumber.class)
-
 @CucumberOptions(features = "src/main/resources", glue = "com.revature.steps",plugin = {"pretty", "json:./cucumber.json"})
 //@CucumberOptions(features = "classpath:", glue = "com.revature.steps",plugin = {"pretty", "json:./cucumber.json"})
 public class ChromeRunner {
