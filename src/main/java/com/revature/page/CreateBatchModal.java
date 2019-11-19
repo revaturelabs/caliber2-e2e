@@ -67,7 +67,7 @@ public class CreateBatchModal {
 	}
 	
 	public WebElement selectLocationDropdownByInt(int n) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='location']//option["+n+"]")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='location']//option["+n+"]")));  //*[@id="location"]/option[]
 	}
 	
 	public WebElement selectCoTrainerDropdown() {
