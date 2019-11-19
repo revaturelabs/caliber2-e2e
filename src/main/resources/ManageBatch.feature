@@ -15,11 +15,11 @@ Feature: Manage Batch
 		And The user fills in "<endDate>"
 		And the user fills in "<goodGrade>"
 		And The user fills in "<passingGrade>"
-		Then The user should be directed to batch list page but that doesnt work so i guess you can just deal with it
+		Then The newly created batch should reflect the information given
 
 			Examples:
 			|trainingName|trainingType|skillType|location|trainer|co-trainer|startDate|endDate|goodGrade|passingGrade|
-			
+			|TestTrainingNameInitial|1|1|1|1|1|02022021|04042021|70|65|
 			
 	Scenario Outline: Import Batch
 		When The user clicks import batch
@@ -33,7 +33,7 @@ Feature: Manage Batch
 		|json|batch|           
 	
 	Scenario Outline: Select batch by year
-		When The user selects "<year>" in drop down
+		When The user selects <year> in drop down
 		Then The batch list displays "<result>" that match
 		
 		Examples:
@@ -67,10 +67,10 @@ Feature: Manage Batch
 		And The user inputs "<techScreener>" in the tech screener field
 		And The user inputs "<projectCompletion>" in the project completion field
 		And The user clicks create button
-		Then "<result>" is displayed in trainee list
+		Then The trainee is displayed in trainee list
 		
 		Examples:
-		|fName|lName|email|phoneNumber|trainingStatus|skypeId|college|degree|major|recruiter|profileURL|techScreener|projectCompletion|result|
+		|fName|lName|email|phoneNumber|trainingStatus|skypeId|college|degree|major|recruiter|profileURL|techScreener|projectCompletion|
 		
 		
 	Scenario Outline: Switch trainee to a different batch
@@ -81,7 +81,7 @@ Feature: Manage Batch
 		And The user clicks the swich button
 		And The user clicks the confirm button
 		And The user clicks on the show trainee button on "<newBatch>"
-		Then The "<trainee>" should appear in the trainee list
+		Then The "<traineeLName>" should appear in the trainee list
 		
 		Examples:
 		|year|originalBatch|trainee|newBatch|
@@ -91,7 +91,7 @@ Feature: Manage Batch
 		Given The user selects a "<year>" in drop down
 		And The user clicks show trainees in "<batch>"
 		When The user clicks the edit trainee button on "<trainee>"
-		And The user updates "<contents>" in "<field>"
+#		And The user updates "<contents>" in "<field>"
 		And The user clicks the update button
 		Then The "<trainee>" "<field>" should match "<contents>"
 		
@@ -125,23 +125,23 @@ Feature: Manage Batch
 		
 	Scenario Outline: Edit batch details fields by text entry
 		Given The user selects a "<year>" in drop down
-		When user click on the edit batch button on "<batch>"
-		And The user updates "<contents>" in "<field>"
+		When user click on the edit batch button on batch>
+		And The user inputs "<traningName>" in training name
+		And The user selects <skillType> in skill type
+		And The user selects <trainingType> in training type
+		And The user selects <location> in location
+		And The user selects <trainer> in trainer
+		And The user selects <coTrainer> in coTrainer
+		And The user inputs <startdate> in start date
+		And The user inputs <endDate> in end date
+		And The user inputs <goodGrade> in good grade
+		And The user inputs <passingGrade> in passing grade
 		And The user clicks the update button
-		Then The "<batch>" "<field>" should match "<contents>" 
+		Then Batch details should reflect changes
 		
 		Examples:
-		|year|batch|contents|field|
-		
-	Scenario Outline: Edit batch details fields by selection
-		Given The user selects a "<year>" in drop down
-		When user click on the edit batch button on "<batch>"
-		And The user selects "<contents>" in "<field>" dropdown
-		And The user clicks the update button
-		Then The "<batch>" "<field>" should match "<contents>" 
-		
-		Examples: 
-		|year|batch|contents|field|
+		|year|batch|trainingName|skillType|trainingType|location|trainer|coTrainer|startDate|endDate|goodGrade|passingGrade|
+		|2019|1|TestTrainingName|1|1|1|1|1|01012020|03012020|80|60|
 		
 	Scenario Outline: Delete batch
 		Given The user selects a "<year>" in drop down
