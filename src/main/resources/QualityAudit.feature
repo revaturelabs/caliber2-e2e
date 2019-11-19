@@ -11,9 +11,9 @@ Feature: on Caliber 2 Quality Audit page
 	 	
 	 Examples:
 	 |search|batch|
-	 |dan|Dan Pickles - PETA BPM - 10/7/2019|
-	 |church|Natalie Church - Full Stack Java/JEE - 7/9/20199|
-	 |peta bpm|Dan Pickles - PETA BPM - 10/7/2019|
+	 |dan|Dan Pickles - PEGA BPM - 10/7/2019|
+	 |church|Natalie Church - Full Stack Java/JEE - 7/9/2019|
+	 |pega bpm|Dan Pickles - PEGA BPM - 10/7/2019|
 	 
 	 
 	 	
@@ -41,22 +41,29 @@ Feature: on Caliber 2 Quality Audit page
 	 	When User clicks on Select Batch
 	 	When User selects a batch
 	 	When User selects a week
+	 	When User clicks on notes text field
+	 	When User deletes previous comment
 	 	When User types "<comment>" in notes section
-	 	Then First trainee notes should be "<notes>"
+	 	When User clicks save button
+	 	Then First trainee notes should be "<comment>"
 	 	
 	 	Examples:
-	 	|comment|notes|
-	    |good job|good job|
+	 	|comment|
+	    |good job|
+	    |Needs work, keep practicing|
 	    
 	    
 	    
 	    
+
+	# Important note: This scenario no longer functions if the green flag is clicked before the comment is written,
+	# because the 'Update comment' button isn't visible.
 	 Scenario Outline: Add comment
 	 When User clicks on Select Batch
 	 When User selects a batch
-	 When User click pencil icon beside trainee
-	 When User clicks Green flag
+	 When User clicks pencil icon beside trainee
 	 When User types "<comment>" in comment section
+	 When User clicks Green flag
 	 When User clicks Update Comment button
 	 Then Comment "<response>" added with green/red flag icon beside Trainee
 	
@@ -65,13 +72,21 @@ Feature: on Caliber 2 Quality Audit page
 	|comment|response|
 	|good job|good job|
 	
-	Scenario: Delete comment
+	Scenario Outline: Delete comment
 	When User clicks on Select Batch
 	When User selects a batch
+	When User clicks pencil icon beside trainee
+	When User types "<comment>" in comment section
+	When User clicks Green flag
+	When User clicks Update Comment button
 	When User clicks flag icon beside trainee
 	When User clicks Delete Comment button
 	When User clicks confirm delete button
 	Then comment is deleted from trainee
+	
+	Examples:
+	 	|comment|
+	    |good job|
 	
 	Scenario: Cancel update comment
 	When User clicks on Select Batch
@@ -87,11 +102,12 @@ Feature: on Caliber 2 Quality Audit page
 	 	When User selects "<year>" in year dropbox
 	 	When User selects "<quarter>" in quarter dropbox
 	 	When User clicks on Select Batch
+	 	When User selects the first batch
 	 	Then batch "<batch>" should be displayed 
 	
 		Examples:
 		|year|quarter|batch|
-	 	|2019|Q2|Jake Smith - Full Stack Java/EE - 3/9/2019|
+	 	|2019|Q2|Jake Smith - Full Stack Java/JEE - 3/9/2019|
 	 	
 	 Scenario Outline: filter zero batches
 	 	When User selects "<year>" in year dropbox
@@ -116,6 +132,7 @@ Feature: on Caliber 2 Quality Audit page
 	 	When User selects a batch
 	 	When User selects a week
 	 	When User types "<comment>" in Overall QC Feedback section
+	 	When User clicks save button
 	 	Then feedback should display "<feedback>"
 	 	
 	 	
@@ -150,7 +167,7 @@ Feature: on Caliber 2 Quality Audit page
 	 	|category|
 	 	|Servlet|
 	 	|JavaScript|
-	 	|Jenkins|
+	 	
 	 
 	 Scenario: save button works
 	 	When User clicks on Select Batch
