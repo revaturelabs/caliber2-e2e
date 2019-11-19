@@ -14,10 +14,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.File;
 
 @RunWith(Cucumber.class)
-// @CucumberOptions(features = "src/main/resources/Reports.feature", glue =
-// "com.revature.steps",plugin = {"pretty", "json:./" +
-// Config.CUCUMBER_FILENAME})
-@CucumberOptions(features = "classpath:Reports.feature",
+@CucumberOptions(
+	features = "classpath:Reports.feature" /* "src/main/resources/features" */,
 	glue = "com.revature.steps",
 	plugin = {"pretty", "json:./" + Config.CUCUMBER_FILENAME})
 public class ChromeRunner {
