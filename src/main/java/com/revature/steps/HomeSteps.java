@@ -135,8 +135,8 @@ public class HomeSteps {
 	/**
 	 * @param arg1 the week to be selected
 	 */
-	@When("^The user selects a week \"([^\"]*)\"$")
-	public void the_user_selects_a_week(String arg1) {
+	@When("^The user clicks a week \"([^\"]*)\"$")
+	public void the_user_clicks_a_week(String arg1) {
 		int week = Integer.parseInt(arg1);
 		page.selectWeekSorterByIndex(week-1);	
 	}

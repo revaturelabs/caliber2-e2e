@@ -25,7 +25,7 @@ public class SettingsLocationsPage {
 	}
 	
 	public WebElement getTableRow(int rowNumber) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='locationspage-component-locations-table']//tr["+rowNumber+"]")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='locationspage-component-locations-table']/tbody/tr["+rowNumber+"]")));
 	}
 	
 	public WebElement getTableData(int columnNumber, WebElement row){

@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class PagesUtil {
 
 	public static WebDriver driver = null;
-	public static WebDriverWait dWait = null;
+	public static WebDriverWait dWait;
 	public static AddTraineeModal addTraineeModal;
 	public static AssessBatchPage assessBatchPage;
 	public static CreateBatchModal createBatchModal;

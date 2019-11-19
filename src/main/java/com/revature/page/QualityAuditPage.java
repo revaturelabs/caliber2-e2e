@@ -1,5 +1,7 @@
 package com.revature.page;
 
+import java.util.NoSuchElementException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,8 +22,10 @@ public class QualityAuditPage {
 		wait = new WebDriverWait(driver, 3);
 	}
 	
-	@FindBy(id="batch-select-toolbar-years-dropdown")
-	public WebElement selectYearsDropdownButton;
+	
+	public WebElement getYearsDropdownButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-toolbar-years-dropdown")));
+	}
 	
 	public WebElement getDropdownSelectYearsContainer() {
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//app-shared-dropdown-menu[@id='batch-select-toolbar-years-dropdown']//ul[@id='shared-dropdown-menu-dropdown-container']")));
@@ -29,23 +33,24 @@ public class QualityAuditPage {
 	
 	public void selectYearsDropdown(int year) {
 		for(WebElement elem : this.getDropdownSelectYearsContainer().findElements(By.tagName("li"))) {
-			if(Integer.parseInt(elem.getText()) == year) {
+			if(Integer.parseInt(elem.findElement(By.tagName("a")).getText()) == year) {
 				elem.click();
 				return;
 			}
 		}
 	}
 	
-	@FindBy(id="batch-select-toolbar-quarters-dropdown")
-	public WebElement selectQuartersDropdownButton;
+	public WebElement getQuartersDropdownButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-toolbar-quarters-dropdown")));
+	}
 	
 	public WebElement getDropdownSelectQuartersContainer() {
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//app-shared-dropdown-menu[@id='batch-select-toolbar-quarters-dropdown']//ul[@id='shared-dropdown-menu-dropdown-container']")));
 	}
 	
-	public void selectQuartersDropdown(int quarter) {
+	public void selectQuartersDropdown(String quarter) {
 		for(WebElement elem : this.getDropdownSelectQuartersContainer().findElements(By.tagName("li"))) {
-			if(Integer.parseInt(elem.getText().split("")[1]) == quarter) {
+			if((elem.getText().contains(quarter))) {
 				elem.click();
 				return;
 			}
@@ -64,6 +69,9 @@ public class QualityAuditPage {
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-select-dropdown-list")));
 	}
 	
+	@FindBy(id="batch-select-dropdown-open-button")
+	public WebElement batchesDropdownOpenButton;
+	
 	
 	/**
 	 * This method will return the first element matching the search parameter.
@@ -81,8 +89,10 @@ public class QualityAuditPage {
 
 	
 	
-	@FindBy(id="categories-this-week-add-category-button")
-	public WebElement addCategoryButton;
+	
+	public WebElement getAddCategoryButton() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("categories-this-week-add-category-button")));
+	};
 	
 	
 	public void selectCategoriesDropdownContainer(String category) {
@@ -114,9 +124,17 @@ public class QualityAuditPage {
 		
 	}
 	
+	public int getNumberOfWeeks() {
+		
+		return driver.findElement(By.tagName("app-week-selector")).findElement(By.tagName("ul")).findElements(By.tagName("a")).size();
+		
+	}
 	
-	@FindBy(id="app-week-selector")
-	public WebElement weekContainer;
+	
+	
+	public WebElement getWeekContainer() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("app-week-selector")));
+	}
 	
 	
 	public WebElement selectAddWeekButton() {
@@ -158,7 +176,7 @@ public class QualityAuditPage {
 	
 	public WebElement getTraineeRowByIndex(int index) {
 		
-		return driver.findElement(By.id("quality-audit-list-table")).findElements(By.tagName("tr")).get(index);
+		return wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("quality-audit-list-table")).findElements(By.tagName("tr")).get(index)));
 	}
 	
 	
@@ -167,15 +185,15 @@ public class QualityAuditPage {
 	}
 	
 	public WebElement getAssociateDetailsPen(WebElement row) {
-		return row.findElement(By.id("associate-details-container-pen"));
+		return wait.until(ExpectedConditions.visibilityOf(row.findElement(By.id("associate-details-container-pen"))));
 	}
 	
-	public WebElement getAssociateDetailsFlag(WebElement row) {
+	public WebElement getAssociateDetailsFlag(WebElement row) throws NoSuchElementException {
 		return row.findElement(By.id("associate-details-container-flag"));
 	}
 	
 	public WebElement getAssociateTechSkillsButton(WebElement row) {
-		return row.findElements(By.id("qc-feedback-dropdown-toggle")).get(0);
+		return wait.until(ExpectedConditions.elementToBeClickable(row.findElements(By.id("qc-feedback-dropdown-toggle")).get(0)));
 	}
 	
 	public WebElement getAssociateTechSkillsContainer(WebElement row) {
@@ -184,7 +202,7 @@ public class QualityAuditPage {
 	}
 	
 	public WebElement getAssociateSoftSkillsButton(WebElement row) {
-		return row.findElements(By.id("qc-feedback-dropdown-toggle")).get(1);
+		return wait.until(ExpectedConditions.elementToBeClickable(row.findElements(By.id("qc-feedback-dropdown-toggle")).get(1)));
 	}
 	
 	public WebElement getAssociateSoftSkillsContainer(WebElement row) {
@@ -194,6 +212,10 @@ public class QualityAuditPage {
 	
 	public WebElement getAssociateNotes(WebElement row) {
 		return row.findElement(By.tagName("textarea"));
+	}
+	
+	public WebElement getOverallQCFeedbackContainer() {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("quality-audit-overall-qc-feedback-container")));
 	}
 	
 	public WebElement getQcFeedbackDropdownButton() {
