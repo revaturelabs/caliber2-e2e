@@ -28,7 +28,7 @@ Scenario Outline:  Select Week to view reports
 	Examples:
 	|year|batch|entries|
 	|2020|Natalie Church - Full Stack Java/JEE - 11/9/2019|4|
-	|2019|Dan Pickles - PEGA BPM - 10/7/2019|9|
+	|2019|Dan Pickles - PEGA BPM - 10/7/2019|13|
 	|2018|James K - Full Stack Java/JEE - 7/9/2018|10|
 	
 Scenario Outline: Selecting All trainees and all weeks

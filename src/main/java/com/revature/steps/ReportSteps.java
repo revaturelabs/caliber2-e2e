@@ -83,7 +83,9 @@ public class ReportSteps {
 		}
 
 		try {
+			Thread.sleep(250);
 			PagesUtil.reportsPage.getSelectWeeksDropdownButton().click();
+			Thread.sleep(250);
 			List<WebElement> items =
 				PagesUtil.reportsPage.getDropdownSelectWeeksContainer()
 					.findElements(By.tagName("a"));
