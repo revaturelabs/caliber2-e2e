@@ -72,7 +72,6 @@ public class Generator {
 	 * Returns true if all the features pass. Each level passes if and only if
 	 * all of the components pass. So if all features pass this passes, if any
 	 * step fails then the failure cascades up.
-	 *
 	 * @param features The list of features.
 	 * @return True if all the features pass, false if anything is not passing.
 	 */
@@ -204,7 +203,6 @@ public class Generator {
 	 * a whole. If any part of the feature is not passing, the feature is
 	 * failed. This includes links to the {@link #generateTable(Feature) tables
 	 * describing each feature}.
-	 *
 	 * @param features The features to generate a table for.
 	 * @return The HTML for the table.
 	 * @see #generateTable(Feature)
@@ -349,7 +347,6 @@ public class Generator {
 	/**
 	 * Returns the HTML for the bottom of the page, closing out the main div,
 	 * body, and html.
-	 *
 	 * @return The HTML for the bottom of the page.
 	 */
 	private static String getFooter() {
@@ -365,7 +362,6 @@ public class Generator {
 	/**
 	 * Returns the HTML for the top of the page, including the doctype, header,
 	 * css, and opening the main container div.
-	 *
 	 * @return The HTML for the top of the document.
 	 */
 	private static String getHeader() {
