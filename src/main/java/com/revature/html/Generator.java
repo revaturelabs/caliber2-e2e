@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Used to convert models of cucumber output json data into the HTML for a web
+ * page that summarizes the results. Allows for an overview, drilling down into
+ * data to see what is wrong, and collapsing sections to get them out of the
+ * way.
+ */
 public class Generator {
 	private static final String NEWLINE = System.lineSeparator();
 	private static final String TABLE_CONTAINER =
@@ -62,6 +68,14 @@ public class Generator {
 		return passes;
 	}
 
+	/**
+	 * Returns true if all the features pass. Each level passes if and only if
+	 * all of the components pass. So if all features pass this passes, if any
+	 * step fails then the failure cascades up.
+	 * 
+	 * @param features The list of features.
+	 * @return True if all the features pass, false if anything is not passing.
+	 */
 	public static boolean doesPass(Feature[] features) {
 		if (features == null) {
 			return false;
@@ -104,6 +118,8 @@ public class Generator {
 		results += "</div>" + Generator.NEWLINE;
 
 		results += "<h1 id=\"features\">Features</h1>" + Generator.NEWLINE;
+
+		// generate a collapsable accordion for the features
 		results +=
 			"<div class=\"accordion border-bottom\" id=\"featuresCollapse\">"
 				+ Generator.NEWLINE;
@@ -140,6 +156,8 @@ public class Generator {
 			// we want the name but strip off the pound sign
 			String convenientScenarioName =
 				Generator.linkifyTitle(title, false).substring(1);
+
+			// construct an accordion with unique ids
 			results += "<div class=\"accordion border-bottom\" id=\""
 				+ convenientScenarioName + "Collapse\">" + Generator.NEWLINE;
 			results += "<div class=\"card\">" + Generator.NEWLINE
@@ -155,6 +173,7 @@ public class Generator {
 				+ convenientScenarioName + "Heading\" data-parent=\"#"
 				+ convenientScenarioName + "Collapse\">" + Generator.NEWLINE
 				+ "<div class=\"card-body\">";
+
 			for (Element element : feature.getElements()) {
 				// header for the element
 				String subtitle = Generator.calculateTitle(element);
@@ -180,6 +199,16 @@ public class Generator {
 		return results;
 	}
 
+	/**
+	 * Generates a summary of features. This lists the status of each feature as
+	 * a whole. If any part of the feature is not passing, the feature is
+	 * failed. This includes links to the {@link #generateTable(Feature) tables
+	 * describing each feature}.
+	 * 
+	 * @param features The features to generate a table for.
+	 * @return The HTML for the table.
+	 * @see #generateTable(Feature)
+	 */
 	private static String generateSummaryTable(Feature[] features) {
 		String results =
 			"<table class=\"table table-hover\">" + Generator.NEWLINE
@@ -269,10 +298,13 @@ public class Generator {
 	}
 
 	/**
-	 * Generate a table summarizing the elements of a feature.
+	 * Generate a table summarizing the elements of a feature. This includes
+	 * links to the {@link #generateTable(Element) table summarizing each
+	 * element}.
 	 *
 	 * @param feature The feature to generate a table for.
 	 * @return The HTML for a title and summary table.
+	 * @see #generateTable(Element)
 	 */
 	private static String generateTable(Feature feature) {
 		if (feature == null) {
@@ -314,6 +346,12 @@ public class Generator {
 		return results;
 	}
 
+	/**
+	 * Returns the HTML for the bottom of the page, closing out the main div,
+	 * body, and html.
+	 * 
+	 * @return The HTML for the bottom of the page.
+	 */
 	private static String getFooter() {
 		return "</div>"
 			+ "<script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\" crossorigin=\"anonymous\"></script>"
@@ -324,6 +362,12 @@ public class Generator {
 			+ Generator.NEWLINE + "</body>" + Generator.NEWLINE + "</html>";
 	}
 
+	/**
+	 * Returns the HTML for the top of the page, including the doctype, header,
+	 * css, and opening the main container div.
+	 * 
+	 * @return The HTML for the top of the document.
+	 */
 	private static String getHeader() {
 		return "<!doctype html>" + Generator.NEWLINE + "<html>"
 			+ Generator.NEWLINE + "<head>" + Generator.NEWLINE
