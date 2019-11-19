@@ -22,6 +22,7 @@ public class ReportSteps {
 			Assert.assertNotNull(container);
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -63,6 +64,7 @@ public class ReportSteps {
 			}
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -88,6 +90,7 @@ public class ReportSteps {
 			Assert.assertEquals(entries, items.size());
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -106,6 +109,7 @@ public class ReportSteps {
 			}
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 		Assert.fail();
@@ -117,6 +121,7 @@ public class ReportSteps {
 			PagesUtil.reportsPage.getDonutChartTable();
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -128,6 +133,7 @@ public class ReportSteps {
 			PagesUtil.reportsPage.getIndividualScoreTable();
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -138,6 +144,7 @@ public class ReportSteps {
 			PagesUtil.reportsPage.getQcScoreTable();
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -151,6 +158,7 @@ public class ReportSteps {
 					.findElements(By.xpath(".//a")).size() > 0);
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -190,6 +198,7 @@ public class ReportSteps {
 			}
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -200,6 +209,7 @@ public class ReportSteps {
 			PagesUtil.reportsPage.getSelectBatchDropdownOpenButton().click();
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -211,6 +221,7 @@ public class ReportSteps {
 			PagesUtil.reportsPage.getBatchSelectSearchBar().sendKeys(criteria);
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -230,6 +241,7 @@ public class ReportSteps {
 			}
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 		Assert.fail("Could not find batch");
@@ -238,13 +250,16 @@ public class ReportSteps {
 	@When("^The user selects a trainee \"([^\"]*)\"$")
 	public void the_user_selects_a_trainee(String trainee) throws Throwable {
 		try {
+			Thread.sleep(250);
 			PagesUtil.reportsPage.getSelectTraineesDropdownButton().click();
+			Thread.sleep(250);
 			PagesUtil.reportsPage.getDropdownSelectTraineeContainer()
 				.findElement(By.xpath(
 					".//a[@id=\"shared-dropdown-menu-" + trainee + "\"]"))
 				.click();
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -252,20 +267,25 @@ public class ReportSteps {
 	@When("^The user selects a week \"([^\"]*)\"$")
 	public void the_user_selects_a_week(String week) throws Throwable {
 		try {
+			Thread.sleep(250);
 			PagesUtil.reportsPage.getSelectWeeksDropdownButton().click();
+			Thread.sleep(250);
 			PagesUtil.reportsPage.getDropdownSelectWeeksContainer()
 				.findElement(
 					By.xpath(".//a[@id=\"shared-dropdown-menu-" + week + "\"]"))
 				.click();
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
 
 	@When("^The user selects a year \"([^\"]*)\"$")
 	public void the_user_selects_a_year(String year) throws Throwable {
+		Thread.sleep(250);
 		PagesUtil.reportsPage.getSelectYearDropdownButton().click();
+		Thread.sleep(250);
 		PagesUtil.reportsPage.getDropdownSelectYearContainer()
 			.findElement(
 				By.xpath(".//a[@id=\"shared-dropdown-menu-" + year + "\"]"))
@@ -275,7 +295,9 @@ public class ReportSteps {
 	@When("^The user selects a year from the dropdown for year$")
 	public void the_user_selects_a_year_from_the_dropdown_for_year()
 		throws Throwable {
+		Thread.sleep(250);
 		PagesUtil.reportsPage.getSelectYearDropdownButton().click();
+		Thread.sleep(250);
 		PagesUtil.reportsPage.getDropdownSelectYearContainer()
 			.findElement(By.xpath(".//a[@id=\"shared-dropdown-menu-2019\"]"))
 			.click();
@@ -283,7 +305,9 @@ public class ReportSteps {
 
 	@When("^The user selects all trainees$")
 	public void the_user_selects_all_trainees() throws Throwable {
+		Thread.sleep(250);
 		PagesUtil.reportsPage.getSelectTraineesDropdownButton().click();
+		Thread.sleep(250);
 		PagesUtil.reportsPage.getDropdownSelectTraineeContainer()
 			.findElement(By
 				.xpath(".//a[@id=\"shared-dropdown-menu-Trainees (Overall)\"]"))
@@ -293,13 +317,16 @@ public class ReportSteps {
 	@When("^The user selects all weeks$")
 	public void the_user_selects_all_weeks() throws Throwable {
 		try {
+			Thread.sleep(250);
 			PagesUtil.reportsPage.getSelectWeeksDropdownButton().click();
+			Thread.sleep(250);
 			PagesUtil.reportsPage.getDropdownSelectWeeksContainer()
 				.findElement(
 					By.xpath(".//a[@id=\"shared-dropdown-menu-All Weeks\"]"))
 				.click();
 		}
 		catch (TimeoutException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
