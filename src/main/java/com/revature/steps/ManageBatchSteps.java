@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.revature.entity.Batch;
+import com.revature.entity.Trainee;
 import com.revature.page.AddTraineeModal;
 import com.revature.page.CreateBatchModal;
 import com.revature.page.ManageBatchPage;
@@ -225,7 +226,7 @@ public class ManageBatchSteps
 			{//found in the table
 				WebElement batch = mbp.getManageBatchTableRow(i);
 				mbp.showTraineesButtonForRow(batch).click();
-				driver.switchTo().activeElement();
+				return;
 			}
 			
 		}
@@ -235,73 +236,89 @@ public class ManageBatchSteps
 
 	@When("^The user clicks add trainee$")
 	public void the_user_clicks_add_trainee() {
-		
+		driver.switchTo().activeElement();
 		mbp.addTraineeButton().click();
 		driver.switchTo().activeElement();
 	}
-
+Trainee trainee = new Trainee();
 	@When("^The user inputs \"([^\"]*)\" in the first name field$")
 	public void the_user_inputs_in_the_first_name_field(String arg1)  {
+		trainee.setName(arg1);
 	    atm.inputFirstName().sendKeys(arg1);
 	}
 
 	@When("^The user inputs \"([^\"]*)\" in the last name field$")
 	public void the_user_inputs_in_the_last_name_field(String arg1) {
+		String firstname = trainee.getName();
+		String lastname = arg1;
+		String fullinput = lastname + ", " + firstname;
+		trainee.setName(fullinput);
 	   atm.inputLastName().sendKeys(arg1);
 	}
 
 	@When("^The user inputs \"([^\"]*)\" in the email field$")
 	public void the_user_inputs_in_the_email_field(String arg1)   {
+		trainee.setEmail(arg1);
 	   atm.inputEmail().sendKeys(arg1);
 	}
 
 	@When("^The user inputs \"([^\"]*)\" in the phone number field$")
 	public void the_user_inputs_in_the_phone_number_field(String arg1)  {
+		trainee.setPhonenumber(arg1);
 	  atm.inputPhoneNumber().sendKeys(arg1);
 	}
-
+	
 	@When("^The user selects (\\d+) from training status drop down$")
 	public void the_user_selects_from_training_status_drop_down(int arg1) {
-	   atm.trainingStatusDropdownNthOption(arg1).click();
+		trainee.setTrianingstatus(atm.trainingStatusDropdownNthOption(arg1).getText());
+	    atm.trainingStatusDropdownNthOption(arg1).click();
 	}
 
 	@When("^The user inputs \"([^\"]*)\" in the skype ID field$")
 	public void the_user_inputs_in_the_skype_ID_field(String arg1)  {
+		trainee.setSkypeid(arg1);
 	    atm.inputSkypeId().sendKeys(arg1);
 	}
 
 	@When("^The user inputs \"([^\"]*)\" in the college field$")
 	public void the_user_inputs_in_the_college_field(String arg1) {
+		trainee.setCollege(arg1);
 	    atm.inputCollege().sendKeys(arg1);
 	}
 
 	@When("^The user inputs \"([^\"]*)\" in the degree field$")
 	public void the_user_inputs_in_the_degree_field(String arg1) {
+		trainee.setDegree(arg1);
 	    atm.inputDegree().sendKeys(arg1);
 	}
 
 	@When("^The user inputs \"([^\"]*)\" in the major field$")
 	public void the_user_inputs_in_the_major_field(String arg1) {
+		trainee.setMajor(arg1);
 	    atm.inputMajor().sendKeys(arg1);
 	}
 
 	@When("^The user inputs \"([^\"]*)\" in the recruiter field$")
 	public void the_user_inputs_in_the_recruiter_field(String arg1)  {
+		trainee.setRecruitername(arg1);
 		atm.inputRecruiterName().sendKeys(arg1);
 	}
 
 	@When("^The user inputs \"([^\"]*)\" in the profile URL field$")
 	public void the_user_inputs_in_the_profile_URL_field(String arg1) {
+		trainee.setResourceid(arg1);
 	    atm.inputProfileURL().sendKeys(arg1);
 	}
 
 	@When("^The user inputs \"([^\"]*)\" in the tech screener field$")
 	public void the_user_inputs_in_the_tech_screener_field(String arg1)  {
+		trainee.setTechscreenername(arg1);
 	    atm.inputTechScreener().sendKeys(arg1);
 	}
 
 	@When("^The user inputs \"([^\"]*)\" in the project completion field$")
 	public void the_user_inputs_in_the_project_completion_field(String arg1) {
+		trainee.setProjectcompletion(arg1);
 	   atm.inputProjectCompletion().sendKeys(arg1);
 	}
 
@@ -311,12 +328,9 @@ public class ManageBatchSteps
 	}
 
 	@Then("^The trainee is displayed in trainee list$")
-	public void the_trainee_is_displayed_in_trainee_list() {////////////////////////////////////////////////////////
-	  List<WebElement> table = mbp.getTraineesTable().findElements(By.tagName("tr"));
-	  for(int i = 1; i <= table.size(); i++)
-	  {
-		  System.out.println(table.get(i).toString());
-	  }
+	public void the_trainee_is_displayed_in_trainee_list() ////////////////////////////////////////////////////////////
+	{
+		
 	  
 	}
 

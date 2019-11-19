@@ -1,6 +1,6 @@
 package com.revature.entity;
 
-public class trainee {
+public class Trainee {
 	private int traineeid;
 	private String resourceid;
 	private String name;
@@ -21,11 +21,11 @@ public class trainee {
 	private String flagauthoer;
 	private String flagtimestamp;
 	
-	public trainee() {
+	public Trainee() {
 		super();
 	}
 
-	public trainee(int traineeid, String resourceid, String name, String email, String trianingstatus, int batchid,
+	public Trainee(int traineeid, String resourceid, String name, String email, String trianingstatus, int batchid,
 			String phonenumber, String skypeid, String recruitername, String college, String degree, String major,
 			String techscreenername, int techscreenscore, String projectcompletion, String flagstatus, String flagnotes,
 			String flagauthoer, String flagtimestamp) {
@@ -248,7 +248,7 @@ public class trainee {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		trainee other = (trainee) obj;
+		Trainee other = (Trainee) obj;
 		if (batchid != other.batchid)
 			return false;
 		if (college == null) {

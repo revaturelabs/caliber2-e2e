@@ -53,7 +53,7 @@ Feature: Manage Batch
 		
 		Examples:
 		|batch|fName|lName|email|phoneNumber|trainingStatus|skypeId|college|degree|major|recruiter|profileURL|techScreener|projectCompletion|
-		|Extreme Training|Test|name|emailTest@test.com|8122837261|2|numberskype|my college|degree f|computer|major tom|thisisaurl.com|techtalk|today|
+		|Extreme Training|Test|name|emailTest@test.com|812-283-7261|2|numberskype|my college|degree f|computer|major tom|thisisaurl.com|techtalk|today|
 		
 	Scenario Outline: Switch trainee to a different batch
 		Given The user clicks show trainees in original batch"<originalBatch>" for switch trainee
