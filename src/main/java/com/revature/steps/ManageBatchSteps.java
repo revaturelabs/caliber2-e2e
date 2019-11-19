@@ -344,251 +344,291 @@ Trainee trainee = new Trainee();
 	  
 	}
 
-//	@Given("^The user clicks show trainees in original batch \"([^\"]*)\"$")
-//	public void the_user_clicks_show_trainees_in_original_batch(String arg1) {
-//		WebElement info = mbp.manageBatchTable;
-//		List<WebElement> table = info.findElements(By.className("batch-row"));
-//		for(int i = 1; i <= table.size(); i++)
-//		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
-//			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
-//			System.out.println(match[0] + " == " + arg1);
-//			
-//			if(match[0].equals(arg1))
-//			{//found in the table
-//				WebElement batch = mbp.getManageBatchTableRow(i);
-//				mbp.showTraineesButtonForRow(batch).click();
-//				return;
-//			}
-//			
-//		}
-//	}
-//String temp = "";
-//	@When("^The user clicks on the switch batch button for a trainee \"([^\"]*)\"$")
-//	public void the_user_clicks_on_the_switch_batch_button_for_a_trainee(String arg1) throws Throwable {
-//		List<WebElement> rows = mbp.getTraineesTable().findElements(By.tagName("tr"));
-//				
-//			for(WebElement row : rows)
-//				{
-//					if(row.getText().subSequence(0, arg1.length()) == arg1)
-//					{
-//						//found the trainee
-//						mbp.editBatchButtonForRow(row).click();
-//					}
-//				}
-//	}
-//
-//	@When("^The user selects new batch \"([^\"]*)\" from batch list drop down$")
-//	public void the_user_selects_new_batch_from_batch_list_drop_down(String arg1) {///////////////////////////////////////////////
-//	       List<WebElement> selections = mbp.getDropdownSwitchBatch().findElements(By.tagName("option"));
-//	       for(WebElement selection : selections)
-//	       {
-//	    	   System.out.println(selection.getText());
-//	       }
-//	}
-//
-//	@When("^The user clicks the swich button$")
-//	public void the_user_clicks_the_swich_button() {///////////////////////////////////////////
-//	    
-//	}
-//
-//	@When("^The user clicks the confirm button$")
-//	public void the_user_clicks_the_confirm_button() {///////////////////////////////////////////////////////////
-//	    
-//	}
-//
-//	@When("^The user clicks on the show trainee button on new batch \"([^\"]*)\"$")
-//	public void the_user_clicks_on_the_show_trainee_button_on_new_batch(String arg1) {
-//		WebElement info = mbp.manageBatchTable;
-//		List<WebElement> table = info.findElements(By.className("batch-row"));
-//		for(int i = 1; i <= table.size(); i++)
-//		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
-//			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
-//			System.out.println(match[0] + " == " + arg1);
-//			
-//			if(match[0].equals(arg1))
-//			{//found in the table
-//				WebElement batch = mbp.getManageBatchTableRow(i);
-//				mbp.showTraineesButtonForRow(batch).click();
-//				return;
-//			}
-//			
-//		}
-//	}
-//
-//	@Then("^The trainee \"([^\"]*)\" should appear in the trainee list$")
-//	public void the_trainee_should_appear_in_the_trainee_list(String arg1){/////////////////////////////////////////////////
-//	   
-//	}
-//
-//	@Given("^The user clicks show trainees in  batch (\\d+) for edit trainee$")
-//	public void the_user_clicks_show_trainees_in_batch_for_edit_trainee(int arg1) {
-//		WebElement info = mbp.manageBatchTable;
-//		List<WebElement> table = info.findElements(By.className("batch-row"));
-//		for(int i = 1; i <= table.size(); i++)
-//		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
-//			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
-//			System.out.println(match[0] + " == " + arg1);
-//			
-//			if(match[0].equals(arg1))
-//			{//found in the table
-//				WebElement batch = mbp.getManageBatchTableRow(i);
-//				mbp.showTraineesButtonForRow(batch).click();
-//				return;
-//			}
-//			
-//		}
-//	}
-//
-//	@Given("^The user clicks show trainees in batch  (\\d+) for edit trainee status$")
-//	public void the_user_clicks_show_trainees_in_batch_for_edit_trainee_status(int arg1) {
-//		WebElement row = mbp.getManageBatchTableRow(arg1);
-//	    mbp.showTraineesButtonForRow(row).click();;
-//	}
-//
-//	@When("^The user selects contents \"([^\"]*)\" in training status drop down$")
-//	public void the_user_selects_contents_in_training_status_drop_down(String arg1) {//////////////////////////////need this in pom
-//		
-//	}
-//
-//	@Then("^The trainee \"([^\"]*)\" training status field  should match contents \"([^\"]*)\"$")
-//	public void the_trainee_training_status_field_should_match_contents(String arg1, String arg2) throws Throwable {//////////////////////////////////////
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@Given("^The user clicks show trainees in batch batch (\\d+)$")
-//	public void the_user_clicks_show_trainees_in_batch_batch(int arg1) {
-//		WebElement row = mbp.getManageBatchTableRow(arg1);
-//	    mbp.showTraineesButtonForRow(row).click();
-//	}
-//
-//	@When("^The user clicks remove trainee button on trainee \"([^\"]*)\"$")
-//	public void the_user_clicks_remove_trainee_button_on_trainee(String arg1) throws Throwable {/////////////////////////////need from pom
-//	    List<WebElement> rows = driver.findElements(By.xpath("//*[@id=\"view-trainees-modal-trainees-list-table\"]/tbody/tr[1]"));
-//	    for(WebElement row : rows)
-//	    {
-//	    	if(row.getAttribute(driver.findElement(By.xpath("//*[@id=\"view-trainees-modal-trainees-list-table\"]/tbody/tr[1]/td[2]")).getText())  == arg1)
-//	    	{
-//	    		driver.findElement(By.xpath("//*[@id=\"trainee-actions-remove-button\"]/span")).click();
-//	    	}
-//	    }
-//	    
-//	}
-//
-//	@When("^The user clicks the delete button in alert$")
-//	public void the_user_clicks_the_delete_button_in_alert()  {
-//	  driver.switchTo().alert();
-//	  driver.findElement(By.id("delete-trainee-modal-delete-button")).click();
-//	 
-//	}
-//
-//	@When("^The user clicks confirm delete button in next alert$")
-//	public void the_user_clicks_confirm_delete_button_in_next_alert(){
-//		driver.findElement(By.id("delete-trainee-modal-confirm-delete-button")).click();
-//	    
-//	}
-//
-//	@Then("^The trainee \"([^\"]*)\" should be removed from the trainee list$")
-//	public void the_trainee_should_be_removed_from_the_trainee_list(String arg1) {///////////////////////////////////////////////////////////////
-//	   
-//	}
-//
-//	@When("^user click on the edit batch button on \"([^\"]*)\"$")
-//	public void user_click_on_the_edit_batch_button_on(String arg1) throws Throwable {//////////////////////////////////////////////////////////////////////////////////
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^The user inputs \"([^\"]*)\" in training name$")
-//	public void the_user_inputs_in_training_name(String arg1) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^The user selects (\\d+) in skill type$")
-//	public void the_user_selects_in_skill_type(int arg1) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^The user selects (\\d+) in training type$")
-//	public void the_user_selects_in_training_type(int arg1) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^The user selects (\\d+) in location$")
-//	public void the_user_selects_in_location(int arg1) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^The user selects (\\d+) in trainer$")
-//	public void the_user_selects_in_trainer(int arg1) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^The user selects (\\d+) in coTrainer$")
-//	public void the_user_selects_in_coTrainer(int arg1) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^The user inputs <startdate> in start date$")
-//	public void the_user_inputs_startdate_in_start_date() throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^The user inputs (\\d+) in end date$")
-//	public void the_user_inputs_in_end_date(int arg1) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^The user inputs (\\d+) in good grade$")
-//	public void the_user_inputs_in_good_grade(int arg1) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^The user inputs (\\d+) in passing grade$")
-//	public void the_user_inputs_in_passing_grade(int arg1) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@Then("^Batch details should reflect changes$")
-//	public void batch_details_should_reflect_changes() throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//
-//	@When("^The user clicks the delete batch button on batch (\\d+)$")
-//	public void the_user_clicks_the_delete_batch_button_on_batch(int arg1) {
-//	    WebElement batch = mbp.getManageBatchTableRow(arg1);
-//	    mbp.removeBatchButtonForRow(batch).click();
-//	}
-//
-//	@When("^The user clicks the delete button in the alert$")
-//	public void the_user_clicks_the_delete_button_in_the_alert() {
-//	    	driver.switchTo().alert();
-//	    	driver.findElement(By.id("delete-trainee-modal-delete-button")).click();
-//	}
-//
-//	@When("^The user clicks confirm delete in the next alert$")
-//	public void the_user_clicks_confirm_delete_in_the_next_alert() {
-//	   driver.findElement(By.xpath("/html/body/modal-container/div/div/app-delete-trainee-modal/div[2]/div/div/button[1]")).click();////////////////////////////no xpath, only full xpath displayed
-//	   
-//	}
-//
-//	@Then("^The batch \"([^\"]*)\" should be missing from batch list$")
-//	public void the_batch_should_be_missing_from_batch_list(String arg1) throws Throwable {//////////////////////////////////////////////
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
+	@Given("^The user clicks show trainees in original batch\"([^\"]*)\" for switch trainee$")
+	public void the_user_clicks_show_trainees_in_original_batch_for_switch_trainee(String arg1) {
+		WebElement info = mbp.manageBatchTable;
+		List<WebElement> table = info.findElements(By.className("batch-row"));
+		for(int i = 1; i <= table.size(); i++)
+		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
+			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
+			System.out.println(match[0] + " == " + arg1);
+			
+			if(match[0].equals(arg1))
+			{//found in the table
+				WebElement batch = mbp.getManageBatchTableRow(i);
+				mbp.showTraineesButtonForRow(batch).click();
+				return;
+			}
+			
+		}
+	}
+String temp = "";
+	@When("^The user clicks on the switch batch button for a trainee \"([^\"]*)\"$")
+	public void the_user_clicks_on_the_switch_batch_button_for_a_trainee(String arg1) throws Throwable {
+		List<WebElement> rows = mbp.getTraineesTable().findElements(By.tagName("tr"));
+				
+			for(WebElement row : rows)
+				{
+					if(row.getText().subSequence(0, arg1.length()) == arg1)
+					{
+						//found the trainee
+						mbp.editBatchButtonForRow(row).click();
+					}
+				}
+	}
+
+	@When("^The user selects new batch \"([^\"]*)\" from batch list drop down$")
+	public void the_user_selects_new_batch_from_batch_list_drop_down(String arg1) {///////////////////////////////////////////////
+	       List<WebElement> selections = mbp.getDropdownSwitchBatch().findElements(By.tagName("option"));
+	       for(WebElement selection : selections)
+	       {
+	    	   System.out.println(selection.getText());
+	       }
+	}
+
+	@When("^The user clicks the swich button$")
+	public void the_user_clicks_the_swich_button() {///////////////////////////////////////////
+	    
+	}
+
+	@When("^The user clicks the confirm button$")
+	public void the_user_clicks_the_confirm_button() {///////////////////////////////////////////////////////////
+	    
+	}
+
+	@When("^The user clicks on the show trainee button on new batch \"([^\"]*)\"$")
+	public void the_user_clicks_on_the_show_trainee_button_on_new_batch(String arg1) {
+		WebElement info = mbp.manageBatchTable;
+		List<WebElement> table = info.findElements(By.className("batch-row"));
+		for(int i = 1; i <= table.size(); i++)
+		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
+			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
+			System.out.println(match[0] + " == " + arg1);
+			
+			if(match[0].equals(arg1))
+			{//found in the table
+				WebElement batch = mbp.getManageBatchTableRow(i);
+				mbp.showTraineesButtonForRow(batch).click();
+				return;
+			}
+			
+		}
+	}
+
+	@Then("^The trainee name  \"([^\"]*)\" should appear in the trainee list$")
+	public void the_trainee_name_should_appear_in_the_trainee_list(String arg1){/////////////////////////////////////////////////
+	   
+	}
+
+	@Given("^The user clicks show trainees in batch \"([^\"]*)\" for edit trainee$")
+	public void the_user_clicks_show_trainees_in_batch_for_edit_trainee(String arg1){
+		WebElement info = mbp.manageBatchTable;
+		List<WebElement> table = info.findElements(By.className("batch-row"));
+		for(int i = 1; i <= table.size(); i++)
+		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
+			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
+			System.out.println(match[0] + " == " + arg1);
+			
+			if(match[0].equals(arg1))
+			{//found in the table
+				WebElement batch = mbp.getManageBatchTableRow(i);
+				mbp.showTraineesButtonForRow(batch).click();
+				return;
+			}
+			
+		}
+	}
+	
+	@When("^The user clicks the edit trainee button on trainee \"([^\"]*)\"$")
+	public void the_user_clicks_the_edit_trainee_button_on_trainee(String arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@Given("^The user clicks show trainees in batch  (\\d+) for edit trainee status$")
+	public void the_user_clicks_show_trainees_in_batch_for_edit_trainee_status(int arg1) {
+		WebElement row = mbp.getManageBatchTableRow(arg1);
+	    mbp.showTraineesButtonForRow(row).click();;
+	}
+
+	@When("^The user selects contents \"([^\"]*)\" in training status drop down$")
+	public void the_user_selects_contents_in_training_status_drop_down(String arg1) {//////////////////////////////need this in pom
+		
+	}
+
+	@Then("^The \"([^\"]*)\" should reflect changes$")
+	public void the_should_reflect_changes(String arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user clicks show trainees in batch \"([^\"]*)\" for remove trainee$")
+	public void the_user_clicks_show_trainees_in_batch_for_remove_trainee(String arg1) {
+		WebElement info = mbp.manageBatchTable;
+		List<WebElement> table = info.findElements(By.className("batch-row"));
+		for(int i = 1; i <= table.size(); i++)
+		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
+			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
+			System.out.println(match[0] + " == " + arg1);
+			
+			if(match[0].equals(arg1))
+			{//found in the table
+				WebElement batch = mbp.getManageBatchTableRow(i);
+				mbp.showTraineesButtonForRow(batch).click();
+				return;
+			}
+			
+		}
+	}
+
+	@When("^The user clicks remove trainee button on trainee \"([^\"]*)\"$")
+	public void the_user_clicks_remove_trainee_button_on_trainee(String arg1) throws Throwable {/////////////////////////////need from pom
+	    List<WebElement> rows = driver.findElements(By.xpath("//*[@id=\"view-trainees-modal-trainees-list-table\"]/tbody/tr[1]"));
+	    for(WebElement row : rows)
+	    {
+	    	if(row.getAttribute(driver.findElement(By.xpath("//*[@id=\"view-trainees-modal-trainees-list-table\"]/tbody/tr[1]/td[2]")).getText())  == arg1)
+	    	{
+	    		driver.findElement(By.xpath("//*[@id=\"trainee-actions-remove-button\"]/span")).click();
+	    	}
+	    }
+	    
+	}
+
+	@When("^The user clicks the delete button in alert$")
+	public void the_user_clicks_the_delete_button_in_alert()  {
+	  driver.switchTo().alert();
+	  driver.findElement(By.id("delete-trainee-modal-delete-button")).click();
+	 
+	}
+
+	@When("^The user clicks confirm delete button in next alert$")
+	public void the_user_clicks_confirm_delete_button_in_next_alert(){
+		driver.findElement(By.id("delete-trainee-modal-confirm-delete-button")).click();
+	    
+	}
+
+	@Then("^The trainee\"([^\"]*)\" should be removed from the trainee list$")
+	public void the_trainee_should_be_removed_from_the_trainee_list(String arg1) {///////////////////////////////////////////////////////////////
+	   
+	}
+
+	@When("^user click on the edit batch button on \"([^\"]*)\"$")
+	public void user_click_on_the_edit_batch_button_on(String arg1) throws Throwable {//////////////////////////////////////////////////////////////////////////////////
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user inputs \"([^\"]*)\" in training name$")
+	public void the_user_inputs_in_training_name(String arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user selects (\\d+) in skill type$")
+	public void the_user_selects_in_skill_type(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user selects (\\d+) in training type$")
+	public void the_user_selects_in_training_type(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user selects (\\d+) in location$")
+	public void the_user_selects_in_location(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user selects (\\d+) in trainer$")
+	public void the_user_selects_in_trainer(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user selects (\\d+) in coTrainer$")
+	public void the_user_selects_in_coTrainer(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user inputs <startdate> in start date$")
+	public void the_user_inputs_startdate_in_start_date() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user inputs (\\d+) in end date$")
+	public void the_user_inputs_in_end_date(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user inputs (\\d+) in good grade$")
+	public void the_user_inputs_in_good_grade(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user inputs (\\d+) in passing grade$")
+	public void the_user_inputs_in_passing_grade(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+	
+	@When("^The user clicks the update button$")
+	public void the_user_clicks_the_update_button() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+	
+	@Then("^Batch details should reflect changes$")
+	public void batch_details_should_reflect_changes() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+
+	@When("^The user clicks the delete batch button on batch\"([^\"]*)\"$")
+	public void the_user_clicks_the_delete_batch_button_on_batch(String arg1) {
+		WebElement info = mbp.manageBatchTable;
+		List<WebElement> table = info.findElements(By.className("batch-row"));
+		for(int i = 1; i <= table.size(); i++)
+		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
+			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
+			//System.out.println(match[0] + " == " + arg1);
+			
+			if(match[0].equals(arg1))
+			{//found in the table
+				WebElement batch = mbp.getManageBatchTableRow(i);
+				mbp.removeBatchButtonForRow(mbp.getManageBatchTableRow(i)).click();
+				return;
+			}
+			
+		}
+	}
+	
+	
+
+	@When("^The user clicks the delete button in the alert$")
+	public void the_user_clicks_the_delete_button_in_the_alert() {
+	    	driver.switchTo().alert();
+	    	mbp.confirmDeleteBatchButton().click();
+	}
+
+	@When("^The user clicks confirm delete in the next alert$")
+	public void the_user_clicks_confirm_delete_in_the_next_alert() {
+	   driver.findElement(By.xpath("/html/body/modal-container/div/div/app-delete-trainee-modal/div[2]/div/div/button[1]")).click();////////////////////////////no xpath, only full xpath displayed
+	   
+	}
+
+	@Then("^The batch\"([^\"]*)\" should be missing from batch list$")
+	public void the_batch_should_be_missing_from_batch_list(String arg1) throws Throwable {//////////////////////////////////////////////
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
 
 	
 }
