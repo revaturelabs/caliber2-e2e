@@ -19,13 +19,13 @@ Feature: Assess Batch
 		|year|quarter|criteria|traineename|
 		|2019|Q4|natalie|Saddiqi, Joseph|
 		|2019|Q4|church|Saddiqi, Joseph|
-		|2019|Q4|java|Wanitabi, Anthony|
+		|2019|Q4|java|Tyrone Lopez|
 		|2019|Q4|dan|Martin, Andrew|
 		|2019|Q4|pickles|Martin, Andrew|
 		|2019|Q4|pega|Martin, Andrew|
-		|2018|Q3|shelby|null|
-		|2018|Q3|levinson|null|
-		|2018|Q3|java|null|
+		|2018|Q3|shelby|Prithi Kransodar|
+		|2018|Q3|levinson|Prithi Kransodar|
+		|2018|Q3|java|Prithi Kransodar|
 		
 	Scenario: select a week to view and assess
 		Given the user is on a specific batch page
