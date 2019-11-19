@@ -15,18 +15,18 @@ Feature: Manage Batch
 		And The user fills in end date <endDate>
 		And the user fills in good gradesm <goodGrade>
 		And The user fills in passing grades <passingGrade>
+		And The user clicks the submit button
 		Then The newly created batch should reflect the information given
 
 			Examples:
 			|trainingName|trainingType|skillType|location|trainer|co-trainer|startDate|endDate|goodGrade|passingGrade|
-			|TestTrainingNameInitial|1|1|1|1|1|02022021|04042021|70|65|
+			|We Do Training|2|2|2|2|2|02022021|04042021|70|65|
 			
 	Scenario Outline: Import Batch
 		When The user clicks import batch
 		And The user inputs "<json>" into paste JSON field
 		And The user clicks import grades
-		Then The user is on the batch list page
-		And The imported "<batch>" is in the list 
+		Then The imported "<batch>" is in the list 
 		
 		#the batch variable is to identify the batch element in the list on the batch list page
 		Examples: 
@@ -103,7 +103,7 @@ Feature: Manage Batch
 		|batch|trainee|
 		
 	Scenario Outline: Edit batch details fields by text entry
-		When user click on the edit batch button on batch>
+		When user click on the edit batch button on "<batch>"
 		And The user inputs "<traningName>" in training name
 		And The user selects <skillType> in skill type
 		And The user selects <trainingType> in training type
@@ -119,7 +119,7 @@ Feature: Manage Batch
 		
 		Examples:
 		|batch|trainingName|skillType|trainingType|location|trainer|coTrainer|startDate|endDate|goodGrade|passingGrade|
-		|1|TestTrainingName|1|1|1|1|1|01012020|03012020|80|60|
+		|1|TestTrainingName|2|2|2|2|2|01012020|03012020|80|60|
 		
 	Scenario Outline: Delete batch
 		When The user clicks the delete batch button on "<batch>"

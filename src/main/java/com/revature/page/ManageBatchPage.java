@@ -30,7 +30,7 @@ public class ManageBatchPage {
 	}
 	
 	public WebElement createBatchButton() {
-		return driver.findElement(By.id("create-batch-button"));
+		return driver.findElement(By.id("create-batch-button")).findElement(By.tagName("a"));
 	}
 	
 	//FINDING ELEMENTS ON THE TABLE***************************************************

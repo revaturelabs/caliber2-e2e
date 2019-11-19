@@ -14,8 +14,10 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.revature.entity.Batch;
 import com.revature.page.AddTraineeModal;
 import com.revature.page.CreateBatchModal;
 import com.revature.page.ManageBatchPage;
@@ -40,74 +42,84 @@ public class ManageBatchSteps
 	   driver.get("http://caliber-2-dev.revaturelabs.com.s3-website-us-east-1.amazonaws.com/caliber/vp/manage");
 	   //driver.manage().window().maximize();
 	}
-	
+	Batch batch = new Batch();
 	@When("^The user clicks on create batch$")
 	public void the_user_clicks_on_create_batch() 
 	{
-		mbp.createBatchButton().click();
+		wait.until(ExpectedConditions.visibilityOf(mbp.createBatchButton())).click();
 	   driver.switchTo().activeElement();
 	}
 
 	@When("^The user fills in training name \"([^\"]*)\"$")
 	public void the_user_fills_in_training_name(String arg1) 
 	{
+		batch.setTrainingname(arg1);
 		cbm.inputTrainingName().sendKeys(arg1);
 	}
 
 	@When("^The user selects training type (\\d+)$")
 	public void the_user_selects_training_type(int arg1)
 	{
+		batch.setTrainingtype(cbm.selectTrainingTypeDropdownOptionByInt(arg1).getText());
 		 cbm.selectTrainingTypeDropdownOptionByInt(arg1).click();
 	}
 
 	@When("^The user selects skill type (\\d+)$")
 	public void the_user_selects_skill_type(int arg1)
 	{
+		batch.setSkilltype(cbm.skillTypeDropdownBoxOptionByInt(arg1).getText());
 		cbm.skillTypeDropdownBoxOptionByInt(arg1).click();
 	}
 
 	@When("^the user selects location (\\d+)$")
 	public void the_user_selects_location(int arg1)
 	{
+		batch.setLocation(cbm.selectLocationDropdownByInt(arg1).getText());
 		cbm.selectLocationDropdownByInt(arg1).click();
 	}
 
 	@When("^The user selects trainer (\\d+)$")
 	public void the_user_selects_trainer(int arg1)
 	{
+		batch.setTrainer(cbm.trainerDropdownBoxOptionByInt(arg1).getText());
 		cbm.trainerDropdownBoxOptionByInt(arg1).click();
 	}
 
 	@When("^The user selects co-trainer (\\d+)$")
 	public void the_user_selects_co_trainer(int arg1)
 	{
+		batch.setCotrainer(cbm.selectCoTrainerDropdownByInt(arg1).getText());
 	    cbm.selectCoTrainerDropdownByInt(arg1).click();
 	}
 
-	@When("^The user fills in start date \"([^\"]*)\"$")
-	public void the_user_fills_in_start_date(String arg1)
+	@When("^The user fills in startdate (\\d+)$")
+	public void the_user_fills_in_startdate(int arg1)
 	{
-	    cbm.inputStartDate().sendKeys(arg1);
+		batch.setStartdate(arg1);
+	    cbm.inputStartDate().sendKeys(String.valueOf(arg1));
 	}
 
-	@When("^The user fills in end date \"([^\"]*)\"$")
-	public void the_user_fills_in_end_date(String arg1)
+	@When("^The user fills in end date (\\d+)$")
+	public void the_user_fills_in_end_date(int arg1)
 	{
-		cbm.inputEndDate().sendKeys(arg1);
+		batch.setEnddate(arg1);
+		cbm.inputEndDate().sendKeys(String.valueOf(arg1));
 	}
 
-	@When("^the user fills in good grades \"([^\"]*)\"$")
-	public void the_user_fills_in_good_grades(String arg1) 
+	@When("^the user fills in good gradesm (\\d+)$")
+	public void the_user_fills_in_good_gradesm(int arg1)
 	{
+		batch.setGoodgrade(arg1);
 		cbm.inputGoodGrade().clear();
-		cbm.inputGoodGrade().sendKeys(arg1);
+		cbm.inputGoodGrade().sendKeys(String.valueOf(arg1));
 	}
 
-	@When("^The user fills in passing grade \"([^\"]*)\"$")
-	public void the_user_fills_in_passing_grade(String arg1) 
+	@When("^The user fills in passing grades (\\d+)$")
+	public void the_user_fills_in_passing_grades(int arg1)
 	{
+		batch.setPassinggrade(arg1);
 		cbm.inputPassingGrade().clear();
-	    cbm.inputPassingGrade().sendKeys(arg1);
+	    cbm.inputPassingGrade().sendKeys(String.valueOf(arg1));
 	}
 	
 	@When("^The user clicks the submit button$")
@@ -118,17 +130,17 @@ public class ManageBatchSteps
 		driver.switchTo().defaultContent();
 	}
 
-	@Then("^The new batch with matching training name \"([^\"]*)\", trainingType (\\d+), skilltype (\\d+), location (\\d+), co-trainer (\\d+), start date \"([^\"]*)\", end date \"([^\"]*)\", good grades \"([^\"]*)\", and passing grade \"([^\"]*)\" will appear inside the manage batch table$")
-	public void the_new_batch_with_matching_training_name_trainingType_skilltype_location_co_trainer_start_date_end_date_good_grades_and_passing_grade_will_appear_inside_the_manage_batch_table(String arg1, int arg2, int arg3, int arg4, int arg5, String arg6, String arg7, String arg8, String arg9)
+	@Then("^The newly created batch should reflect the information given$")
+	public void the_newly_created_batch_should_reflect_the_information_given() 
 	{
 		WebElement info = mbp.manageBatchTable;
 		List<WebElement> table = info.findElements(By.className("batch-row"));
 		for(int i = 1; i <= table.size(); i++)
 		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
 			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
-			//System.out.println(match[0] + " == " + arg1);
+			System.out.println(match[0] + " == " + batch.getTrainingname());
 			
-			if(match[0].equals(arg1))
+			if(match[0].equals(batch.getTrainingname()))
 			{//found in the table
 				Assert.assertTrue(true);
 				return;
@@ -150,8 +162,8 @@ public class ManageBatchSteps
 		
 	}
 
-	@When("^The user inputs json \"([^\"]*)\" into paste JSON field$")
-	public void the_user_inputs_json_into_paste_JSON_field(String arg1) 
+	@When("^The user inputs \"([^\"]*)\" into paste JSON field$")
+	public void the_user_inputs_into_paste_JSON_field(String arg1) 
 	{
 		String file = "src/main/resources/" + arg1;
 	    try
@@ -175,11 +187,12 @@ public class ManageBatchSteps
 
 	@Then("^The user clicks import grades$")
 	public void the_user_clicks_import_grades() {
-	    mbp.submitImportBatchButton().click();
+	   // mbp.submitImportBatchButton().click();
+	    mbp.cancelImportBatchButton().click();
 	}
 
-	@Then("^The imported batch \"([^\"]*)\" is in the list$")
-	public void the_imported_batch_is_in_the_list(String arg1) {
+	@Then("^The imported \"([^\"]*)\" is in the list$")
+	public void the_imported_is_in_the_list(String arg1){
 		WebElement info = mbp.manageBatchTable;
 		List<WebElement> table = info.findElements(By.className("batch-row"));
 		for(int i = 1; i <= table.size(); i++)
@@ -206,18 +219,22 @@ public class ManageBatchSteps
 		for(int i = 1; i <= table.size(); i++)
 		{//arg1 = trianing name, arg6 = start date, arg7 = end date, arg8 = good grade, arg9 = passing grade
 			String[] match = mbp.getManageBatchTableRow(i).getText().split("\n.*");
-			//System.out.println(match[0] + " == " + arg1);
+			System.out.println(match[0] + " == " + arg1);
 			
 			if(match[0].equals(arg1))
 			{//found in the table
-				mbp.showTraineesButtonForRow(table.get(i)).click();;
+				WebElement batch = mbp.getManageBatchTableRow(i);
+				mbp.showTraineesButtonForRow(batch).click();
 			}
 			
 		}
+		
+		
 	}
 
 	@When("^The user clicks add trainee$")
-	public void the_user_clicks_add_trainee() throws Throwable {
+	public void the_user_clicks_add_trainee() {
+		driver.switchTo().activeElement();
 		mbp.addTraineeButton().click();
 	}
 
@@ -438,23 +455,78 @@ public class ManageBatchSteps
 	   
 	}
 
-	@When("^user click on the edit batch button on batch (\\d+)$")
-	public void user_click_on_the_edit_batch_button_on_batch(int arg1) {
-		WebElement row = mbp.getManageBatchTableRow(arg1);
-		mbp.editBatchButtonForRow(row).click();
-	}
-
-	@Then("^The batch \"([^\"]*)\" field \"([^\"]*)\" should match contents \"([^\"]*)\"$")
-	public void the_batch_field_should_match_contents(String arg1, String arg2, String arg3) throws Throwable {/////////////////////////////////////////////
+	@When("^user click on the edit batch button on \"([^\"]*)\"$")
+	public void user_click_on_the_edit_batch_button_on(String arg1) throws Throwable {//////////////////////////////////////////////////////////////////////////////////
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
 	}
 
-	@When("^The user selects contents \"([^\"]*)\" in field \"([^\"]*)\" dropdown$")
-	public void the_user_selects_contents_in_field_dropdown(String arg1, String arg2) throws Throwable {////////////////////////////////////////
+	@When("^The user inputs \"([^\"]*)\" in training name$")
+	public void the_user_inputs_in_training_name(String arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
 	}
+
+	@When("^The user selects (\\d+) in skill type$")
+	public void the_user_selects_in_skill_type(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user selects (\\d+) in training type$")
+	public void the_user_selects_in_training_type(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user selects (\\d+) in location$")
+	public void the_user_selects_in_location(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user selects (\\d+) in trainer$")
+	public void the_user_selects_in_trainer(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user selects (\\d+) in coTrainer$")
+	public void the_user_selects_in_coTrainer(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user inputs <startdate> in start date$")
+	public void the_user_inputs_startdate_in_start_date() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user inputs (\\d+) in end date$")
+	public void the_user_inputs_in_end_date(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user inputs (\\d+) in good grade$")
+	public void the_user_inputs_in_good_grade(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^The user inputs (\\d+) in passing grade$")
+	public void the_user_inputs_in_passing_grade(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@Then("^Batch details should reflect changes$")
+	public void batch_details_should_reflect_changes() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
 
 	@When("^The user clicks the delete batch button on batch (\\d+)$")
 	public void the_user_clicks_the_delete_batch_button_on_batch(int arg1) {
