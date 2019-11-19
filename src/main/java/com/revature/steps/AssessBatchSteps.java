@@ -17,7 +17,7 @@ public class AssessBatchSteps {
 	
 	public static NavigationBar navbar = PagesUtil.navBar;
 	public static AssessBatchPage batchpage = PagesUtil.assessBatchPage;
-	public static WebDriver driver = ChromeRunner.driver;
+	public static WebDriver driver = PagesUtil.driver;
 
 	@Then("^the user should be on the assess batch page$")
 	public void the_user_should_be_on_the_assess_batch_page() throws Throwable {
