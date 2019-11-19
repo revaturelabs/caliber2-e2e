@@ -3,6 +3,7 @@ package com.revature.app;
 import com.revature.html.Generator;
 import com.revature.json.models.Feature;
 import com.revature.runner.ChromeRunner;
+import com.revature.utils.Config;
 import gherkin.deps.com.google.gson.Gson;
 import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
@@ -65,8 +66,34 @@ public class Caliber2E2eApplication {
 		}
 	}
 
+	/**
+	 * Print out usage info for the jar.
+	 */
+	private static void printHelp() {
+		System.out.println("Usage: java -jar <jar name> <url>");
+		System.out.println();
+		System.out.println(
+			"    jar name : The name of the jar, such as 'caliber2-e2e-0.0.1-SNAPSHOT.jar'");
+		System.out.println(
+			"    url      : The url of the web-app home page, such as 'http://example.com/caliber/vp/home'");
+		System.out.println();
+	}
+
 	public static void main(String[] args) {
 		// SpringApplication.run(Caliber2E2eApplication.class, args);
+
+		if (args == null || args.length == 0) {
+			System.err.println("Please specify a url in the arguments.");
+			printHelp();
+		}
+
+		if (args.length > 1) {
+			System.out.println(
+				"Warning: more than one argument provided, this may be an error.");
+			printHelp();
+		}
+
+		Config.setURL(args[0]);
 
 		// Run the junit tests
 		JUnitCore junit = new JUnitCore();
