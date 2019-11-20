@@ -36,3 +36,4 @@ build/
 *.html
 *.exe
 target/classes/META-INF/MANIFEST.MF
+dependency-reduced-pom.xml
