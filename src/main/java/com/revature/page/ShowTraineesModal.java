@@ -18,58 +18,68 @@ public class ShowTraineesModal {
 		PageFactory.initElements(driver, this);
 		wait = new WebDriverWait(driver, 3);
 	}
-	
-	@FindBy(id="view-trainees-modal-close-button")
+
+	@FindBy(id = "view-trainees-modal-close-button")
 	public WebElement closeTraineesModal;
-	
+
 	public WebElement showActiveTraineesOnlyToggle() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("view-trainees-modal-show-trainees-toggle-button")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("view-trainees-modal-show-trainees-toggle-button")));
 	}
-	
+
 	public WebElement addTraineeButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("create-trainee-button-text")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.className("create-trainee-button-text")));
 	}
-	
+
 	public WebElement traineesTable() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("view-trainees-modal-trainees-list-table")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.className("view-trainees-modal-trainees-list-table")));
 	}
-	
+
 	public WebElement getTraineesTableRow(int rowNumber) {
-		return traineesTable().findElement(By.xpath("//tr["+rowNumber+"]"));
+		return traineesTable().findElement(By.xpath("//tr[" + rowNumber + "]"));
 	}
-	
+
 	public WebElement getTraineesTableData(WebElement row, int columnNumber) {
-		return row.findElement(By.xpath("//td["+columnNumber+"]"));
+		return row.findElement(By.xpath("//td[" + columnNumber + "]"));
 	}
-	
-	//DELETE TRAINEE MODAL*************************************************************************
+
+	// DELETE TRAINEE
+	// MODAL*************************************************************************
 	public WebElement cancelDeleteTraineeButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-trainee-modal-cancel-button")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("delete-trainee-modal-cancel-button")));
 	}
-	
+
 	public WebElement confirmDeleteTraineeButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-trainee-modal-delete-button")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("delete-trainee-modal-delete-button")));
 	}
-	//**********************************************************************************************
-	
-	
-	//SWITCH BATCH MODAL****************************************************************************
-	
+	// **********************************************************************************************
+
+	// SWITCH BATCH
+	// MODAL****************************************************************************
+
 	public WebElement selectBatchDropdown() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("switchedBatch")));
+		return wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("switchedBatch")));
 	}
-	
+
 	public WebElement selectBatchDropdownNthOption(int n) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='switchedBatch']//option["+n+"]")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.xpath("//select[@id='switchedBatch']//option[" + n + "]")));
 	}
-	
+
 	public WebElement cancelSwitchBatchButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("switch-batch-modal-cancel-button")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("switch-batch-modal-cancel-button")));
 	}
-	
+
 	public WebElement submitSwitchBatchButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("switch-batch-modal-switch-button")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("switch-batch-modal-switch-button")));
 	}
-	//***********************************************************************************************
-	
+	// ***********************************************************************************************
+
 }

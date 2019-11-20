@@ -15,20 +15,20 @@ public class LoginPage {
 		PageFactory.initElements(driver, this);
 		wait = new WebDriverWait(driver, 3);
 	}
-	
+
 	public String getUrl() {
 		return driver.getCurrentUrl();
 	}
-	
-	@FindBy(id="signInFormUsername")
+
+	@FindBy(id = "signInFormUsername")
 	public WebDriver inputUsername;
-	
-	@FindBy(id="signInFormPassword")
+
+	@FindBy(id = "signInFormPassword")
 	public WebDriver inputPassword;
-	
-	@FindBy(className="redirect-customizable")
+
+	@FindBy(className = "redirect-customizable")
 	public WebDriver forgotPasswordLink;
-	
-	@FindBy(className="btn btn-primary submitButton-customizable")
+
+	@FindBy(className = "btn btn-primary submitButton-customizable")
 	public WebDriver signInButton;
 }

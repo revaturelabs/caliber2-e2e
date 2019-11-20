@@ -1,7 +1,6 @@
 package com.revature.entity;
 
-public class Batch 
-{
+public class Batch {
 	private int batchid;
 	private String trainingname;
 	private String trainingtype;
@@ -16,14 +15,15 @@ public class Batch
 	private int passinggrade;
 	private int traineecount;
 	private int weeks;
-	
+
 	public Batch() {
 		super();
 	}
 
-	public Batch(int batchid, String trainingname, String trainingtype, String skilltype, String trainer,
-			String cotrainer, String location, int locationid, int startdate, int enddate, int goodgrade,
-			int passinggrade, int traineecount, int weeks) {
+	public Batch(int batchid, String trainingname, String trainingtype,
+		String skilltype, String trainer, String cotrainer, String location,
+		int locationid, int startdate, int enddate, int goodgrade,
+		int passinggrade, int traineecount, int weeks) {
 		super();
 		this.batchid = batchid;
 		this.trainingname = trainingname;
@@ -155,11 +155,13 @@ public class Batch
 
 	@Override
 	public String toString() {
-		return "Batch [batchid=" + batchid + ", trainingname=" + trainingname + ", trainingtype=" + trainingtype
-				+ ", skilltype=" + skilltype + ", trainer=" + trainer + ", cotrainer=" + cotrainer + ", location="
-				+ location + ", locationid=" + locationid + ", startdate=" + startdate + ", enddate=" + enddate
-				+ ", goodgrade=" + goodgrade + ", passinggrade=" + passinggrade + ", traineecount=" + traineecount
-				+ ", weeks=" + weeks + "]";
+		return "Batch [batchid=" + batchid + ", trainingname=" + trainingname
+			+ ", trainingtype=" + trainingtype + ", skilltype=" + skilltype
+			+ ", trainer=" + trainer + ", cotrainer=" + cotrainer
+			+ ", location=" + location + ", locationid=" + locationid
+			+ ", startdate=" + startdate + ", enddate=" + enddate
+			+ ", goodgrade=" + goodgrade + ", passinggrade=" + passinggrade
+			+ ", traineecount=" + traineecount + ", weeks=" + weeks + "]";
 	}
 
 	@Override
@@ -167,18 +169,23 @@ public class Batch
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + batchid;
-		result = prime * result + ((cotrainer == null) ? 0 : cotrainer.hashCode());
+		result =
+			prime * result + ((cotrainer == null) ? 0 : cotrainer.hashCode());
 		result = prime * result + enddate;
 		result = prime * result + goodgrade;
-		result = prime * result + ((location == null) ? 0 : location.hashCode());
+		result =
+			prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + locationid;
 		result = prime * result + passinggrade;
-		result = prime * result + ((skilltype == null) ? 0 : skilltype.hashCode());
+		result =
+			prime * result + ((skilltype == null) ? 0 : skilltype.hashCode());
 		result = prime * result + startdate;
 		result = prime * result + traineecount;
 		result = prime * result + ((trainer == null) ? 0 : trainer.hashCode());
-		result = prime * result + ((trainingname == null) ? 0 : trainingname.hashCode());
-		result = prime * result + ((trainingtype == null) ? 0 : trainingtype.hashCode());
+		result = prime * result
+			+ ((trainingname == null) ? 0 : trainingname.hashCode());
+		result = prime * result
+			+ ((trainingtype == null) ? 0 : trainingtype.hashCode());
 		result = prime * result + weeks;
 		return result;
 	}
@@ -197,7 +204,8 @@ public class Batch
 		if (cotrainer == null) {
 			if (other.cotrainer != null)
 				return false;
-		} else if (!cotrainer.equals(other.cotrainer))
+		}
+		else if (!cotrainer.equals(other.cotrainer))
 			return false;
 		if (enddate != other.enddate)
 			return false;
@@ -206,7 +214,8 @@ public class Batch
 		if (location == null) {
 			if (other.location != null)
 				return false;
-		} else if (!location.equals(other.location))
+		}
+		else if (!location.equals(other.location))
 			return false;
 		if (locationid != other.locationid)
 			return false;
@@ -215,7 +224,8 @@ public class Batch
 		if (skilltype == null) {
 			if (other.skilltype != null)
 				return false;
-		} else if (!skilltype.equals(other.skilltype))
+		}
+		else if (!skilltype.equals(other.skilltype))
 			return false;
 		if (startdate != other.startdate)
 			return false;
@@ -224,23 +234,24 @@ public class Batch
 		if (trainer == null) {
 			if (other.trainer != null)
 				return false;
-		} else if (!trainer.equals(other.trainer))
+		}
+		else if (!trainer.equals(other.trainer))
 			return false;
 		if (trainingname == null) {
 			if (other.trainingname != null)
 				return false;
-		} else if (!trainingname.equals(other.trainingname))
+		}
+		else if (!trainingname.equals(other.trainingname))
 			return false;
 		if (trainingtype == null) {
 			if (other.trainingtype != null)
 				return false;
-		} else if (!trainingtype.equals(other.trainingtype))
+		}
+		else if (!trainingtype.equals(other.trainingtype))
 			return false;
 		if (weeks != other.weeks)
 			return false;
 		return true;
 	}
-	
-	
 
 }

@@ -16,7 +16,7 @@ public class ReportsPage {
 	public ReportsPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		this.wait = new WebDriverWait(driver, 3);
+		this.wait = new WebDriverWait(driver, 5);
 	}
 
 	// DROPDOWN

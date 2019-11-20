@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CreateBatchModal {
-	
+
 	WebDriver driver;
 	WebDriverWait wait;
 
@@ -17,85 +17,109 @@ public class CreateBatchModal {
 		PageFactory.initElements(driver, this);
 		wait = new WebDriverWait(driver, 3);
 	}
-	
+
 	public WebElement inputTrainingName() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("trainingName")));
+		return wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("trainingName")));
 	}
-	
+
 	public WebElement skillTypeDropdownBox() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("skillType")));
+		return wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("skillType")));
 	}
+
 	public WebElement skillTypeDropdownBoxOptionByName(String option) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='skillType']//option[@value='"+option+"']")));
+		return wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//select[@id='skillType']//option[@value='" + option + "']")));
 	}
-	
-	//the n'th dropdown item
+
+	// the n'th dropdown item
 	public WebElement skillTypeDropdownBoxOptionByInt(int n) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='skillType']//option["+n+"]")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.xpath("//select[@id='skillType']//option[" + n + "]")));
 	}
-	
+
 	public WebElement trainerDropdownBox() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("trainer")));
+		return wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("trainer")));
 	}
-	
+
 	public WebElement trainerDropdownBoxOptionByName(String option) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='trainer']//option[@value='"+option+"']")));
+		return wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//select[@id='trainer']//option[@value='" + option + "']")));
 	}
-	
+
 	public WebElement trainerDropdownBoxOptionByInt(int n) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='trainer']//option["+n+"]")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.xpath("//select[@id='trainer']//option[" + n + "]")));
 	}
 
 	public WebElement inputStartDate() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate")));
+		return wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("startDate")));
 	}
-	
+
 	public WebElement inputGoodGrade() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("goodGrade")));
+		return wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("goodGrade")));
 	}
-	
+
 	public WebElement selectTrainingTypeDropdown() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("trainingType")));
+		return wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("trainingType")));
 	}
-	
+
 	public WebElement selectTrainingTypeDropdownOptionByInt(int n) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='trainingType']//option["+n+"]")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.xpath("//select[@id='trainingType']//option[" + n + "]")));
 	}
-	
+
 	public WebElement selectLocationDropdown() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("location")));
+		return wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("location")));
 	}
-	
+
 	public WebElement selectLocationDropdownByInt(int n) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='location']//option["+n+"]")));  //*[@id="location"]/option[]
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.xpath("//select[@id='location']//option[" + n + "]"))); // *[@id="location"]/option[]
 	}
-	
+
 	public WebElement selectCoTrainerDropdown() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("coTrainer")));
+		return wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("coTrainer")));
 	}
-	
+
 	public WebElement selectCoTrainerDropdownByName(String option) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='coTrainer']//option[@value='"+option+"']")));
+		return wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//select[@id='coTrainer']//option[@value='" + option + "']")));
 	}
-	
+
 	public WebElement selectCoTrainerDropdownByInt(int n) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='coTrainer']//option["+n+"]")));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.xpath("//select[@id='coTrainer']//option[" + n + "]")));
 	}
-	
+
 	public WebElement inputEndDate() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("endDate")));
+		return wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("endDate")));
 	}
-	
+
 	public WebElement inputPassingGrade() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("passingGrade")));
+		return wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("passingGrade")));
 	}
-	
+
 	public WebElement cancelNewBatchButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-modal-cancel-button")));
+		return wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("batch-modal-cancel-button")));
 	}
-	
+
 	public WebElement submitNewBatchButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("batch-modal-create-button")));
+		return wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("batch-modal-create-button")));
 	}
 
 }
