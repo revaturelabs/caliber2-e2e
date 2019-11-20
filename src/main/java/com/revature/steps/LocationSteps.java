@@ -68,6 +68,7 @@ public class LocationSteps {
 	public void the_user_clicks_on_edit_location_for_row(int arg1)
 		throws Throwable {
 		WebElement row = lc.getTableRow(arg1);
+		Thread.sleep(250);
 		// The fourth column is the edit button
 		lc.getTableData(4, row)
 			.findElement(
@@ -247,6 +248,7 @@ public class LocationSteps {
 		this.activeStatus =
 			row.findElement(By.xpath("//td//span")).getAttribute("class");
 		System.out.println("old:" + this.activeStatus);
+		Thread.sleep(250);
 		driver
 			.findElement(By.id("locationspage-locationrow-displaydisablemodal"))
 			.click();
@@ -265,6 +267,7 @@ public class LocationSteps {
 		String newActiveStatus =
 			row.findElement(By.xpath("//td//span")).getAttribute("class");
 		System.out.println("new:" + newActiveStatus);
+		Thread.sleep(250);
 		Assert.assertEquals(false, newActiveStatus.equals(this.activeStatus));
 	}
 
