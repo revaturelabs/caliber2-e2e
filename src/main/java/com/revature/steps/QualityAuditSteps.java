@@ -321,8 +321,7 @@ public class QualityAuditSteps {
 		String arg1) throws Throwable {
 		Actions actions = new Actions(driver);
 		actions.moveToElement(
-			qap.getAssociateDetailsFlag(qap.getTraineeRowByIndex(1)));
-		actions.perform();
+			qap.getAssociateDetailsFlag(qap.getTraineeRowByIndex(1))).perform();
 		Thread.sleep(333);
 		String result = qap.getTraineeRowByIndex(1)
 			.findElement(By.tagName("bs-tooltip-container")).getText();
