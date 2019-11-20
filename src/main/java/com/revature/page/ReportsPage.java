@@ -13,23 +13,50 @@ public class ReportsPage {
 	WebDriver driver;
 	WebDriverWait wait;
 
+	@FindBy(id = "qc-scores-donut-chart")
+	public WebElement qcScoresDonutChart;
+
+	@FindBy(id = "qc-scores-bar-chart")
+	public WebElement qcScoresBarChart;
+
 	public ReportsPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		this.wait = new WebDriverWait(driver, 5);
 	}
 
+	/**
+	 * Must have clicked on the select batch dropdown for this to be visible.
+	 *
+	 * @return The search bar element.
+	 */
+	public WebElement getBatchSelectSearchBar() {
+		return this.driver.findElement(By.id("batch-select-search-bar"));
+	}
+
+	public WebElement getDonutChartTable() {
+		return this.driver.findElement(
+			By.xpath("//table[@id='qc-scores-donut-chart-table']"));
+	}
+
 	// DROPDOWN
 	// CONTAINERS*****************************************************************************************************
 	/**
 	 * The actual list that is inside the dropdown once open.
-	 * 
+	 *
 	 * @return The dropdown list.
 	 */
 	public WebElement getDropdownSelectBatchContainer() {
 		return this.wait.until(ExpectedConditions
 			.visibilityOfElementLocated(By.id("batch-select-dropdown-list")));
 	}
+
+	public WebElement getDropdownSelectTraineeContainer() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-shared-dropdown-menu[@id='reports-toolbar-trainees-dropdown']//ul[@id='shared-dropdown-menu-dropdown-container']")));
+	}
+	// **************************************************************************************************************
 
 	public WebElement getDropdownSelectWeeksContainer() {
 		return this.wait
@@ -43,12 +70,10 @@ public class ReportsPage {
 				"//app-shared-dropdown-menu[@id='reports-toolbar-year-dropdown']//ul[@id='shared-dropdown-menu-dropdown-container']")));
 	}
 
-	public WebElement getDropdownSelectTraineeContainer() {
-		return this.wait
-			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
-				"//app-shared-dropdown-menu[@id='reports-toolbar-trainees-dropdown']//ul[@id='shared-dropdown-menu-dropdown-container']")));
+	public WebElement getIndividualScoreTable() {
+		return this.driver.findElement(
+			By.xpath("//table[@id='qc-scores-individual-results-table']"));
 	}
-	// **************************************************************************************************************
 
 	public WebElement getItemByItemNumber(WebElement dropdownContainer,
 		int dropdownNumber) {
@@ -56,33 +81,9 @@ public class ReportsPage {
 			.get(dropdownNumber);
 	}
 
-	public WebElement getSelectBatchDropdownOpenButton() {
-		return this.wait
-			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
-				"//app-batch-select-dropdown[@id='reports-toolbar-batch-dropdown']//li[@id='batch-select-dropdown-open-button']")));
-	}
-
-	public WebElement getSelectWeeksDropdownButton() {
-		return this.wait
-			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
-				"//app-shared-dropdown-menu[@id='reports-toolbar-week-dropdown']//li[@id='shared-dropdown-menu-button']")));
-	}
-
-	public WebElement getSelectTraineesDropdownButton() {
-		return this.wait
-			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
-				"//app-shared-dropdown-menu[@id='reports-toolbar-trainees-dropdown']//li[@id='shared-dropdown-menu-button']")));
-	}
-
-	public WebElement getSelectYearDropdownButton() {
-		return this.wait
-			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
-				"//app-shared-dropdown-menu[@id='reports-toolbar-year-dropdown']//a[@id='shared-dropdown-menu-current-value']")));
-	}
-
-	public WebElement selectDropdownItem(String itemName) {
-		return this.driver
-			.findElement(By.id("shared-dropdown-menu-" + itemName));
+	public WebElement getQcScoreTable() {
+		return this.driver.findElement(
+			By.xpath("//table[@id='qc-scores-container-table-default']"));
 	}
 
 	public WebElement getRowForQCScores(int rowNumber) {
@@ -91,44 +92,43 @@ public class ReportsPage {
 				+ rowNumber + "]"));
 	}
 
-	public WebElement getQcScoreTable() {
-		return this.driver.findElement(
-			By.xpath("//table[@id='qc-scores-container-table-default']"));
-	}
-
-	public WebElement getIndividualScoreTable() {
-		return this.driver.findElement(
-			By.xpath("//table[@id='qc-scores-individual-results-table']"));
-	}
-
-	public WebElement getTableData(int columnNumber, WebElement row) {
-		return row.findElement(By.xpath("//td[" + columnNumber + "]"));
-	}
-
-	public WebElement getDonutChartTable() {
-		return this.driver.findElement(
-			By.xpath("//table[@id='qc-scores-donut-chart-table']"));
-	}
-
-	/**
-	 * Must have clicked on the select batch dropdown for this to be visible.
-	 * 
-	 * @return The search bar element.
-	 */
-	public WebElement getBatchSelectSearchBar() {
-		return this.driver.findElement(By.id("batch-select-search-bar"));
-	}
-
-	@FindBy(id = "qc-scores-donut-chart")
-	public WebElement qcScoresDonutChart;
-
 	public WebElement getRowForQCScoresDonutChartTable(int rowNumber) {
 		return this.driver.findElement(
 			By.xpath("//table[@id='qc-scores-donut-chart-table']/tr["
 				+ rowNumber + "]"));
 	}
 
-	@FindBy(id = "qc-scores-bar-chart")
-	public WebElement qcScoresBarChart;
+	public WebElement getSelectBatchDropdownOpenButton() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-batch-select-dropdown[@id='reports-toolbar-batch-dropdown']//li[@id='batch-select-dropdown-open-button']")));
+	}
+
+	public WebElement getSelectTraineesDropdownButton() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-shared-dropdown-menu[@id='reports-toolbar-trainees-dropdown']//li[@id='shared-dropdown-menu-button']")));
+	}
+
+	public WebElement getSelectWeeksDropdownButton() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-shared-dropdown-menu[@id='reports-toolbar-week-dropdown']//li[@id='shared-dropdown-menu-button']")));
+	}
+
+	public WebElement getSelectYearDropdownButton() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"//app-shared-dropdown-menu[@id='reports-toolbar-year-dropdown']//a[@id='shared-dropdown-menu-current-value']")));
+	}
+
+	public WebElement getTableData(int columnNumber, WebElement row) {
+		return row.findElement(By.xpath("//td[" + columnNumber + "]"));
+	}
+
+	public WebElement selectDropdownItem(String itemName) {
+		return this.driver
+			.findElement(By.id("shared-dropdown-menu-" + itemName));
+	}
 
 }

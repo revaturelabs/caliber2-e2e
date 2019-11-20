@@ -18,239 +18,258 @@ public class AssessBatchPage {
 	public AssessBatchPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, 3);
+		this.wait = new WebDriverWait(driver, 3);
 	}
 
-	// Year
-	public WebElement getYearDropdown() {
-		return wait
-			.until(ExpectedConditions.visibilityOfElementLocated(
-				By.id("batch-select-toolbar-years-dropdown")))
-			.findElement(By.tagName("a"));
+	public WebElement getAddWeekButton() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("shared-week-selector-addweek")));
 	}
 
-	public WebElement getSelectedYear() {
-		return getYearDropdown()
-			.findElement(By.id("shared-dropdown-menu-current-value"));
+	/**
+	 * @param index from 1
+	 */
+	public WebElement getAssessmentPercent(int index) {
+		List<WebElement> l = this.driver
+			.findElements(By.tagName("app-assessment-details-column"));
+		return l.get(index).findElement(By.id("assessment-details-score-text"));
 	}
 
-	public WebElement getYearDropdownContainer() {
-		return getYearDropdown()
-			.findElement(By.id("shared-dropdown-menu-dropdown-container"));
+	// Table Header
+	/**
+	 * @param index from 1
+	 */
+	public WebElement getAssessmentType(int index) {
+		List<WebElement> l = this.driver
+			.findElements(By.tagName("app-assessment-details-column"));
+		return l.get(index)
+			.findElement(By.id("assessment-details-assessment-type-text"));
 	}
 
-	public void selectYear(String year) {
-		WebElement container =
-			wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.id("shared-dropdown-menu-dropdown-container")));
-
-		for (WebElement element : container.findElements(By.tagName("a"))) {
-			if (element.getText().contains(year)) {
-				element.click();
-				return;
-			}
-		}
+	public WebElement getAssociateCommentInput() {
+		return this.wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("comment")));
 	}
 
-	// Quarter
-	public WebElement getQuarterDropdown() {
-		return wait
-			.until(ExpectedConditions.visibilityOfElementLocated(
-				By.id("batch-select-toolbar-quarters-dropdown")))
-			.findElement(By.tagName("a"));
+	// Table Footer
+	/**
+	 * @param index from 1
+	 */
+	public WebElement getAverage(int index) {
+		return this.driver.findElement(By.tagName("tfoot"))
+			.findElement(By.xpath("//td[" + index + "]"));
 	}
 
-	public WebElement getSelectedQuarter() {
-		return getQuarterDropdown()
-			.findElement(By.id("shared-dropdown-menu-current-value"));
-	}
-
-	public WebElement getQuarterDropdownContainer() {
-		return getQuarterDropdown()
-			.findElement(By.id("shared-dropdown-menu-dropdown-container"));
-	}
-
-	public void selectQuarter(String quarter) {
-		WebElement container =
-			wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.id("shared-dropdown-menu-" + quarter + "")));
-		container.click();
-		// for (WebElement element : container.findElements(By.tagName("a"))) {
-		// if (element.getText().contains(quarter)) {
-		// element.click();
-		// return;
-		// }
-		// }
+	public WebElement getBatchDropdownContainer() {
+		return this.getBatchesDropdown()
+			.findElement(By.id("batch-select-dropdown-list"));
 	}
 
 	// Batch #
 	public WebElement getBatchesDropdown() {
-		return wait
+		return this.wait
 			.until(ExpectedConditions.visibilityOfElementLocated(
 				By.id("batch-select-toolbar-batches-dropdown")))
 			.findElement(By.tagName("a"));
 	}
 
-	public WebElement getSelectedBatch() {
-		return getBatchesDropdown()
-			.findElement(By.id("shared-dropdown-menu-current-value"));
-	}
-
-	public WebElement getBatchDropdownContainer() {
-		return getBatchesDropdown()
-			.findElement(By.id("batch-select-dropdown-list"));
-	}
-
-	public void selectBatch(String batch) {
-		WebElement container = wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("batch-select-dropdown-list")));
-
-		for (WebElement element : container.findElements(By.tagName("a"))) {
-
-			if (element.getText().contains(batch)) {
-				element.click();
-				return;
-			}
-		}
-	}
-
 	public WebElement getBatchSearchBar() {
-		return wait.until(ExpectedConditions
+		return this.wait.until(ExpectedConditions
 			.visibilityOfElementLocated(By.id("batch-select-search-bar")));
 	}
 
+	public WebElement getCancelCommentButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("associate-flag-dialog-cancel-button")));
+	}
+
+	public WebElement getCategoriesUpdateDropdown() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("updatedCategory")));
+	}
+
 	public WebElement getCreateAssessmentButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
 			By.id("assess-batch-v2-createassessment")));
 	}
 
-	public WebElement getImportGradesButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("assess-batch-v2-import-grades")));
+	public WebElement getCreateAssessmentCancelButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("assessment-dialog-cancel-button")));
 	}
 
 	// Create New Assessment Window
 	public WebElement getCreateAssessmentCloseButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
 			By.id("assessment-dialog-close-button")));
 	}
 
-	public WebElement getCreateCategoriesDropdown() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("selectCategory")));
-	}
-
-	public void selectCreateCategory(String category) {
-		Select select = new Select(getCreateCategoriesDropdown());
-		select.selectByVisibleText(category);
-	}
-
-	/**
-	 * @param index from 1
-	 */
-	public void selectCreateCategory(int index) {
-		Select select = new Select(getCreateCategoriesDropdown());
-		select.selectByIndex(index);
-	}
-
-	public WebElement getCreateMaxPointsInput() {
-		return wait.until(
-			ExpectedConditions.visibilityOfElementLocated(By.id("maxPoints")));
+	public WebElement getCreateAssessmentCreateButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("assessment-dialog-create-button")));
 	}
 
 	public WebElement getCreateAssessmentTypeDropdown() {
-		return wait.until(ExpectedConditions
+		return this.wait.until(ExpectedConditions
 			.visibilityOfElementLocated(By.id("selectAssessmentType")));
 	}
 
-	public void selectCreateAssessmentType(String assessmentType) {
-		Select select = new Select(getCreateAssessmentTypeDropdown());
-		select.selectByValue(assessmentType);
+	public WebElement getCreateCategoriesDropdown() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("selectCategory")));
 	}
 
-	/**
-	 * @param index from 1
-	 */
-	public void selectCreateAssessmentType(int index) {
-		Select select = new Select(getCreateAssessmentTypeDropdown());
-		select.selectByIndex(index);
+	public WebElement getCreateCommentButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("associate-flag-dialog-update-create-button")));
 	}
 
-	public WebElement getCreateAssessmentCancelButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("assessment-dialog-cancel-button")));
+	public WebElement getCreateMaxPointsInput() {
+		return this.wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("maxPoints")));
 	}
 
-	public WebElement getCreateAssessmentCreateButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("assessment-dialog-create-button")));
+	public WebElement getDeleteCommentButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("associate-flag-dialog-delete-comment-button")));
+	}
+
+	public WebElement getGreenFlag() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(
+				By.id("associate-flag-dialog-flag")))
+			.findElement(By.className("green-flag"));
+	}
+
+	public WebElement getImportGradesButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("assess-batch-v2-import-grades")));
+	}
+
+	public WebElement getImportGradesCancelButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("shared-import-grades-dialogue-cancel")));
 	}
 
 	// Import Grades Window
 	public WebElement getImportGradesCloseButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
 			By.id("shared-import-grades-dialogue-closemodal")));
 	}
 
-	public WebElement getImportGradesInput() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("gradeJsonObj")));
-	}
-
-	public WebElement getImportGradesCancelButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("shared-import-grades-dialogue-cancel")));
-	}
-
 	public WebElement getImportGradesImportButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
 			By.id("shared-import-grades-dialogue-import")));
 	}
 
-	// Weeks
-	public WebElement getWeeksContainer() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.tagName("app-week-selector")));
-	}
-
-	public void selectWeek(int week) {
-		for (WebElement element : getWeeksContainer()
-			.findElements(By.tagName("a"))) {
-			if (element.getText().endsWith(Integer.toString(week))) {
-				element.click();
-			}
-		}
-	}
-
-	public WebElement getAddWeekButton() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("shared-week-selector-addweek")));
+	public WebElement getImportGradesInput() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("gradeJsonObj")));
 	}
 
 	// Add Week Window
 	public WebElement getNewWeekCloseButton() {
-		return wait.until(
+		return this.wait.until(
 			ExpectedConditions.visibilityOfElementLocated(By.id("addNewWeek")));
 	}
 
-	public WebElement getNewWeekYesButton() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("assessAcceptWeek")));
-	}
-
 	public WebElement getNewWeekNoButton() {
-		return wait.until(ExpectedConditions
+		return this.wait.until(ExpectedConditions
 			.visibilityOfElementLocated(By.id("assessDeclineWeek")));
 	}
 
-	// Trainers
-	public WebElement getTrainersContainer() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("assess-associate-list-table")));
+	public WebElement getNewWeekYesButton() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("assessAcceptWeek")));
+	}
+
+	// Overall Feedback
+	public WebElement getOverallFeedbackInput() {
+		return this.driver.findElement(By.id("notes-container"))
+			.findElement(By.tagName("textarea"));
+	}
+
+	// Quarter
+	public WebElement getQuarterDropdown() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(
+				By.id("batch-select-toolbar-quarters-dropdown")))
+			.findElement(By.tagName("a"));
+	}
+
+	public WebElement getQuarterDropdownContainer() {
+		return this.getQuarterDropdown()
+			.findElement(By.id("shared-dropdown-menu-dropdown-container"));
+	}
+
+	// Update Comment Window
+	public WebElement getRedFlag() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(
+				By.id("associate-flag-dialog-flag")))
+			.findElement(By.className("red-flag"));
+	}
+
+	public WebElement getSaveButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("batch-level-feedback-save-button")));
+	}
+
+	public WebElement getSelectedBatch() {
+		return this.getBatchesDropdown()
+			.findElement(By.id("shared-dropdown-menu-current-value"));
+	}
+
+	public WebElement getSelectedFlag() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(
+				By.id("associate-flag-dialog-selected-flag")))
+			.findElement(By.tagName("app-flag"));
+	}
+
+	public WebElement getSelectedQuarter() {
+		return this.getQuarterDropdown()
+			.findElement(By.id("shared-dropdown-menu-current-value"));
+	}
+
+	public WebElement getSelectedYear() {
+		return this.getYearDropdown()
+			.findElement(By.id("shared-dropdown-menu-current-value"));
+	}
+
+	/**
+	 * @param index from 1
+	 */
+	public WebElement getTrainerCommentContainer(int index) {
+		return this.getTrainerContainer(index)
+			.findElement(By.tagName("app-associate-notes"))
+			.findElement(By.tagName("text-area"));
+	}
+
+	// Trainer comment
+	public WebElement getTrainerCommentContainer(String trainerName) {
+		return this.getTrainerContainer(trainerName)
+			.findElement(By.tagName("app-associate-notes"))
+			.findElement(By.tagName("text-area"));
+	}
+
+	/**
+	 * @param index from 1
+	 */
+	public WebElement getTrainerContainer(int index) {
+		int i = 0;
+		for (WebElement element : this.getTrainersContainer()
+			.findElements(By.tagName("app-associate-details"))) {
+			if (index == i) {
+				return element;
+			}
+			i++;
+		}
+		return null;
 	}
 
 	public WebElement getTrainerContainer(String trainerName) {
-		for (WebElement element : getTrainersContainer()
+		for (WebElement element : this.getTrainersContainer()
 			.findElements(By.tagName("app-associate-details"))) {
 			if (element.getText().contains(trainerName)) {
 				return element;
@@ -262,32 +281,8 @@ public class AssessBatchPage {
 	/**
 	 * @param index from 1
 	 */
-	public WebElement getTrainerContainer(int index) {
-		int i = 0;
-		for (WebElement element : getTrainersContainer()
-			.findElements(By.tagName("app-associate-details"))) {
-			if (index == i) {
-				return element;
-			}
-			i++;
-		}
-		return null;
-	}
-
-	/**
-	 * @param index from 1
-	 */
-	public WebElement getTrainerName(int index) {
-		return getTrainerContainer(index)
-			.findElement(By.id("associate-details-container"))
-			.findElement(By.id("associate-details-trainee-name"));
-	}
-
-	/**
-	 * @param index from 1
-	 */
 	public WebElement getTrainerEditButton(int index) {
-		return getTrainerContainer(index)
+		return this.getTrainerContainer(index)
 			.findElement(By.id("associate-details-container"))
 			.findElement(By.id("associate-details-container-pen"));
 	}
@@ -296,182 +291,188 @@ public class AssessBatchPage {
 	 * @param index from 1
 	 */
 	public WebElement getTrainerFlagButton(int index) {
-		return getTrainerContainer(index)
+		return this.getTrainerContainer(index)
 			.findElement(By.id("associate-details-container"))
 			.findElement(By.id("associate-details-container-flag"));
 	}
 
-	// Update Comment Window
-	public WebElement getRedFlag() {
-		return wait
-			.until(ExpectedConditions.visibilityOfElementLocated(
-				By.id("associate-flag-dialog-flag")))
-			.findElement(By.className("red-flag"));
-	}
-
-	public WebElement getGreenFlag() {
-		return wait
-			.until(ExpectedConditions.visibilityOfElementLocated(
-				By.id("associate-flag-dialog-flag")))
-			.findElement(By.className("green-flag"));
-	}
-
-	public WebElement getAssociateCommentInput() {
-		return wait.until(
-			ExpectedConditions.visibilityOfElementLocated(By.id("comment")));
-	}
-
-	public WebElement getSelectedFlag() {
-		return wait
-			.until(ExpectedConditions.visibilityOfElementLocated(
-				By.id("associate-flag-dialog-selected-flag")))
-			.findElement(By.tagName("app-flag"));
-	}
-
-	public WebElement getDeleteCommentButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("associate-flag-dialog-delete-comment-button")));
-	}
-
-	public WebElement getCancelCommentButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("associate-flag-dialog-cancel-button")));
-	}
-
-	public WebElement getCreateCommentButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("associate-flag-dialog-update-create-button")));
-	}
-
-	// Trainer comment
-	public WebElement getTrainerCommentContainer(String trainerName) {
-		return getTrainerContainer(trainerName)
-			.findElement(By.tagName("app-associate-notes"))
-			.findElement(By.tagName("text-area"));
-	}
-
 	/**
 	 * @param index from 1
 	 */
-	public WebElement getTrainerCommentContainer(int index) {
-		return getTrainerContainer(index)
-			.findElement(By.tagName("app-associate-notes"))
-			.findElement(By.tagName("text-area"));
+	public WebElement getTrainerName(int index) {
+		return this.getTrainerContainer(index)
+			.findElement(By.id("associate-details-container"))
+			.findElement(By.id("associate-details-trainee-name"));
 	}
 
-	// Table Header
-	/**
-	 * @param index from 1
-	 */
-	public WebElement getAssessmentType(int index) {
-		List<WebElement> l =
-			driver.findElements(By.tagName("app-assessment-details-column"));
-		return l.get(index)
-			.findElement(By.id("assessment-details-assessment-type-text"));
-	}
-
-	/**
-	 * @param index from 1
-	 */
-	public WebElement getAssessmentPercent(int index) {
-		List<WebElement> l =
-			driver.findElements(By.tagName("app-assessment-details-column"));
-		return l.get(index).findElement(By.id("assessment-details-score-text"));
+	// Trainers
+	public WebElement getTrainersContainer() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("assess-associate-list-table")));
 	}
 
 	/**
 	 * @param index from 1
 	 */
 	public WebElement getUpdateAssessmentButton(int index) {
-		return driver.findElements(By.tagName("app-assessment-details-column"))
+		return this.driver
+			.findElements(By.tagName("app-assessment-details-column"))
 			.get(index);
+	}
+
+	public WebElement getUpdateAssessmentCancelButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("assessment-dialog-cancel-button")));
 	}
 
 	// Update Assessment Window
 	public WebElement getUpdateAssessmentCloseButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
 			By.id("assessment-dialog-close-button")));
 	}
 
-	public WebElement getCategoriesUpdateDropdown() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("updatedCategory")));
+	public WebElement getUpdateAssessmentCreateButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("assessment-dialog-create-button")));
 	}
 
-	public void selectUpdateCategory(String category) {
-		Select select = new Select(getCategoriesUpdateDropdown());
-		select.selectByVisibleText(category);
+	public WebElement getUpdateAssessmentDeleteButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("assessment-dialog-delete-button")));
+	}
+
+	public WebElement getUpdateAssessmentTypeDropdown() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("updateAssessmentType")));
+	}
+
+	public WebElement getUpdateMaxPointsInput() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("updatedMaxPoints")));
+	}
+
+	public WebElement getWeeklyAverage() {
+		List<WebElement> l = this.driver.findElement(By.tagName("tfoot"))
+			.findElements(By.tagName("td"));
+		return l.get(l.size() - 1);
+	}
+
+	// Weeks
+	public WebElement getWeeksContainer() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.tagName("app-week-selector")));
+	}
+
+	// Year
+	public WebElement getYearDropdown() {
+		return this.wait
+			.until(ExpectedConditions.visibilityOfElementLocated(
+				By.id("batch-select-toolbar-years-dropdown")))
+			.findElement(By.tagName("a"));
+	}
+
+	public WebElement getYearDropdownContainer() {
+		return this.getYearDropdown()
+			.findElement(By.id("shared-dropdown-menu-dropdown-container"));
+	}
+
+	public void selectBatch(String batch) {
+		WebElement container = this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("batch-select-dropdown-list")));
+
+		for (WebElement element : container.findElements(By.tagName("a"))) {
+
+			if (element.getText().contains(batch)) {
+				element.click();
+				return;
+			}
+		}
 	}
 
 	/**
 	 * @param index from 1
 	 */
-	public void selectUpdateCategory(int index) {
-		Select select = new Select(getCategoriesUpdateDropdown());
+	public void selectCreateAssessmentType(int index) {
+		Select select = new Select(this.getCreateAssessmentTypeDropdown());
 		select.selectByIndex(index);
 	}
 
-	public WebElement getUpdateMaxPointsInput() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("updatedMaxPoints")));
-	}
-
-	public WebElement getUpdateAssessmentTypeDropdown() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("updateAssessmentType")));
-	}
-
-	public void selectUpdateAssessmentType(String assessmentType) {
-		Select select = new Select(getUpdateAssessmentTypeDropdown());
+	public void selectCreateAssessmentType(String assessmentType) {
+		Select select = new Select(this.getCreateAssessmentTypeDropdown());
 		select.selectByValue(assessmentType);
 	}
 
 	/**
 	 * @param index from 1
 	 */
-	public void selectUpdateAssessmentType(int index) {
-		Select select = new Select(getUpdateAssessmentTypeDropdown());
+	public void selectCreateCategory(int index) {
+		Select select = new Select(this.getCreateCategoriesDropdown());
 		select.selectByIndex(index);
 	}
 
-	public WebElement getUpdateAssessmentDeleteButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("assessment-dialog-delete-button")));
+	public void selectCreateCategory(String category) {
+		Select select = new Select(this.getCreateCategoriesDropdown());
+		select.selectByVisibleText(category);
 	}
 
-	public WebElement getUpdateAssessmentCancelButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("assessment-dialog-cancel-button")));
+	public void selectQuarter(String quarter) {
+		WebElement container =
+			this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.id("shared-dropdown-menu-" + quarter + "")));
+		container.click();
+		// for (WebElement element : container.findElements(By.tagName("a"))) {
+		// if (element.getText().contains(quarter)) {
+		// element.click();
+		// return;
+		// }
+		// }
 	}
 
-	public WebElement getUpdateAssessmentCreateButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("assessment-dialog-create-button")));
-	}
-
-	// Table Footer
 	/**
 	 * @param index from 1
 	 */
-	public WebElement getAverage(int index) {
-		return driver.findElement(By.tagName("tfoot"))
-			.findElement(By.xpath("//td[" + index + "]"));
+	public void selectUpdateAssessmentType(int index) {
+		Select select = new Select(this.getUpdateAssessmentTypeDropdown());
+		select.selectByIndex(index);
 	}
 
-	public WebElement getWeeklyAverage() {
-		List<WebElement> l = driver.findElement(By.tagName("tfoot"))
-			.findElements(By.tagName("td"));
-		return l.get(l.size() - 1);
+	public void selectUpdateAssessmentType(String assessmentType) {
+		Select select = new Select(this.getUpdateAssessmentTypeDropdown());
+		select.selectByValue(assessmentType);
 	}
 
-	// Overall Feedback
-	public WebElement getOverallFeedbackInput() {
-		return driver.findElement(By.id("notes-container"))
-			.findElement(By.tagName("textarea"));
+	/**
+	 * @param index from 1
+	 */
+	public void selectUpdateCategory(int index) {
+		Select select = new Select(this.getCategoriesUpdateDropdown());
+		select.selectByIndex(index);
 	}
 
-	public WebElement getSaveButton() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("batch-level-feedback-save-button")));
+	public void selectUpdateCategory(String category) {
+		Select select = new Select(this.getCategoriesUpdateDropdown());
+		select.selectByVisibleText(category);
+	}
+
+	public void selectWeek(int week) {
+		for (WebElement element : this.getWeeksContainer()
+			.findElements(By.tagName("a"))) {
+			if (element.getText().endsWith(Integer.toString(week))) {
+				element.click();
+			}
+		}
+	}
+
+	public void selectYear(String year) {
+		WebElement container =
+			this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.id("shared-dropdown-menu-dropdown-container")));
+
+		for (WebElement element : container.findElements(By.tagName("a"))) {
+			if (element.getText().contains(year)) {
+				element.click();
+				return;
+			}
+		}
 	}
 }

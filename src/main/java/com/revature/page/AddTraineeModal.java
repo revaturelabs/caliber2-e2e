@@ -15,92 +15,92 @@ public class AddTraineeModal {
 	public AddTraineeModal(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, 3);
+		this.wait = new WebDriverWait(driver, 3);
+	}
+
+	public WebElement cancelAddTrainerButton() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("trainee-modal-cancel-button")));
+	}
+
+	public WebElement inputCollege() {
+		return this.wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("college")));
+	}
+
+	public WebElement inputDegree() {
+		return this.wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("degree")));
+	}
+
+	public WebElement inputEmail() {
+		return this.wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("email")));
 	}
 
 	public WebElement inputFirstName() {
-		return wait.until(
+		return this.wait.until(
 			ExpectedConditions.visibilityOfElementLocated(By.id("firstName")));
 	}
 
 	public WebElement inputLastName() {
-		return wait.until(
+		return this.wait.until(
 			ExpectedConditions.visibilityOfElementLocated(By.id("lastName")));
 	}
 
-	public WebElement inputEmail() {
-		return wait.until(
-			ExpectedConditions.visibilityOfElementLocated(By.id("email")));
-	}
-
-	public WebElement inputPhoneNumber() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("phoneNumber")));
-	}
-
-	public WebElement inputSkypeId() {
-		return wait.until(
-			ExpectedConditions.visibilityOfElementLocated(By.id("skypeId")));
-	}
-
-	public WebElement inputDegree() {
-		return wait.until(
-			ExpectedConditions.visibilityOfElementLocated(By.id("degree")));
-	}
-
-	public WebElement inputRecruiterName() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("recruiterName")));
-	}
-
-	public WebElement inputTechScreener() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("techScreener")));
-	}
-
-	public WebElement trainingStatusDropdown() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("trainingStatus")));
-	}
-
-	public WebElement trainingStatusDropdownNthOption(int n) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.xpath("//*[@id=\"trainingStatus\"]/option[" + n + "]")));
-	}
-
-	public WebElement trainingStatusDropdownOptionByName(String option) {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.xpath("//select[@id='trainingStatus]//option[@value='" + option
-				+ "']")));
-	}
-
-	public WebElement inputCollege() {
-		return wait.until(
-			ExpectedConditions.visibilityOfElementLocated(By.id("college")));
-	}
-
 	public WebElement inputMajor() {
-		return wait.until(
+		return this.wait.until(
 			ExpectedConditions.visibilityOfElementLocated(By.id("major")));
 	}
 
+	public WebElement inputPhoneNumber() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("phoneNumber")));
+	}
+
 	public WebElement inputProfileURL() {
-		return wait.until(
+		return this.wait.until(
 			ExpectedConditions.visibilityOfElementLocated(By.id("profileUrl")));
 	}
 
 	public WebElement inputProjectCompletion() {
-		return wait.until(ExpectedConditions
+		return this.wait.until(ExpectedConditions
 			.visibilityOfElementLocated(By.id("projectCompletion")));
 	}
 
-	public WebElement cancelAddTrainerButton() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("trainee-modal-cancel-button")));
+	public WebElement inputRecruiterName() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("recruiterName")));
+	}
+
+	public WebElement inputSkypeId() {
+		return this.wait.until(
+			ExpectedConditions.visibilityOfElementLocated(By.id("skypeId")));
+	}
+
+	public WebElement inputTechScreener() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("techScreener")));
 	}
 
 	public WebElement submitAddTrainerButton() {
-		return wait.until(ExpectedConditions
+		return this.wait.until(ExpectedConditions
 			.visibilityOfElementLocated(By.id("trainee-modal-create-button")));
+	}
+
+	public WebElement trainingStatusDropdown() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("trainingStatus")));
+	}
+
+	public WebElement trainingStatusDropdownNthOption(int n) {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.xpath("//*[@id=\"trainingStatus\"]/option[" + n + "]")));
+	}
+
+	public WebElement trainingStatusDropdownOptionByName(String option) {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.xpath("//select[@id='trainingStatus]//option[@value='" + option
+				+ "']")));
 	}
 }

@@ -14,22 +14,19 @@ public class NavSteps {
 	WebDriver driver = PagesUtil.driver;
 	NavigationBar navBar = PagesUtil.navBar;
 
-	@Given("^The user is on the Caliber2 home page$")
-	public void the_user_is_on_the_Caliber_home_page() throws Throwable {
-		if (!Config.isURLSet()) {
-			Assert.fail("URL has not been set.");
-		}
-		try {
-			this.driver.get(Config.getURL());
-		}
-		catch (InvalidArgumentException e) {
-			Assert.fail("Invalid URL provided: '" + Config.getURL() + "'");
-		}
-	}
-
 	@When("^the user clicks on assess batch$")
 	public void the_user_clicks_on_assess_batch() throws Throwable {
 		this.navBar.assessbatch.click();
+	}
+
+	@When("^the_user_clicks_on_category$")
+	public void the_user_clicks_on_category() throws Throwable {
+		this.navBar.categories.click();
+	}
+
+	@When("^the user clicks on the location$")
+	public void the_user_clicks_on_locations() throws Throwable {
+		this.navBar.locations.click();
 	}
 
 	@When("^the user clicks on manage batch$")
@@ -57,14 +54,17 @@ public class NavSteps {
 		this.navBar.trainers.click();
 	}
 
-	@When("^the user clicks on the location$")
-	public void the_user_clicks_on_locations() throws Throwable {
-		this.navBar.locations.click();
-	}
-
-	@When("^the_user_clicks_on_category$")
-	public void the_user_clicks_on_category() throws Throwable {
-		this.navBar.categories.click();
+	@Given("^The user is on the Caliber2 home page$")
+	public void the_user_is_on_the_Caliber_home_page() throws Throwable {
+		if (!Config.isURLSet()) {
+			Assert.fail("URL has not been set.");
+		}
+		try {
+			this.driver.get(Config.getURL());
+		}
+		catch (InvalidArgumentException e) {
+			Assert.fail("Invalid URL provided: '" + Config.getURL() + "'");
+		}
 	}
 
 	@When("^the_user_clicks_on_login$")

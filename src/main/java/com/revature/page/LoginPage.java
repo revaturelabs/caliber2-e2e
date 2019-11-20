@@ -10,16 +10,6 @@ public class LoginPage {
 	WebDriver driver;
 	WebDriverWait wait;
 
-	public LoginPage(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, 3);
-	}
-
-	public String getUrl() {
-		return driver.getCurrentUrl();
-	}
-
 	@FindBy(id = "signInFormUsername")
 	public WebDriver inputUsername;
 
@@ -31,4 +21,14 @@ public class LoginPage {
 
 	@FindBy(className = "btn btn-primary submitButton-customizable")
 	public WebDriver signInButton;
+
+	public LoginPage(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		this.wait = new WebDriverWait(driver, 3);
+	}
+
+	public String getUrl() {
+		return this.driver.getCurrentUrl();
+	}
 }

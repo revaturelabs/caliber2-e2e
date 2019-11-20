@@ -249,23 +249,6 @@ public class ReportSteps {
 		Assert.fail("Could not find batch");
 	}
 
-	@When("^The user selects a trainee \"([^\"]*)\"$")
-	public void the_user_selects_a_trainee(String trainee) throws Throwable {
-		try {
-			Thread.sleep(250);
-			PagesUtil.reportsPage.getSelectTraineesDropdownButton().click();
-			Thread.sleep(250);
-			PagesUtil.reportsPage.getDropdownSelectTraineeContainer()
-				.findElement(By.xpath(
-					".//a[@id=\"shared-dropdown-menu-" + trainee + "\"]"))
-				.click();
-		}
-		catch (TimeoutException e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
-	}
-
 	@When("^The user selects a report week \"([^\"]*)\"$")
 	public void the_user_selects_a_report_week(String week) throws Throwable {
 		try {
@@ -275,6 +258,23 @@ public class ReportSteps {
 			PagesUtil.reportsPage.getDropdownSelectWeeksContainer()
 				.findElement(
 					By.xpath(".//a[@id=\"shared-dropdown-menu-" + week + "\"]"))
+				.click();
+		}
+		catch (TimeoutException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+
+	@When("^The user selects a trainee \"([^\"]*)\"$")
+	public void the_user_selects_a_trainee(String trainee) throws Throwable {
+		try {
+			Thread.sleep(250);
+			PagesUtil.reportsPage.getSelectTraineesDropdownButton().click();
+			Thread.sleep(250);
+			PagesUtil.reportsPage.getDropdownSelectTraineeContainer()
+				.findElement(By.xpath(
+					".//a[@id=\"shared-dropdown-menu-" + trainee + "\"]"))
 				.click();
 		}
 		catch (TimeoutException e) {
