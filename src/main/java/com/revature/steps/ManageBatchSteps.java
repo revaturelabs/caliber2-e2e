@@ -616,7 +616,7 @@ public class ManageBatchSteps {
 
 	@When("^The user clicks the delete button in the alert$")
 	public void the_user_clicks_the_delete_button_in_the_alert() {
-		driver.switchTo().alert();
+		//driver.switchTo().alert();
 		mbp.confirmDeleteBatchButton().click();
 	}
 
