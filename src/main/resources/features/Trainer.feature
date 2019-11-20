@@ -1,4 +1,4 @@
-Feature: caliber 2 trainer page
+Feature: Trainer Management
 	Background: User on caliber 2 trainer page
 		Given The user is on the Caliber2 home page
 		When the user clicks on the settings

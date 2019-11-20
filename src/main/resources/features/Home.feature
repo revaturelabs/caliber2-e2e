@@ -1,4 +1,4 @@
-Feature: On Caliber 2 homepage
+Feature: Home Page Interaction
 	Background: User on Caliber2
 		Given The user is on the Caliber2 home page
 		

@@ -1,4 +1,4 @@
-Feature: On Caliber category page
+Feature: Category Lists
 	Background: User on Caliber2
 		Given The user is on the Caliber2 home page
 		When the user clicks on the settings

@@ -1,4 +1,4 @@
-Feature: on Caliber 2 Quality Audit page
+Feature: Quality Audit Tasks
 	 Background: User on Caliber 2
 	 	Given The user is on the Caliber2 home page
 	 	When the user clicks on quality audit
