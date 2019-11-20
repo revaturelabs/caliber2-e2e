@@ -29,13 +29,6 @@ public class ManageBatchSteps {
 	AddTraineeModal atm = PagesUtil.addTraineeModal;
 	WebDriverWait wait = new WebDriverWait(driver, 5);
 
-	@Given("^The user is on the manage batch page$")
-	public void the_user_is_on_the_manage_batch_page() {
-		driver.get(
-			"http://caliber-2-dev.revaturelabs.com.s3-website-us-east-1.amazonaws.com/caliber/vp/manage");
-		// driver.manage().window().maximize();
-	}
-
 	Batch batch = new Batch();
 
 	@When("^The user clicks on create batch$")
@@ -201,7 +194,6 @@ public class ManageBatchSteps {
 													// arg9 = passing grade
 			String[] match =
 				mbp.getManageBatchTableRow(i).getText().split("\n.*");
-			System.out.println(match[0] + " == " + arg1);
 
 			if (match[0].equals(arg1)) {// found in the table
 				WebElement batch = mbp.getManageBatchTableRow(i);
@@ -336,7 +328,6 @@ public class ManageBatchSteps {
 													// arg9 = passing grade
 			String[] match =
 				mbp.getManageBatchTableRow(i).getText().split("\n.*");
-			System.out.println(match[0] + " == " + arg1);
 
 			if (match[0].equals(arg1)) {// found in the table
 				WebElement batch = mbp.getManageBatchTableRow(i);
@@ -369,7 +360,7 @@ public class ManageBatchSteps {
 		List<WebElement> selections =
 			mbp.getDropdownSwitchBatch().findElements(By.tagName("option"));
 		for (WebElement selection : selections) {
-			System.out.println(selection.getText());
+			//System.out.println(selection.getText());
 		}
 	}
 
@@ -394,7 +385,7 @@ public class ManageBatchSteps {
 													// arg9 = passing grade
 			String[] match =
 				mbp.getManageBatchTableRow(i).getText().split("\n.*");
-			System.out.println(match[0] + " == " + arg1);
+			//System.out.println(match[0] + " == " + arg1);
 
 			if (match[0].equals(arg1)) {// found in the table
 				WebElement batch = mbp.getManageBatchTableRow(i);
@@ -422,7 +413,7 @@ public class ManageBatchSteps {
 													// arg9 = passing grade
 			String[] match =
 				mbp.getManageBatchTableRow(i).getText().split("\n.*");
-			System.out.println(match[0] + " == " + arg1);
+			//System.out.println(match[0] + " == " + arg1);
 
 			if (match[0].equals(arg1)) {// found in the table
 				WebElement batch = mbp.getManageBatchTableRow(i);
@@ -445,7 +436,6 @@ public class ManageBatchSteps {
 		int arg1) {
 		WebElement row = mbp.getManageBatchTableRow(arg1);
 		mbp.showTraineesButtonForRow(row).click();
-		;
 	}
 
 	@When("^The user selects contents \"([^\"]*)\" in training status drop down$")
@@ -474,7 +464,7 @@ public class ManageBatchSteps {
 													// arg9 = passing grade
 			String[] match =
 				mbp.getManageBatchTableRow(i).getText().split("\n.*");
-			System.out.println(match[0] + " == " + arg1);
+			//System.out.println(match[0] + " == " + arg1);
 
 			if (match[0].equals(arg1)) {// found in the table
 				WebElement batch = mbp.getManageBatchTableRow(i);
