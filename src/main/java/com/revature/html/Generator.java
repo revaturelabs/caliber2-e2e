@@ -77,7 +77,7 @@ public class Generator {
 	 * Returns true if all the features pass. Each level passes if and only if
 	 * all of the components pass. So if all features pass this passes, if any
 	 * step fails then the failure cascades up.
-	 * 
+	 *
 	 * @param features The list of features.
 	 * @return True if all the features pass, false if anything is not passing.
 	 */
@@ -109,10 +109,35 @@ public class Generator {
 		return status.equals("passed");
 	}
 
+	private static String generateContents(Feature[] features) {
+		// forgive me for this
+		String results = "<h1 id=\"overall_results\">Overall Results</h1>"
+			+ Generator.NEWLINE;
+		if (features == null) {
+			return results;
+		}
+
+		// generate a table inside a div
+		results += Generator.TABLE_CONTAINER + Generator.NEWLINE;
+		results += Generator.generateSummaryTable(features);
+		results += "</div>" + Generator.NEWLINE;
+
+		results += "<h1 id=\"features\">Features</h1>" + Generator.NEWLINE;
+
+		String scenariosChunk = Generator.generateScenarioTables(features);
+		// we have to calculate this later so that links have the right value
+		String featuresTableChunk = Generator.generateFeaturesTable(features);
+
+		// we calculated out of order but they go summary table first
+		results += featuresTableChunk;
+		results += scenariosChunk;
+		return results;
+	}
+
 	/**
 	 * Calculates and returns the string to put in where the features table
 	 * goes. This is done late in the process so that links can be correct.
-	 * 
+	 *
 	 * @param features The features to create a table for.
 	 * @return The HTML to insert in for where the features table is.
 	 */
@@ -203,37 +228,12 @@ public class Generator {
 		return results;
 	}
 
-	private static String generateContents(Feature[] features) {
-		// forgive me for this
-		String results = "<h1 id=\"overall_results\">Overall Results</h1>"
-			+ Generator.NEWLINE;
-		if (features == null) {
-			return results;
-		}
-
-		// generate a table inside a div
-		results += Generator.TABLE_CONTAINER + Generator.NEWLINE;
-		results += Generator.generateSummaryTable(features);
-		results += "</div>" + Generator.NEWLINE;
-
-		results += "<h1 id=\"features\">Features</h1>" + Generator.NEWLINE;
-
-		String scenariosChunk = generateScenarioTables(features);
-		// we have to calculate this later so that links have the right value
-		String featuresTableChunk = generateFeaturesTable(features);
-
-		// we calculated out of order but they go summary table first
-		results += featuresTableChunk;
-		results += scenariosChunk;
-		return results;
-	}
-
 	/**
 	 * Generates a summary of features. This lists the status of each feature as
 	 * a whole. If any part of the feature is not passing, the feature is
 	 * failed. This includes links to the {@link #generateTable(Feature) tables
 	 * describing each feature}.
-	 * 
+	 *
 	 * @param features The features to generate a table for.
 	 * @return The HTML for the table.
 	 * @see #generateTable(Feature)
@@ -378,7 +378,7 @@ public class Generator {
 	/**
 	 * Returns the HTML for the bottom of the page, closing out the main div,
 	 * body, and html.
-	 * 
+	 *
 	 * @return The HTML for the bottom of the page.
 	 */
 	private static String getFooter() {
@@ -394,7 +394,7 @@ public class Generator {
 	/**
 	 * Returns the HTML for the top of the page, including the doctype, header,
 	 * css, and opening the main container div.
-	 * 
+	 *
 	 * @return The HTML for the top of the document.
 	 */
 	private static String getHeader() {
@@ -413,7 +413,7 @@ public class Generator {
 	/**
 	 * Take in a name and turn it into a link format, so remove spaces, etc.
 	 * This will also make sure the links are unique.
-	 * 
+	 *
 	 * @param name The name of a thing.
 	 * @param updateCount If this is a new link, false if we are just looking up
 	 *            the most recent.
