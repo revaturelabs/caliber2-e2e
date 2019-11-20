@@ -9,6 +9,9 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class AssessBatchSteps {
 
@@ -16,8 +19,11 @@ public class AssessBatchSteps {
 	public static AssessBatchPage batchpage = PagesUtil.assessBatchPage;
 	public static WebDriver driver = PagesUtil.driver;
 
+	private int lastWeekAdded;
+
 	@When("^the user clicks on the year dropdown$")
 	public void the_user_clicks_on_the_year_dropdown() throws Throwable {
+		Thread.sleep(250);
 		batchpage.getYearDropdown().click();
 	}
 
@@ -67,7 +73,7 @@ public class AssessBatchSteps {
 		batchpage.selectQuarter("Q4");
 		batchpage.getBatchesDropdown().click();
 		batchpage.getBatchSearchBar().sendKeys("Ravi");
-		batchpage.selectBatch("");
+		batchpage.selectBatch("Ravi Singh - Full Stack Java/JEE - 7/9/2018");
 	}
 
 	@When("^the user clicks on a specific week$")
@@ -89,32 +95,59 @@ public class AssessBatchSteps {
 
 	@When("^the user clicks the yes button$")
 	public void the_user_clicks_the_yes_button() throws Throwable {
+		// Not ever called outside the "add a week" scenario at time of writing
 		batchpage.getNewWeekYesButton().click();
+
+		// calculate the last week
+		List<WebElement> elements =
+			batchpage.getWeeksContainer().findElements(By.tagName("a"));
+		Assert.assertTrue(elements.size() > 1);
+		String text = elements.get(elements.size() - 2).getText();
+		String parts[] = text.split(" ");
+
+		int lastWeek = Integer.parseInt(parts[parts.length - 1]);
+		this.lastWeekAdded = lastWeek;
 	}
 
 	@Then("^a new week should be displayed on the batch page$")
 	public void a_new_week_should_be_displayed_on_the_batch_page()
 		throws Throwable {
-		Assert.assertEquals(batchpage.getWeeksContainer()
-			.findElement(By.tagName("a")).getText(), "Week 6");
+		Thread.sleep(2000);
+		List<WebElement> elements =
+			batchpage.getWeeksContainer().findElements(By.tagName("a"));
+		Assert.assertTrue(elements.size() > 1);
+		Assert.assertEquals("Week " + this.lastWeekAdded,
+			elements.get(elements.size() - 2).getText());
 	}
 
 	@When("^the user clicks create assessment$")
 	public void the_user_clicks_create_assessment() throws Throwable {
+		Thread.sleep(250);
 		batchpage.getCreateAssessmentButton().click();
+	}
+
+	@When("^the user clicks create assessment from dialog$")
+	public void the_user_clicks_create_assessment_from_dialog()
+		throws Throwable {
+		Thread.sleep(250);
+		batchpage.getCreateAssessmentCreateButton().click();
 	}
 
 	@When("^the user fills out assessment information$")
 	public void the_user_fills_out_assessment_information() throws Throwable {
-		batchpage.selectCreateAssessmentType(0);
-		batchpage.getAssessmentPercent(0).click();
-		batchpage.getCategoriesUpdateDropdown();
+		Thread.sleep(250);
+		batchpage.selectCreateAssessmentType(1);
+		Thread.sleep(250);
+		batchpage.getCreateMaxPointsInput().clear();
+		batchpage.getCreateMaxPointsInput().sendKeys("100");
+		Thread.sleep(250);
+		batchpage.selectCreateCategory("NewBologna");
 	}
 
 	@Then("^the batch page will update with the new information$")
 	public void the_batch_page_will_update_with_the_new_information()
 		throws Throwable {
-		Assert.assertNotNull(batchpage.getAssessmentType(1));
+		Assert.assertNotNull(batchpage.getAssessmentType(0));
 	}
 
 	@When("^the user clicks import grades$")
@@ -124,7 +157,9 @@ public class AssessBatchSteps {
 
 	@When("^the user enters a valid json from revpro$")
 	public void the_user_enters_a_valid_json_from_revpro() throws Throwable {
+		Thread.sleep(250);
 		batchpage.getImportGradesInput().sendKeys("1");
+		Thread.sleep(250);
 		batchpage.getImportGradesButton().click();
 	}
 
@@ -143,13 +178,15 @@ public class AssessBatchSteps {
 		batchpage.selectQuarter("Q1");
 		batchpage.getBatchesDropdown().click();
 		batchpage.getBatchSearchBar().sendKeys("Jake");
-		batchpage.selectBatch("");
+		batchpage.selectBatch("Jake Smith - Full Stack Java/JEE - 3/9/2019");
 	}
 
 	@When("^the user changes an assessment grade for a specific associate$")
 	public void the_user_changes_an_assessment_grade_for_a_specific_associate()
 		throws Throwable {
-		batchpage.getUpdateAssessmentButton(0);
+		Thread.sleep(250);
+		batchpage.getUpdateAssessmentButton(0).click();
+		Thread.sleep(250);
 		batchpage.selectUpdateAssessmentType(0);
 	}
 

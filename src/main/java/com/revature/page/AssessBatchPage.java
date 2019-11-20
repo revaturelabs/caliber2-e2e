@@ -106,13 +106,11 @@ public class AssessBatchPage {
 			.visibilityOfElementLocated(By.id("batch-select-dropdown-list")));
 
 		for (WebElement element : container.findElements(By.tagName("a"))) {
-			element.click();
-			return;
 
-			// if (element.getText().contains(batch)) {
-			// element.click();
-			// return;
-			// }
+			if (element.getText().contains(batch)) {
+				element.click();
+				return;
+			}
 		}
 	}
 
