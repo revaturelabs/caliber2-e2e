@@ -17,6 +17,7 @@ public class TrainerSteps {
 
 	@When("^The user clicks new trainer$")
 	public void the_user_clicks_new_trainer() throws Throwable {
+		Thread.sleep(250);
 		page.addTrainerButton().click();
 	}
 
@@ -48,6 +49,7 @@ public class TrainerSteps {
 	@When("^The user inputs \"([^\"]*)\" into edit name input$")
 	public void the_user_inputs_into_edit_name_input(String arg1)
 		throws Throwable {
+		Thread.sleep(250);
 		page.inputEditTrainerName().clear();
 		page.inputEditTrainerName().sendKeys(arg1);
 		page.submitEditTrainer().click();
@@ -85,6 +87,7 @@ public class TrainerSteps {
 		String arg2, String arg3, String arg4) throws Throwable {
 		driver.navigate().refresh(); // because apparently stuff needs to
 										// refresh first...
+		Thread.sleep(250);
 		for (WebElement element : page.getTableBody()
 			.findElements(By.tagName("tr"))) {
 			if (element.findElement(By.xpath("//td[1]")).getText().equals(arg1)
@@ -124,12 +127,16 @@ public class TrainerSteps {
 	@Then("^The trainers name should be \"([^\"]*)\"$")
 	public void the_trainers_name_should_be(String arg1) throws Throwable {
 		driver.navigate().refresh();
+		Thread.sleep(250);
 		for (int i = 1; i < page.getTableRowsCount(); i++) {
 			if (page.getTableRowName(i).getText().equals(arg1)) {
+				Thread.sleep(250);
 				// Resetting the information for another test
 				page.editTrainerButton(arg1).click();
+				Thread.sleep(250);
 				page.inputEditTrainerName().clear();
 				page.inputEditTrainerName().sendKeys("New");
+				Thread.sleep(250);
 				page.submitEditTrainer().click();
 				return;
 			}
@@ -151,6 +158,7 @@ public class TrainerSteps {
 	@Then("^The trainers title should be \"([^\"]*)\"$")
 	public void the_trainers_title_should_be(String arg1) throws Throwable {
 		driver.navigate().refresh();
+		Thread.sleep(250);
 		for (int i = 1; i < page.getTableRowsCount(); i++) {
 			if (page.getTableRowTitle(i).getText().equals(arg1)) {
 				return;
@@ -162,6 +170,7 @@ public class TrainerSteps {
 	@Then("^The trainers role should be \"([^\"]*)\"$")
 	public void the_trainers_role_should_be(String arg1) throws Throwable {
 		driver.navigate().refresh();
+		Thread.sleep(250);
 		for (int i = 1; i < page.getTableRowsCount(); i++) {
 			if (page.getTableRowTier(i).getText().equals(arg1)) {
 				return;
@@ -173,17 +182,20 @@ public class TrainerSteps {
 	@When("^The user clicks inactive on a trainer \"([^\"]*)\"$")
 	public void the_user_clicks_inactive_on_a_trainer(String arg1)
 		throws Throwable {
+		Thread.sleep(500);
 		page.inactiveTrainerButton(arg1).click();
 	}
 
 	@When("^The user clicks on confirm$")
 	public void the_user_clicks_on_confirm() throws Throwable {
+		Thread.sleep(500);
 		page.yesDisableTrainerButton().click();
 	}
 
 	@Then("^The trainer \"([^\"]*)\" is made inactive$")
 	public void the_trainer_is_made_inactive(String arg1) throws Throwable {
 		driver.navigate().refresh();
+		Thread.sleep(250);
 		for (int i = 1; i < page.getTableRowsCount(); i++) {
 			if (page.getTableRowName(i).getText().equals(arg1)
 				&& page.getTableRowTier(i).getText().equals("ROLE_INACTIVE")) {
