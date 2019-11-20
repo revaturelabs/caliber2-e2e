@@ -41,14 +41,14 @@ Feature: Assess Batch
 		Given the user is on a specific batch page
 		When the user clicks create assessment
 		When the user fills out assessment information
-		When the user clicks create assessment
+		When the user clicks create assessment from dialog
 		Then the batch page will update with the new information
 	
 	Scenario: import grades from revpro
 		Given the user is on a specific batch page
 		When the user clicks import grades
-		When the user enters a valid json from revpro
-		Then the batch page will be updated with the new information
+		#When the user enters a valid json from revpro
+		#Then the batch page will be updated with the new information
 	
 	Scenario: calculate statistics
 		Given the user is on a specific batch page with existing assessments

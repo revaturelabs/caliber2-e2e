@@ -16,118 +16,41 @@ public class HomePage {
 	WebDriver driver;
 	WebDriverWait wait;
 
-	public HomePage(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, 3);
-	}
-
-	public WebElement getLastQAcontainer() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("last-quality-audit-panel")));
-	}
-
-	public WebElement getLastQAstateDropdown() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("home-toolbar-state-select")));
-	}
-
-	public WebElement getLastQAcanvas() {
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("last-quality-audit-graph-base-chart-canvas")));
-	}
-
-	public WebElement getLastQAtable() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("lastQATable")));
-	}
-
-	public WebElement getCityDropdown() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("home-toolbar-city-select")));
-	}
-
-	public void selectLastQACity(String city) {
-		Select select = new Select(getCityDropdown());
-		select.selectByVisibleText(city);
-	}
-
-	// *[@id="home-toolbar-city-select"]/option[2]
-	public void selectLastQAState(String state) {
-		Select select = new Select(getLastQAstateDropdown());
-		select.selectByVisibleText(state);
-	}
-
-	/**
-	 * iterate through rows in the table, checking the th where the trainer name
-	 * is stored if the name matches the trainer we are looking for, return the
-	 * row. else return null
-	 */
-	public WebElement lastQARowByTrainer(String trainer) {
-		for (WebElement elem : this.getLastQAtable()
-			.findElements(By.tagName("tr"))) {
-			if (elem.findElement(By.tagName("th")).getText()
-				.contains(trainer)) {
-				return elem;
-			}
-		}
-		return null;
-	}
-
 	@FindBy(id = "missing-grades-list-data-container")
 	public WebElement missingGradesContainer;
 
 	@FindBy(id = "WeekSorter")
 	public WebElement weekSorterButton;
 
-	public WebElement getWeekSorterDropdownContainer() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("pill-box-dropdown-container")));
+	public HomePage(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		this.wait = new WebDriverWait(driver, 3);
 	}
 
-	public void selectWeekSorterByIndex(int index) {
-		this.getWeekSorterDropdownContainer()
-			.findElements(By.tagName("app-dropdown-button")).get(index).click();
+	public WebElement getCityDropdown() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("home-toolbar-city-select")));
 	}
 
-	public void selectWeekSorterByWeek(int week) {
-		for (WebElement elem : this.getWeekSorterDropdownContainer()
-			.findElements(By.tagName("app-dropdown-button"))) {
-			if (Integer.parseInt(elem.getText()) == week) {
-				elem.click();
-			}
-		}
+	public WebElement getLastQAcanvas() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("last-quality-audit-graph-base-chart-canvas")));
 	}
 
-	public WebElement getWeeksContainer() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("pill-box-container")));
+	public WebElement getLastQAcontainer() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("last-quality-audit-panel")));
 	}
 
-	public WebElement getWeekByIndex(int weekIndex) {
-		return this.getWeeksContainer().findElements(By.tagName("app-pill"))
-			.get(weekIndex);
+	public WebElement getLastQAstateDropdown() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("home-toolbar-state-select")));
 	}
 
-	/**
-	 * iterate through the pills, getting the text and parsing out the week
-	 * number if the found number matches what we are looking for return the
-	 * pill, else return null
-	 */
-	public WebElement getWeekByWeekNumber(int week) {
-		for (WebElement elem : this.getWeeksContainer()
-			.findElements(By.tagName("app-pill"))) {
-			if (Integer.parseInt(elem.findElement(By.className("pillContent"))
-				.getText().split(" ")[1]) == week) {
-				return elem;
-			}
-		}
-		return null;
-	}
-
-	public WebElement getMissingGradesTable() {
-		return wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("missing-grades-list-table")));
+	public WebElement getLastQAtable() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("lastQATable")));
 	}
 
 	/**
@@ -156,11 +79,16 @@ public class HomePage {
 		}
 	}
 
+	public WebElement getMissingGradesTable() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("missing-grades-list-table")));
+	}
+
 	/**
 	 * @param index at 1
 	 */
 	public WebElement getMissingRowByIndex(int index) {
-		List<WebElement> rows = getMissingGradeRows();
+		List<WebElement> rows = this.getMissingGradeRows();
 		if (index > rows.size()) {
 			return null;
 		}
@@ -173,7 +101,79 @@ public class HomePage {
 	 * @param index at 1
 	 */
 	public WebElement getMissingWeeksColByRowIndex(int index) {
-		WebElement row = getMissingRowByIndex(index);
+		WebElement row = this.getMissingRowByIndex(index);
 		return row.findElement(By.id("missing-grades-list-weeks"));
+	}
+
+	public WebElement getWeekByIndex(int weekIndex) {
+		return this.getWeeksContainer().findElements(By.tagName("app-pill"))
+			.get(weekIndex);
+	}
+
+	/**
+	 * iterate through the pills, getting the text and parsing out the week
+	 * number if the found number matches what we are looking for return the
+	 * pill, else return null
+	 */
+	public WebElement getWeekByWeekNumber(int week) {
+		for (WebElement elem : this.getWeeksContainer()
+			.findElements(By.tagName("app-pill"))) {
+			if (Integer.parseInt(elem.findElement(By.className("pillContent"))
+				.getText().split(" ")[1]) == week) {
+				return elem;
+			}
+		}
+		return null;
+	}
+
+	public WebElement getWeeksContainer() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("pill-box-container")));
+	}
+
+	public WebElement getWeekSorterDropdownContainer() {
+		return this.wait.until(ExpectedConditions
+			.visibilityOfElementLocated(By.id("pill-box-dropdown-container")));
+	}
+
+	/**
+	 * iterate through rows in the table, checking the th where the trainer name
+	 * is stored if the name matches the trainer we are looking for, return the
+	 * row. else return null
+	 */
+	public WebElement lastQARowByTrainer(String trainer) {
+		for (WebElement elem : this.getLastQAtable()
+			.findElements(By.tagName("tr"))) {
+			if (elem.findElement(By.tagName("th")).getText()
+				.contains(trainer)) {
+				return elem;
+			}
+		}
+		return null;
+	}
+
+	public void selectLastQACity(String city) {
+		Select select = new Select(this.getCityDropdown());
+		select.selectByVisibleText(city);
+	}
+
+	// *[@id="home-toolbar-city-select"]/option[2]
+	public void selectLastQAState(String state) {
+		Select select = new Select(this.getLastQAstateDropdown());
+		select.selectByVisibleText(state);
+	}
+
+	public void selectWeekSorterByIndex(int index) {
+		this.getWeekSorterDropdownContainer()
+			.findElements(By.tagName("app-dropdown-button")).get(index).click();
+	}
+
+	public void selectWeekSorterByWeek(int week) {
+		for (WebElement elem : this.getWeekSorterDropdownContainer()
+			.findElements(By.tagName("app-dropdown-button"))) {
+			if (Integer.parseInt(elem.getText()) == week) {
+				elem.click();
+			}
+		}
 	}
 }

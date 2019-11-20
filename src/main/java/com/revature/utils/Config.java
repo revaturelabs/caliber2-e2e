@@ -19,7 +19,7 @@ public class Config {
 	 * @return The URL of the home page for the web application.
 	 * @see #isURLSet()
 	 */
-	public static synchronized String getURL() {
+	public static synchronized String get() {
 		return Config.url;
 	}
 
@@ -29,7 +29,7 @@ public class Config {
 	 * @return The URL of the home page for the web application.
 	 * @see #isURLSet()
 	 */
-	public static synchronized String get() {
+	public static synchronized String getURL() {
 		return Config.url;
 	}
 

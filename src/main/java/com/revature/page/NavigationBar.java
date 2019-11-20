@@ -11,12 +11,6 @@ public class NavigationBar {
 	WebDriver driver;
 	WebDriverWait wait;
 
-	public NavigationBar(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, 3);
-	}
-
 	@FindBy(id = "logo-id")
 	public WebElement logo;
 
@@ -55,4 +49,10 @@ public class NavigationBar {
 
 	@FindBy(id = "header-navbar-toggle-button")
 	public WebElement navBarToggleButton;
+
+	public NavigationBar(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		this.wait = new WebDriverWait(driver, 3);
+	}
 }
