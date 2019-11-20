@@ -32,6 +32,49 @@ public class Generator {
 	 */
 	private static Map<Object, String> linkStorage = new HashMap<>();
 
+	private static float calculatePercentPassing(Element element) {
+		int passing = 0;
+		int total = 0;
+
+		for (Step step : element.getSteps()) {
+			++total;
+			if (Generator.doesPass(step)) {
+				++passing;
+			}
+		}
+
+		// turns passing to float then divides to give a decimal percentage
+		return (100.00f * passing) / total;
+	}
+
+	private static float calculatePercentPassing(Feature feature) {
+		int passing = 0;
+		int total = 0;
+
+		for (Element elem : feature.getElements()) {
+			++total;
+			if (Generator.doesPass(elem)) {
+				++passing;
+			}
+		}
+		// turns passing to float then divides to give a decimal percentage
+		return (100.00f * passing) / total;
+	}
+
+	private static float calculatePercentPassing(Feature[] features) {
+		int passing = 0;
+		int total = 0;
+
+		for (Feature feature : features) {
+			++total;
+			if (Generator.doesPass(feature)) {
+				++passing;
+			}
+		}
+		// turns passing to float then divides to give a decimal percentage
+		return (100.00f * passing) / total;
+	}
+
 	private static String calculateScenarioTitle(Feature feature) {
 		return "Scenarios for feature '" + feature.getName() + "'";
 	}
@@ -239,12 +282,14 @@ public class Generator {
 	 * @see #generateTable(Feature)
 	 */
 	private static String generateSummaryTable(Feature[] features) {
-		String results =
-			"<table class=\"table table-hover\">" + Generator.NEWLINE
-				+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
-				+ "<th scope=\"col\">Feature</th>" + Generator.NEWLINE
-				+ "<th scope=\"col\">Status</th>" + Generator.NEWLINE + "</tr>"
-				+ Generator.NEWLINE + "</thead>" + Generator.NEWLINE;
+		String results = "<table class=\"table table-hover\">"
+			+ Generator.NEWLINE + "<thead>" + Generator.NEWLINE + "<tr>"
+			+ Generator.NEWLINE + "<th scope=\"col\">Feature</th>"
+			+ Generator.NEWLINE + "<th scope=\"col\">Status ("
+			+ String.format("%.2f%% pass",
+				Generator.calculatePercentPassing(features))
+			+ ")</th>" + Generator.NEWLINE + "</tr>" + Generator.NEWLINE
+			+ "</thead>" + Generator.NEWLINE;
 
 		results += "<tbody>" + Generator.NEWLINE;
 
@@ -284,13 +329,15 @@ public class Generator {
 		if (element == null) {
 			return "";
 		}
-		String results =
-			"<table class=\"table table-hover\">" + Generator.NEWLINE
-				+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
-				+ "<th scope=\"col\">Type</th>" + Generator.NEWLINE
-				+ "<th scope=\"col\">Name</th>" + Generator.NEWLINE
-				+ "<th scope=\"col\">Result</th>" + Generator.NEWLINE + "</tr>"
-				+ Generator.NEWLINE + "</thead>" + Generator.NEWLINE;
+		String results = "<table class=\"table table-hover\">"
+			+ Generator.NEWLINE + "<thead>" + Generator.NEWLINE + "<tr>"
+			+ Generator.NEWLINE + "<th scope=\"col\">Type</th>"
+			+ Generator.NEWLINE + "<th scope=\"col\">Name</th>"
+			+ Generator.NEWLINE + "<th scope=\"col\">Result ("
+			+ String.format("%.2f%% pass",
+				Generator.calculatePercentPassing(element))
+			+ ")</th>" + Generator.NEWLINE + "</tr>" + Generator.NEWLINE
+			+ "</thead>" + Generator.NEWLINE;
 
 		results += "<tbody>" + Generator.NEWLINE;
 
@@ -339,13 +386,15 @@ public class Generator {
 		if (feature == null) {
 			return "";
 		}
-		String results =
-			"<table class=\"table table-hover\">" + Generator.NEWLINE
-				+ "<thead>" + Generator.NEWLINE + "<tr>" + Generator.NEWLINE
-				+ "<th scope=\"col\">Type</th>" + Generator.NEWLINE
-				+ "<th scope=\"col\">Name</th>" + Generator.NEWLINE
-				+ "<th scope=\"col\">Result</th>" + Generator.NEWLINE + "</tr>"
-				+ Generator.NEWLINE + "</thead>" + Generator.NEWLINE;
+		String results = "<table class=\"table table-hover\">"
+			+ Generator.NEWLINE + "<thead>" + Generator.NEWLINE + "<tr>"
+			+ Generator.NEWLINE + "<th scope=\"col\">Type</th>"
+			+ Generator.NEWLINE + "<th scope=\"col\">Name</th>"
+			+ Generator.NEWLINE + "<th scope=\"col\">Result ("
+			+ String.format("%.2f%% pass",
+				Generator.calculatePercentPassing(feature))
+			+ ")</th>" + Generator.NEWLINE + "</tr>" + Generator.NEWLINE
+			+ "</thead>" + Generator.NEWLINE;
 
 		results += "<tbody>" + Generator.NEWLINE;
 
