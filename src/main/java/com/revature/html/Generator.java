@@ -116,7 +116,7 @@ public class Generator {
 	 * @param features The features to create a table for.
 	 * @return The HTML to insert in for where the features table is.
 	 */
-	private static String calculateFeaturesTable(Feature[] features) {
+	private static String generateFeaturesTable(Feature[] features) {
 		String results = "";
 		// generate a collapsable accordion for the features
 		results +=
@@ -147,16 +147,15 @@ public class Generator {
 		return results;
 	}
 
-	private static String calculateScenarioTables(Feature[] features) {
+	private static String generateScenarioTables(Feature[] features) {
 		String results = "";
 		for (Feature feature : features) {
 			if (feature.getElements() == null) {
 				continue;
 			}
 			String title = Generator.calculateScenarioTitle(feature);
-			results +=
-				"<h1 id=\"" + Generator.linkifyTitle(title, true, null)
-					+ "\">" + title + "</h1>" + Generator.NEWLINE;
+			results += "<h1 id=\"" + Generator.linkifyTitle(title, true, null)
+				+ "\">" + title + "</h1>" + Generator.NEWLINE;
 
 			// we want the name but strip off the pound sign
 			String convenientScenarioName =
@@ -219,9 +218,9 @@ public class Generator {
 
 		results += "<h1 id=\"features\">Features</h1>" + Generator.NEWLINE;
 
-		String scenariosChunk = calculateScenarioTables(features);
+		String scenariosChunk = generateScenarioTables(features);
 		// we have to calculate this later so that links have the right value
-		String featuresTableChunk = calculateFeaturesTable(features);
+		String featuresTableChunk = generateFeaturesTable(features);
 
 		// we calculated out of order but they go summary table first
 		results += featuresTableChunk;
@@ -436,7 +435,6 @@ public class Generator {
 			 */
 			if (Generator.linkStorage.containsKey(subject)) {
 				// we are linking to an existing id, so prepend a #
-				System.out.println(name+","+updateCount+","+subject+" -> "+Generator.linkStorage.get(subject));
 				return "#" + Generator.linkStorage.get(subject);
 			}
 		}
@@ -456,9 +454,6 @@ public class Generator {
 		}
 		if (updateCount) {
 			Generator.linkCounts.put(cleaned, newCount);
-			if (subject != null) {
-				Generator.linkStorage.put(subject, cleaned);
-			}
 		}
 		String result;
 
@@ -473,6 +468,10 @@ public class Generator {
 		result += cleaned;
 		if (newCount > 0) {
 			result += newCount;
+		}
+
+		if (updateCount && subject != null) {
+			Generator.linkStorage.put(subject, result);
 		}
 		return result;
 	}
