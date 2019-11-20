@@ -3,10 +3,10 @@ package com.revature.app;
 import com.revature.html.Generator;
 import com.revature.json.models.Feature;
 import com.revature.runner.ChromeRunner;
+import com.revature.utils.Config;
 import gherkin.deps.com.google.gson.Gson;
 import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-@SpringBootApplication
 public class Caliber2E2eApplication {
 
 	/**
@@ -70,6 +69,42 @@ public class Caliber2E2eApplication {
 	public static void main(String[] args) {
 		// SpringApplication.run(Caliber2E2eApplication.class, args);
 
+		String htmlFilename = "results.html";
+
+		if (args == null || args.length == 0) {
+			System.err.println("Please specify a url in the arguments.");
+			Caliber2E2eApplication.printHelp();
+			return;
+		}
+
+		if (args[0].toLowerCase().matches("[-]{1,2}h(elp)?")) {
+			Caliber2E2eApplication.printHelp();
+			return;
+		}
+
+		if (args.length > 1) {
+			if (args[1].toLowerCase().matches("-(-)?h(tml-output)?")) {
+				if (args.length < 3) {
+					System.err.println("Missing filename for html output.");
+					Caliber2E2eApplication.printHelp();
+					return;
+				}
+				if (args[2] == null || args[2].isEmpty()) {
+					System.err.println("Filename for HTML output is empty.");
+					Caliber2E2eApplication.printHelp();
+					return;
+				}
+				htmlFilename = args[2];
+			}
+			else {
+				System.err.println("Unknown argument '" + args[1] + "'");
+				Caliber2E2eApplication.printHelp();
+				return;
+			}
+		}
+
+		Config.setURL(args[0]);
+
 		// Run the junit tests
 		JUnitCore junit = new JUnitCore();
 		junit.addListener(new TextListener(System.out));
@@ -84,7 +119,7 @@ public class Caliber2E2eApplication {
 			 * directory. That is, the 'java -jar' command should be run from
 			 * the directory the jar is in.
 			 */
-			File cucumberFile = new File("cucumber.json");
+			File cucumberFile = new File(Config.CUCUMBER_FILENAME);
 			cucumber = new FileReader(cucumberFile);
 		}
 		catch (Exception e) {
@@ -106,7 +141,7 @@ public class Caliber2E2eApplication {
 
 		// generate html
 		String webPage = Generator.toWebPage(parsed);
-		File output = new File("test.html");
+		File output = new File(htmlFilename);
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(output);
@@ -133,5 +168,27 @@ public class Caliber2E2eApplication {
 			System.exit(Caliber2E2eApplication.FAILED);
 		}
 
+	}
+
+	/**
+	 * Print out usage info for the jar.
+	 */
+	private static void printHelp() {
+		System.out.println(
+			"Usage: java -jar <jar name> [--help] <url> [--html-output <filename>]");
+		System.out.println();
+		System.out.println(
+			"    jar name : The name of the jar, such as 'caliber2-e2e-0.0.1-SNAPSHOT.jar'");
+		System.out.println(
+			"    url      : The url of the web-app home page, such as 'http://example.com/caliber/vp/home'");
+		System.out.println();
+		System.out.println(
+			"If '--help' is specified, will print this and not run anything.");
+		System.out.println("    You can also use '-h' for brevity.");
+		System.out.println(
+			"The '--html-output' flag is for specifying the name of the html file to");
+		System.out.println("    output results to, such as 'results.html'.");
+		System.out.println("    You can also use '-h' for brevity.");
+		System.out.println();
 	}
 }

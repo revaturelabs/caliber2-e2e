@@ -3,7 +3,7 @@ package com.revature.json.models;
 public class Result {
 	private String status;
 	private String error_message;
-	private Integer duration;
+	private Long duration;
 
 	public Result() {
 		super();
@@ -45,7 +45,7 @@ public class Result {
 		return true;
 	}
 
-	public Integer getDuration() {
+	public Long getDuration() {
 		return this.duration;
 	}
 
@@ -66,7 +66,7 @@ public class Result {
 		return result;
 	}
 
-	public void setDuration(Integer duration) {
+	public void setDuration(Long duration) {
 		this.duration = duration;
 	}
 
