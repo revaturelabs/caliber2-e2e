@@ -22,10 +22,15 @@ public class Generator {
 	private static final String LINK_TO_TOP =
 		"<a href=\"#overall_results\">Back to top</a>";
 	/**
-	 * Used in {@link #linkifyTitle(String, boolean)} for tracking how much a
-	 * name has been used.
+	 * Used in {@link #linkifyTitle(String, boolean, Object)} for tracking how
+	 * much a name has been used.
 	 */
 	private static Map<String, Integer> linkCounts = new HashMap<>();
+	/**
+	 * Stores the link text for specific objects so when we want to reference
+	 * them in links, we can get the string for that object.
+	 */
+	private static Map<Object, String> linkStorage = new HashMap<>();
 
 	private static String calculateScenarioTitle(Feature feature) {
 		return "Scenarios for feature '" + feature.getName() + "'";
@@ -104,21 +109,15 @@ public class Generator {
 		return status.equals("passed");
 	}
 
-	private static String generateContents(Feature[] features) {
-		// forgive me for this
-		String results = "<h1 id=\"overall_results\">Overall Results</h1>"
-			+ Generator.NEWLINE;
-		if (features == null) {
-			return results;
-		}
-
-		// generate a table inside a div
-		results += Generator.TABLE_CONTAINER + Generator.NEWLINE;
-		results += Generator.generateSummaryTable(features);
-		results += "</div>" + Generator.NEWLINE;
-
-		results += "<h1 id=\"features\">Features</h1>" + Generator.NEWLINE;
-
+	/**
+	 * Calculates and returns the string to put in where the features table
+	 * goes. This is done late in the process so that links can be correct.
+	 * 
+	 * @param features The features to create a table for.
+	 * @return The HTML to insert in for where the features table is.
+	 */
+	private static String calculateFeaturesTable(Feature[] features) {
+		String results = "";
 		// generate a collapsable accordion for the features
 		results +=
 			"<div class=\"accordion border-bottom\" id=\"featuresCollapse\">"
@@ -133,7 +132,8 @@ public class Generator {
 		for (Feature feature : features) {
 			// header for the feature
 			String title = Generator.calculateTitle(feature);
-			results += "<h2 id=\"" + Generator.linkifyTitle(title, true) + "\">"
+			results += "<h2 id=\""
+				+ Generator.linkifyTitle(title, true, feature) + "\">"
 				+ Generator.NEWLINE + title + "</h2>" + Generator.NEWLINE;
 
 			// generate a table inside a div
@@ -144,18 +144,23 @@ public class Generator {
 		}
 		results += "</div>" + Generator.NEWLINE + "</div>" + Generator.NEWLINE;
 		results += "</div>" + Generator.NEWLINE + "</div>" + Generator.NEWLINE;
+		return results;
+	}
 
+	private static String calculateScenarioTables(Feature[] features) {
+		String results = "";
 		for (Feature feature : features) {
 			if (feature.getElements() == null) {
 				continue;
 			}
 			String title = Generator.calculateScenarioTitle(feature);
-			results += "<h1 id=\"" + Generator.linkifyTitle(title, true) + "\">"
-				+ title + "</h1>" + Generator.NEWLINE;
+			results +=
+				"<h1 id=\"" + Generator.linkifyTitle(title, true, null)
+					+ "\">" + title + "</h1>" + Generator.NEWLINE;
 
 			// we want the name but strip off the pound sign
 			String convenientScenarioName =
-				Generator.linkifyTitle(title, false).substring(1);
+				Generator.linkifyTitle(title, false, feature).substring(1);
 
 			// construct an accordion with unique ids
 			results += "<div class=\"accordion border-bottom\" id=\""
@@ -177,8 +182,9 @@ public class Generator {
 			for (Element element : feature.getElements()) {
 				// header for the element
 				String subtitle = Generator.calculateTitle(element);
-				results += "<h2 id=\"" + Generator.linkifyTitle(subtitle, true)
-					+ "\">" + subtitle + "</h2>" + Generator.NEWLINE;
+				results += "<h2 id=\""
+					+ Generator.linkifyTitle(subtitle, true, element) + "\">"
+					+ subtitle + "</h2>" + Generator.NEWLINE;
 
 				// generate a table inside a div
 				results += Generator.TABLE_CONTAINER + Generator.NEWLINE;
@@ -186,7 +192,7 @@ public class Generator {
 				results += "</div>" + Generator.NEWLINE;
 				results += "<a href=\""
 					+ Generator.linkifyTitle(Generator.calculateTitle(feature),
-						false)
+						false, feature)
 					+ "\">Back to parent feature '" + feature.getName()
 					+ "'</a>" + Generator.NEWLINE;
 			}
@@ -195,7 +201,31 @@ public class Generator {
 			results +=
 				"</div>" + Generator.NEWLINE + "</div>" + Generator.NEWLINE;
 		}
+		return results;
+	}
 
+	private static String generateContents(Feature[] features) {
+		// forgive me for this
+		String results = "<h1 id=\"overall_results\">Overall Results</h1>"
+			+ Generator.NEWLINE;
+		if (features == null) {
+			return results;
+		}
+
+		// generate a table inside a div
+		results += Generator.TABLE_CONTAINER + Generator.NEWLINE;
+		results += Generator.generateSummaryTable(features);
+		results += "</div>" + Generator.NEWLINE;
+
+		results += "<h1 id=\"features\">Features</h1>" + Generator.NEWLINE;
+
+		String scenariosChunk = calculateScenarioTables(features);
+		// we have to calculate this later so that links have the right value
+		String featuresTableChunk = calculateFeaturesTable(features);
+
+		// we calculated out of order but they go summary table first
+		results += featuresTableChunk;
+		results += scenariosChunk;
 		return results;
 	}
 
@@ -224,7 +254,7 @@ public class Generator {
 				results += "<tr>" + Generator.NEWLINE;
 				results += "<td>" + Generator.NEWLINE + "<a href=\""
 					+ Generator.linkifyTitle(Generator.calculateTitle(feature),
-						false)
+						false, feature)
 					+ "\">" + feature.getName() + "</a>" + Generator.NEWLINE
 					+ "</td>" + Generator.NEWLINE;
 				if (Generator.doesPass(feature)) {
@@ -327,7 +357,7 @@ public class Generator {
 					"<td>" + element.getKeyword() + "</td>" + Generator.NEWLINE;
 				results += "<td><a href=\""
 					+ Generator.linkifyTitle(Generator.calculateTitle(element),
-						false)
+						false, element)
 					+ "\">" + element.getName() + "</a></td>"
 					+ Generator.NEWLINE;
 				if (Generator.doesPass(element)) {
@@ -384,15 +414,31 @@ public class Generator {
 	/**
 	 * Take in a name and turn it into a link format, so remove spaces, etc.
 	 * This will also make sure the links are unique.
-	 *
+	 * 
 	 * @param name The name of a thing.
 	 * @param updateCount If this is a new link, false if we are just looking up
 	 *            the most recent.
+	 * @param subject The object we are getting a link to. If null, nothing is
+	 *            stored.
 	 * @return The link or ID it should have.
 	 */
-	private static String linkifyTitle(String name, boolean updateCount) {
+	private static String linkifyTitle(String name, boolean updateCount,
+		Object subject) {
 		if (name == null) {
 			return null;
+		}
+
+		if (!updateCount) {
+			/*
+			 * If we are not updating to a new link number, and looking for an
+			 * object that already had a link created for it, we can just fetch
+			 * the link and return it.
+			 */
+			if (Generator.linkStorage.containsKey(subject)) {
+				// we are linking to an existing id, so prepend a #
+				System.out.println(name+","+updateCount+","+subject+" -> "+Generator.linkStorage.get(subject));
+				return "#" + Generator.linkStorage.get(subject);
+			}
 		}
 		String cleaned = name.trim().toLowerCase().replaceAll("[^a-z0-9 ]+", "")
 			.replaceAll("\\s+", "_");
@@ -410,6 +456,9 @@ public class Generator {
 		}
 		if (updateCount) {
 			Generator.linkCounts.put(cleaned, newCount);
+			if (subject != null) {
+				Generator.linkStorage.put(subject, cleaned);
+			}
 		}
 		String result;
 
