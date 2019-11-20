@@ -80,6 +80,7 @@ public class TrainerSteps {
 	}
 
 	@Then("^The new trainer has information \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
+
 	public void the_new_trainer_has_information_and_and_and(String arg1,
 		String arg2, String arg3, String arg4) throws Throwable {
 		driver.navigate().refresh(); // because apparently stuff needs to
@@ -113,7 +114,8 @@ public class TrainerSteps {
 					ExpectedConditions.elementToBeClickable(page.getTableRow(i)
 						.findElement(By.className("pull-right"))))
 					.click();
-				page.editTrainerButton(arg1).click();
+				// page.editTrainerButton(arg1).click();
+
 				return;
 			}
 		}
