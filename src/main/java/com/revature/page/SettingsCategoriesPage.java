@@ -3,21 +3,16 @@ package com.revature.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SettingsCategoriesPage {
+import java.util.List;
 
+public class SettingsCategoriesPage {
 	WebDriver driver;
 	WebDriverWait wait;
-
-	@FindBy(id = "assessment-categories-editassessmentcategory")
-	public WebElement editCategoryButton;
-
-	@FindBy(id = "assessment-categories-addassessmentcategory")
-	public WebElement addCategoryButton;
 
 	public SettingsCategoriesPage(WebDriver driver) {
 		this.driver = driver;
@@ -25,28 +20,55 @@ public class SettingsCategoriesPage {
 		this.wait = new WebDriverWait(driver, 3);
 	}
 
+	public WebElement addCategoryButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("assessment-categories-addassessmentcategory")));
+
+	}
+
 	public WebElement addCategoryCloseButton() {
 		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
 			By.id("add-assess-cat-modal-closecategory")));
 	}
-	// *****************************************************************************************
+
+	public WebElement editCategoryButton() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.id("assessment-categories-editassessmentcategory")));
+
+	}
 
 	public WebElement editCategoryCloseButton() {
 		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
 			By.id("edit-assess-cat-modal-component-close")));
 	}
-	// *****************************************************************************************
-
-	// Edit Assessment Category
-	// Modal*********************************************************
 
 	public WebElement editCategorySaveButton() {
 		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
 			By.id("edit-assess-cat-modal-component-save")));
 	}
 
-	// Add Assessment Category
-	// Modal************************************************************
+	public String getFirstActiveCategoryName() {
+		WebElement category = this.driver
+			.findElement(By.xpath("//span[@id='active-category'][1]"));
+		return category.getAttribute("innerHTML").trim();
+
+	}
+
+	public String getFirstStaleCategoryName() {
+		WebElement category = this.driver
+			.findElement(By.xpath("//span[@id='stale-category'][1]"));
+		return category.getAttribute("innerHTML").trim();
+	}
+
+	// Edit Assessment Category
+	// Modal*********************************************************
+
+	public WebElement getSelectCategoryDropdown() {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.xpath("//select[@id='selectedCategory']")));
+
+	}
+
 	public WebElement inputCategoryNameAddCategories() {
 		return this.wait.until(ExpectedConditions
 			.visibilityOfElementLocated(By.id("category.skillCategory")));
@@ -62,21 +84,19 @@ public class SettingsCategoriesPage {
 			.visibilityOfElementLocated(By.id("categoryOwner")));
 	}
 
-	public WebElement selectCategoryDropdown() {
-		return this.wait.until(ExpectedConditions
-			.visibilityOfElementLocated(By.id("selectedCategory")));
-
-	}
-
-	public WebElement selectCategoryOptionByName(String name) {
-		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
-			By.id("edit-assess-cat-modal-component-skillcategoryoption-"
-				+ name)));
-	}
-
-	public WebElement selectNthActiveCategory(int n) {
+	public List<WebElement> selectActiveCategories() {
 		return this.driver
-			.findElement(By.xpath("//span[@id='active-category'][" + n + "]"));
+			.findElements(By.xpath("//span[@id='active-category']"));
+	}
+
+	public WebElement selectCategoryByName(String name) {
+		return this.wait.until(ExpectedConditions.visibilityOfElementLocated(
+			By.xpath("//div[@id='category-" + name + "']/span")));
+	}
+
+	public void selectCategoryOptionByName(String name) {
+		Select selectCategory = new Select(this.getSelectCategoryDropdown());
+		selectCategory.selectByVisibleText(name);
 	}
 
 	public WebElement selectNthCategoryOption(int n) {
@@ -84,9 +104,10 @@ public class SettingsCategoriesPage {
 			By.xpath("//select[@id='selectedCategory]//option[" + n + "]")));
 	}
 
-	public WebElement selectNthStaleCategory(int n) {
+	public List<WebElement> selectStaleCategories() {
+
 		return this.driver
-			.findElement(By.xpath("//span[@id='stale-category'][" + n + "]"));
+			.findElements(By.xpath("//span[@id='stale-category']"));
 	}
 
 	public WebElement submitCategoryButton() {
