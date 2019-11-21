@@ -1,0 +1,4228 @@
+{
+	"info": {
+		"_postman_id": "963cb91c-a630-4775-8b9d-2bcd616fc75d",
+		"name": "EndpointTests",
+		"description": "testing endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllAssessmentByBatchIDAndWeek",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f2790f76-7de2-4868-a808-d75ec792483c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "746617d0-7d38-4f9f-84d0-b37050343dcd",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push([",
+							"                batch.batchId,",
+							"                Math.floor(Math.random()*(batch.weeks-1))+1]) // random week within range",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    let randomBatch = batchs[Math.floor(Math.random()*batchs.length)]; // random batch",
+							"    pm.globals.set(\"batchId\", randomBatch[0]);",
+							"    pm.globals.set(\"week\", randomBatch[1]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/assessment/batch/{{batchId}}/?week={{week}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"all",
+						"assessment",
+						"batch",
+						"{{batchId}}",
+						""
+					],
+					"query": [
+						{
+							"key": "week",
+							"value": "{{week}}"
+						}
+					]
+				},
+				"description": "returning negative batch id"
+			},
+			"response": []
+		},
+		{
+			"name": "getNoteByBatchAndWeek",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b3fec3c-62db-4603-ad0d-c31286d53e0e",
+						"exec": [
+							"pm.test(\"Status code is 200 or 204\", function () {",
+							"      pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a62f3a63-d4fe-4985-9314-5fd468f87fe7",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push([",
+							"                batch.batchId,",
+							"                Math.floor(Math.random()*(batch.weeks-1))+1]) // random week within range",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    let randomBatch = batchs[Math.floor(Math.random()*batchs.length)]; // random batch",
+							"    pm.globals.set(\"batchId\", randomBatch[0]);",
+							"    pm.globals.set(\"week\", randomBatch[1]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/batch/{{batchId}}/{{week}}/note",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"batch",
+						"{{batchId}}",
+						"{{week}}",
+						"note"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllAssessmentAllAssessments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "645b7531-800d-464a-b239-f616b4a0ddbf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/assessment/all",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"all",
+						"assessment",
+						"all"
+					]
+				},
+				"description": "endpoint exists in angular but not on server"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllAssessmentsByBatchId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "14226890-d8ce-472f-bd98-4ce5aeb3ef6d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4d72a941-f5a5-44d9-8bad-bd29207fa0b8",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push(",
+							"                batch.batchId)",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    pm.globals.set(\"batchId\", batchs[Math.floor(Math.random()*batchs.length)]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/assessment/batch/{{batchId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"all",
+						"assessment",
+						"batch",
+						"{{batchId}}"
+					]
+				},
+				"description": "all id's are -1"
+			},
+			"response": []
+		},
+		{
+			"name": "getGradeByBatchAndWeek",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "082d7661-6426-4eb7-b778-c7a3eb86f59a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ff872da5-5fa1-4a0d-9131-aedb8ffa1aaa",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push([",
+							"                batch.batchId,",
+							"                Math.floor(Math.random()*(batch.weeks-1))+1]) // random week within range",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    let randomBatch = batchs[Math.floor(Math.random()*batchs.length)]; // random batch",
+							"    pm.globals.set(\"batchId\", randomBatch[0]);",
+							"    pm.globals.set(\"week\", randomBatch[1]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/grade/batch/{{batchId}}?week={{week}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"all",
+						"grade",
+						"batch",
+						"{{batchId}}"
+					],
+					"query": [
+						{
+							"key": "week",
+							"value": "{{week}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getGradeByBatch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "70543f66-d143-48d9-a655-0192eba8a1f8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "27edaafe-ea0c-4f22-a891-5bc13c2717d8",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push(",
+							"                batch.batchId)",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    pm.globals.set(\"batchId\", batchs[Math.floor(Math.random()*batchs.length)]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/grade/batch/{{batchId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"all",
+						"grade",
+						"batch",
+						"{{batchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetGradeByTrainee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8a3f04e-654a-4785-9d12-b05013784d6d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "345f712f-d281-4ce2-baa7-78ae1b9e1c69",
+						"exec": [
+							"var incomplete = true;",
+							" // get a batch",
+							" pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    // pm.globals.set(\"batId\", responseText[2].batchId);",
+							"    const batchIds = res.json().map(batch => batch.batchId);",
+							"    console.log(batchIds);",
+							"    let i = 0; ",
+							"    while (incomplete && i < batchIds.length){",
+							"        pm.sendRequest({",
+							"            url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/all/trainee/?batch=\" + batchIds[i],",
+							"            method: \"GET\",",
+							"            headers: {},",
+							"            body: {}",
+							"          },",
+							"          function (err, resp) {",
+							"            let trainee = resp.json();",
+							"            if (trainee.length>0 && incomplete) {",
+							"                incomplete = false;",
+							"                pm.globals.set(\"traineeId\", trainee[0].traineeId); // 5477 gives good results",
+							"            }",
+							"          });",
+							"        i += 1;",
+							"    }",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/grade/trainee/{{traineeId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"all",
+						"grade",
+						"trainee",
+						"{{traineeId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllGrades",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6666eb97-1a20-46fb-8426-fdd73e7348f1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/grade/all",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"all",
+						"grade",
+						"all"
+					]
+				},
+				"description": "all id's are -1"
+			},
+			"response": []
+		},
+		{
+			"name": "createAssessment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "70581264-757d-4e0c-bfdc-5feacb9ebf25",
+						"exec": [
+							"pm.test(\"Status code is 200 or 204\", function () {\r",
+							"   pm.expect(pm.response.code).to.be.oneOf([200,204]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "33ce6c87-fa67-4380-aea3-aa01fcc693a6",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push([",
+							"                batch.batchId,",
+							"                Math.floor(Math.random()*(batch.weeks-1))+1]) // random week within range",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    let randomBatch = batchs[Math.floor(Math.random()*batchs.length)]; // random batch",
+							"    pm.globals.set(\"batchId\", randomBatch[0]);",
+							"    pm.globals.set(\"week\", randomBatch[1]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"assessmentId\":1,\n\t\"assessmentTitle\":\"Title\",\n\t\"assessmentType\": \"Java\",\n\t\"weekNumber\":{{week}},\n\t\"batchId\":{{batchId}},\n\t\"assessmentCategory\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/assessment/create",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"all",
+						"assessment",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllTrainers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d93e5e8-dc8d-4f95-bbdf-369ce47f6ca9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/trainers/",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"user",
+						"trainers",
+						""
+					]
+				},
+				"description": "working well"
+			},
+			"response": []
+		},
+		{
+			"name": "getTraineeCountByBatchId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b9d3f181-87a0-442a-877f-89709684a4bc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f3584209-3d79-40b4-bc41-8be5d1296743",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push(",
+							"                batch.batchId)",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    pm.globals.set(\"batchId\", batchs[Math.floor(Math.random()*batchs.length)]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/trainee/{{batchId}}/count",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"user",
+						"trainee",
+						"{{batchId}}",
+						"count"
+					]
+				},
+				"description": "working - probably"
+			},
+			"response": []
+		},
+		{
+			"name": "getTraineesByBatchId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d7ea7ddb-756d-4cc7-8ad4-7151ce922ea3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "79121735-7f92-4ea1-a834-a0651efc535e",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push(",
+							"                batch.batchId)",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    pm.globals.set(\"batchId\", batchs[Math.floor(Math.random()*batchs.length)]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/all/trainee/?batch={{batchId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"user",
+						"all",
+						"trainee",
+						""
+					],
+					"query": [
+						{
+							"key": "batch",
+							"value": "{{batchId}}"
+						}
+					]
+				},
+				"description": "working"
+			},
+			"response": []
+		},
+		{
+			"name": "getBatchesByYearAndQuarter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a9b502a-0f5a-4826-b9bb-4d59d27d7769",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "45c3dc04-43f3-483e-964f-242d3db8d48d",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/all/batch/valid_years\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const years = res.json()",
+							"    pm.globals.set(\"year\", years[Math.floor(Math.random()*years.length)]);",
+							"    pm.globals.set(\"quarter\",Math.ceil(Math.random()*4));",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/?year={{year}}&quarter={{quarter}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"batch",
+						"vp",
+						"batch",
+						"all",
+						""
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "{{year}}"
+						},
+						{
+							"key": "quarter",
+							"value": "{{quarter}}"
+						}
+					]
+				},
+				"description": "works"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllBatchesByYear",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d031556-7d10-46c1-9181-a53f170a68d3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3d4444cb-7349-416e-9b22-b0f7beb50138",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/all/batch/valid_years\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const years = res.json()",
+							"    pm.globals.set(\"year\", years[Math.floor(Math.random()*years.length)]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/{{year}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"batch",
+						"vp",
+						"batch",
+						"{{year}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBatchById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f203b48e-6a8a-439c-bd31-d5a537c79233",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "36439d31-142e-4822-83d6-37d83b3c96d3",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push(",
+							"                batch.batchId)",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    pm.globals.set(\"batchId\", batchs[Math.floor(Math.random()*batchs.length)]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/all/batch/{{batchId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"batch",
+						"all",
+						"batch",
+						"{{batchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllBatches",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd765a07-644e-4b98-accf-052aa6163b6b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"batch",
+						"vp",
+						"batch",
+						"all",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllCurrentBatches",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9acd55d8-762a-48a0-845e-621f29e16790",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/current",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"batch",
+						"vp",
+						"batch",
+						"all",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBenchmarkByBatchId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8375dc5-4ec8-4121-86c1-62a676e8a50b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3095bef4-a78d-48e8-9655-edd3dd53ac74",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push(",
+							"                batch.batchId)",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    pm.globals.set(\"batchId\", batchs[Math.floor(Math.random()*batchs.length)]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/{{batchId}}/benchmark",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"batch",
+						"{{batchId}}",
+						"benchmark"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetValidYears",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba1e6fda-e1c8-43ad-a0c3-221f66eab15e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/all/batch/valid_years",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"batch",
+						"all",
+						"batch",
+						"valid_years"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCategoryWhenActive",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3069a4e3-aca3-48e9-94d0-8a4b329beb79",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/category/?active=true",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"category",
+						""
+					],
+					"query": [
+						{
+							"key": "active",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCategoryWhenInactive",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1d4e2e88-0c73-43da-abcf-f3dc6041625c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/category/?inactive=true",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"category",
+						""
+					],
+					"query": [
+						{
+							"key": "inactive",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllCategories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7723f629-fa17-4ce1-8bef-b397123fa12d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/category/",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"category",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCategoryById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3fd3be21-915a-4122-b4ed-b06474e78c2a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7d45d963-7fa8-4385-b0bd-fd23295f126c",
+						"exec": [
+							"var incomplete = true;",
+							" // get a batch",
+							" pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/category/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    // pm.globals.set(\"batId\", responseText[2].batchId);",
+							"    const categoryIds = res.json().map(cat=> cat.categoryId);",
+							"    pm.globals.set(\"categoryId\", categoryIds[Math.floor(Math.random()*categoryIds.length)]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/category/{{categoryId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"category",
+						"{{categoryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getqcTrainerNotesByBatchAndWeek",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d148441-c371-4360-90ed-37a7017db312",
+						"exec": [
+							"pm.test(\"Status code is 200 or 204\", function () {",
+							"      pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "22fcd213-17f7-4dad-bae5-35f30b0a4466",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push([",
+							"                batch.batchId,",
+							"                Math.floor(Math.random()*(batch.weeks-1))+1]) // random week within range",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    let randomBatch = batchs[Math.floor(Math.random()*batchs.length)]; // random batch",
+							"    pm.globals.set(\"batchId\", randomBatch[0]);",
+							"    pm.globals.set(\"week\", randomBatch[1]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/qa/audit/trainee/notes/{{batchId}}/{{week}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"qa",
+						"audit",
+						"trainee",
+						"notes",
+						"{{batchId}}",
+						"{{week}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBatchNotesByBatchAndWeek",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "540a2f9e-be54-47ed-8464-c8a62487f4f3",
+						"exec": [
+							"pm.test(\"Status code is 200 or 204\", function () {\r",
+							"   pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d281adf8-f5c0-4ba7-aae1-de47a1f5179a",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push([",
+							"                batch.batchId,",
+							"                Math.floor(Math.random()*(batch.weeks-1))+1]) // random week within range",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    let randomBatch = batchs[Math.floor(Math.random()*batchs.length)]; // random batch",
+							"    pm.globals.set(\"batchId\", randomBatch[0]);",
+							"    pm.globals.set(\"week\", randomBatch[1]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/qa/audit/notes/overall/{{batchId}}/{{week}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"qa",
+						"audit",
+						"notes",
+						"overall",
+						"{{batchId}}",
+						"{{week}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllNotesByBatch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7e88a77-b765-4253-bfb3-f56da37ee671",
+						"exec": [
+							"pm.test(\"Status code is 200 or 204\", function () {",
+							"      pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "03ca28d6-f4ba-4f36-8bce-5d0e76d1604b",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push(",
+							"                batch.batchId)",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    pm.globals.set(\"batchId\", batchs[Math.floor(Math.random()*batchs.length)]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/qa/audit/batch/{{batchId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"qa",
+						"audit",
+						"batch",
+						"{{batchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllQCNotesByWeekAndBatch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8cd46a0-6284-4bf8-8d68-78cbe167a5ff",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/qa/audit/notes/2/5",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"qa",
+						"audit",
+						"notes",
+						"2",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllQCBatchNotes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a20e8676-c17e-4db2-a9c8-eb34ffa3e3da",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/qa/audit/batch/2",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"qa",
+						"audit",
+						"batch",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCategoriesByBatchAndWeek",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04dd425c-8562-4486-a264-c7b85bfb9e8d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "72ba5cde-ebca-403e-b08e-3b5eb5edc42f",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push([",
+							"                batch.batchId,",
+							"                Math.floor(Math.random()*(batch.weeks-1))+1]) // random week within range",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    let randomBatch = batchs[Math.floor(Math.random()*batchs.length)]; // random batch",
+							"    pm.globals.set(\"batchId\", randomBatch[0]); // best results with -> 2",
+							"    pm.globals.set(\"week\", randomBatch[1]); // best results with -> 5",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/qa/category/{{batchId}}/{{week}}/all",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"qa",
+						"category",
+						"{{batchId}}",
+						"{{week}}",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLocations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1b3fdf20-ee49-4d43-a905-8156370d6d85",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/location/all/location/all",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"location",
+						"all",
+						"location",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTraineesByBatchId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beb4fb13-32f2-48a1-bdc3-7969675e229d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1fd5281c-de84-4326-8a14-d7401bbb5b55",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push(",
+							"                batch.batchId)",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    pm.globals.set(\"batchId\", batchs[Math.floor(Math.random()*batchs.length)]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/all/trainee/?batch={{batchId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"user",
+						"all",
+						"trainee",
+						""
+					],
+					"query": [
+						{
+							"key": "batch",
+							"value": "{{batchId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllSkillTypes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24ebe023-b30a-4b82-a60f-048d0d4da05f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/skill/types/skill/all",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"skill",
+						"types",
+						"skill",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSkillById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d4dc3bc-a607-47cf-a216-5fd5132348d7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d81c7234-5f14-4d70-b253-aec2351de6f1",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/skill/types/skill/1",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"skill",
+						"types",
+						"skill",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createSkill",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e8a37c9-a2f2-4db2-b844-4ce02f2074e7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\":\"JAVA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/skill/types/skill",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"skill",
+						"types",
+						"skill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getReportByBatch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1f68f4f-6e4b-43fb-902f-8c19fb56e5fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "fca260c5-3206-4a03-8c4a-19b836b38630",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push(",
+							"                batch.batchId)",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    pm.globals.set(\"batchId\", batchs[Math.floor(Math.random()*batchs.length)]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/grade/reports/{{batchId}}/overall",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"grade",
+						"reports",
+						"{{batchId}}",
+						"overall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBatchReportbyWeekAndBatch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "727a5ec4-d86b-430d-89e1-55fa7e09c720",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3c555d10-78db-45c6-a866-aecc917a428c",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push([",
+							"                batch.batchId,",
+							"                Math.floor(Math.random()*(batch.weeks-1))+1]) // random week within range",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    let randomBatch = batchs[Math.floor(Math.random()*batchs.length)]; // random batch",
+							"    pm.globals.set(\"batchId\", randomBatch[0]);",
+							"    pm.globals.set(\"week\", randomBatch[1]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/grade/reports/{{batchId}}/overall/{{week}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"grade",
+						"reports",
+						"{{batchId}}",
+						"overall",
+						"{{week}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getIndividualGradesComparedToRestOfBatch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "437c73b2-019c-4b9d-b847-aa82c88a3e69",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3b266eea-7fc1-4e7c-a350-79d7d11d1053",
+						"exec": [
+							"var incomplete = true;",
+							" // get a batch",
+							" pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    // pm.globals.set(\"batId\", responseText[2].batchId);",
+							"    const batchIds = res.json().map(batch => batch.batchId);",
+							"    console.log(batchIds);",
+							"    let i = 0; ",
+							"    while (incomplete && i < batchIds.length){",
+							"        pm.sendRequest({",
+							"            url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/all/trainee/?batch=\" + batchIds[i],",
+							"            method: \"GET\",",
+							"            headers: {},",
+							"            body: {}",
+							"          },",
+							"          function (err, resp) {",
+							"            let trainee = resp.json();",
+							"            if (trainee.length>0 && incomplete) {",
+							"                incomplete = false;",
+							"                pm.globals.set(\"traineeId\", trainee[0].traineeId); // 5477 gives good results",
+							"            }",
+							"          });",
+							"        i += 1;",
+							"    }",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/grade/reports/individual/{{traineeId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"grade",
+						"reports",
+						"individual",
+						"{{traineeId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createBatch",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "48140b63-63ee-4eca-808f-a0feb84c370e",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/trainers/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"     const trainers = res.json().map(trainer=>trainer.name);",
+							"     pm.globals.set('trainer',`\"${trainers[Math.floor(Math.random()*trainers.length)]}\"`);",
+							"     pm.globals.set('batchId', Math.ceil(Math.random()*10000));",
+							"     const categories = ['Java','Go','Python','JavaScript','TypeScript','Spring Framework','Vaadin','Django','Akka','Scala','Flask','Scelenium','React','Angular','AngularJS','Vue.js', 'Express','Play','Android','iOS','Erlang','Linux','SQL','Database','Oracle','Azure','AWS','GCP','dotnet','C#','PHP','Websphere','SYsadmin','DevOps','AWS devops','Ruby','Ruby on Rails','Perl','Lisp','COBOL','Legacy Technologies','C','C++','SOAP','Node.js','Scheme','SML','OCaml','Data Science','CCNA',\"SAP\",\"Cucumber\",\"Computer Networks\",\"Mobile Developement\",\"Digital Logic\",\"UDP\",\"TCP/IP\",\"VOIP\",\"SMTP\"]",
+							"    pm.globals.set('category',`\"${categories[Math.floor(Math.random()*categories.length)]}\"`);",
+							"    var current_timestamp = new Date();",
+							"    postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "15761dde-624c-4528-b670-a8b4b4e887dc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"batchId\": {{batchId}},\n   \"trainingName\": {{category}},\n   \"trainingType\": \"Other\",\n   \"skillType\": {{category}},\n   \"trainer\": {{trainer}},\n   \"coTrainer\": \"None\",\n   \"location\": \"Ford, 111 Ford Street, Detroit, MI 33333\",\n   \"locationId\": 6,\n\t\"startDate\": \"{{current_timestamp}}\",\n\t\"endDate\": \"{{current_timestamp}}\",\n   \"goodGrade\": 99,\n   \"passingGrade\": 98,\n   \"traineeCount\": 0,\n   \"weeks\": 12\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/all/batch/create",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"batch",
+						"all",
+						"batch",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createCategory",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1f9bf64-1125-4bb0-9264-c1c2c4461082",
+						"exec": [
+							"pm.test(\"Status code is 200 or 201\", function () {\r",
+							"   pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "25ad7911-7181-4606-aab3-e46a42673f1f",
+						"exec": [
+							"const categories = ['Java','Go','Python','JavaScript','TypeScript','Spring Framework','Vaadin','Django','Akka','Scala','Flask','Scelenium','React','Angular','AngularJS','Vue.js', 'Express','Play','Android','iOS','Erlang','Linux','SQL','Database','Oracle','Azure','AWS','GCP','dotnet','C#','PHP','Websphere','SYsadmin','DevOps','AWS devops','Ruby','Ruby on Rails','Perl','Lisp','COBOL','Legacy Technologies','C','C++','SOAP','Node.js','Scheme','SML','OCaml','Data Science','CCNA',\"SAP\",\"Cucumber\",\"Computer Networks\",\"Mobile Developement\",\"Digital Logic\",\"UDP\",\"TCP/IP\",\"VOIP\",\"SMTP\"]",
+							"pm.globals.set('category',`\"${categories[Math.floor(Math.random()*categories.length)]}\"`);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"categoryId\":0,\n\t\"skillCategory\":{{category}},\n\t\"active\": true,\n\t\"categoryOwner\":\"Bryan Serrano\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/category/",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"category",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "countInBatches",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "612fef06-25f8-47a2-9596-7ea82e255b43",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[2,5,10]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/all/trainee/count/",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"user",
+						"all",
+						"trainee",
+						"count",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createQCCategory",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1650e0b5-0abc-46c0-af32-389e408455b9",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/category/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    let responseText = res.json();",
+							"    pm.globals.set(\"catID\", responseText[0].categoryId);",
+							" \tpm.globals.set(\"skillCat\", responseText[0].skillCategory);",
+							" });",
+							" ",
+							" ",
+							" pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    let responseText = res.json();",
+							"    pm.globals.set(\"bId\", responseText[0].batchId);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "13206c84-1673-4c69-86d3-837aefc603c0",
+						"exec": [
+							"",
+							"//409 error is good becuase it shows that this item already exists in the database",
+							"pm.test(\"Status code is 200 or 409\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,409]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":0,\n\t\"categoryId\":{{catID}},\n\t\"skillCategory\":true,\n\t\"batchId\":{{bId}},\n\t\"week\":10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/qa/category",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"qa",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createLocation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92ad1e6a-7592-44c4-910c-7bdc5e812042",
+						"exec": [
+							"//409 error is good becuase it shows that this item already exists in the database",
+							"pm.test(\"Status code is 200 or 409\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202,409]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 0,\n\t\"name\": \"Test Location\",\n\t\"city\": \"Test City\",\n\t\"zipcode\":\"Test Zipcode\",\n\t\"address\":\"Test Address\",\n\t\"state\":\"Test State\",\n\t\"active\":false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/location/vp/location/create",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"location",
+						"vp",
+						"location",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createTrainee",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "34944a58-e71f-4cfd-b782-c01e59dd5289",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push(batch.batchId);",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    const batchId = batchs[Math.floor(Math.random()*batchs.length)];",
+							"    pm.globals.set(\"batchId\", batchId);",
+							"     const fnames = [\"Vishal\", \"Prithi\", \"Sanjay\", \"Vlad\", \"Helmut\", \"Angela\", \"Joe\", \"Boris\", \"Sven\", \"Hans\", \"Natalie\", \"Sigmund\", \"Eric\", \"Kevin\", \"Dan\", \"Sam\", \"Hakim\",\"Nate\", \"Jason\", \"Bryan\", \"Dylan\", \"Aaron\", \"Dave\", \"Jerry\", \"John\", \"James\", \"Ivan\", \"Ahmed\", \"Abdul\", \"Mohammed\",\"Ishmail\", \"Yosef\", \"Jacob\", \"Joseph\",\"Nobu\",\"Carlos\", \"Jarred\",\"Jamal\", \"Tyrone\", \"Sandy\",\"Shantel\",\"Michele\",\"Morris\",\"Francois\",\"Sylvester\",\"Stefan\",\"Sal\",\"Vito\",\"Baruch\",\"Kzysztoff\",\"Faruq\",\"Heather\"];",
+							"    const lnames = [\"Zimmerman\",\"Silverman\",\"Smith\",\"Anpour\", \"Park\", \"Patel\",\"Shazar\",\"Kowalski\",\"Goldburg\",\"Chan\",\"Hansen\", \"Akhan\",\"Lin\",\"Musavini\",\"Savo\",\"Gambi\",\"Ivanovich\",\"Solnichka\",\"Assam\", \"Bartosz\", \"Zamir\", \"Saddiqi\",\"Soto\",\"Miller\",\"Baker\",\"Fischer\",\"Wiesmann\",\"Diaz\",\"Rodriguez\",\"Shaw\",\"Lopez\",\"Kim\",\"Maggiano\",\"Nunzio\",\"Salieri\",\"Zanussi\",\"Davidoff\",\"Smolensk\",\"Kransodar\",\"Dniepopietrovsk\",\"Papodapolis\",\"Milonakis\",\"Hogwrath\",\"Heschler\",\"Astana\",\"Biro\",\"Reed\",\"Adesena\",\"Bishkek\",\"Bakku\",\"Baghdad\",\"Allepo\",\"Damascus\",\"Ankara\",\"Dijabouti\",\"Eritrea\",\"Hussein\",\"Harare\",\"Amanpour\",\"Spielmann\",\"Grossmann\",\"Silverburg\",\"Gruber\"];",
+							"    const universities = [\"Acadia University\",\"University of Alberta\",\"Bishop’s University\",\"University of British Columbia\",\"University of Calgary\",\"Dalhousie University\",\"University of Guelph\",\"Laval University\",\"University of Manitoba\",\"McGill University\",\"McMaster University\",\"Memorial University of Newfoundland\",\"University of Montreal\",\"University of New Brunswick\",\"Queen’s University at Kingston\",\"Ryerson University\",\"University of Saskatchewan\",\"Simon Fraser University\",\"University of Toronto\",\"University of Victoria\",\"University of Waterloo\",\"University of Western Ontario\",\"York University\"];",
+							"    const domains = [\"aol\",\"yahoo\",\"outlook\",\"gmail\",\"zoho\",\"protonmail\"];",
+							"    const fname = fnames[Math.floor(Math.random()*fnames.length)];",
+							"    const lname = lnames[Math.floor(Math.random()*lnames.length)];",
+							"    pm.globals.set('name1',`\"${lname}, ${fname}\"`);",
+							"    pm.globals.set('email',`\"${fname}.${lname}@${domains[Math.floor(Math.random()*domains.length)]}.com\"`);",
+							"    pm.globals.set('phoneNumber',`\"${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}\"`)",
+							"    pm.globals.set('skypeId',`\"${fname}${lname}\"`);",
+							"    pm.globals.set('university',`\"${universities[Math.floor(Math.random()*universities.length)]}\"`);",
+							"    pm.globals.set('name2',`\"${fnames[Math.floor(Math.random()*fnames.length)]} ${lnames[Math.floor(Math.random()*lnames.length)]}\"`);",
+							"    pm.globals.set('name3',`\"${fnames[Math.floor(Math.random()*fnames.length)]} ${lnames[Math.floor(Math.random()*lnames.length)]}\"`);",
+							"     });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e4e5411-873d-4317-9ba5-7ed7eea71342",
+						"exec": [
+							"pm.test(\"Status code is 200 or 409\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"traineeId\":0,\n\t\"resourceId\":\"wowowowowowowowowowow\",\n\t\"name\": {{name1}},\n\t\"email\":{{email}},\n\t\"trainingStatus\":\"Signed\",\n\t\"batchId\":{{batchId}},\n\t\"phoneNumber\":{{phoneNumber}},\n\t\"skypeId\":{{skypeId}},\n\t\"recruiterName\":{{name2}},\n\t\"collge\":{{university}},\n\t\"degree\":\"bs\",\n\t\"major\":\"computer sceince\",\n\t\"techScreenerName\":{{name3}},\n\t\"techScreenScore\":15,\n\t\"projectCompletion\":\"done\",\n\t\"flagStatus\":\"NONE\",\n\t\"flagNotes\":\"\",\n\t\"flagAuthor\":\"\",\n\t\"flagTimeStamp\":\"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/all/trainee/create",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"user",
+						"all",
+						"trainee",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "changeTraineeBatch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9553e1f4-1761-4ca1-940d-4feeacf916ce",
+						"exec": [
+							" pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    let responseText = res.json();",
+							"    pm.globals.set(\"batId\", responseText[2].batchId);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5c00b6ca-7d83-489c-9faa-37f3cda58175",
+						"exec": [
+							"var incomplete = true;",
+							" // get a batch",
+							" pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    // pm.globals.set(\"batId\", responseText[2].batchId);",
+							"    const batchIds = res.json().map(batch => batch.batchId);",
+							"    console.log(batchIds);",
+							"    let i = 0; ",
+							"    while (incomplete && i < batchIds.length){",
+							"        pm.sendRequest({",
+							"            url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/all/trainee/?batch=\" + batchIds[i],",
+							"            method: \"GET\",",
+							"            headers: {},",
+							"            body: {}",
+							"          },",
+							"          function (err, resp) {",
+							"            let trainee = resp.json();",
+							"            if (trainee.length>0 && incomplete) {",
+							"              incomplete = false;",
+							"              console.log(trainee[0].batchId)",
+							"              console.log(batchIds[(batchIds.indexOf(trainee[0].batchId) + 1) % batchIds.length]);",
+							"              let id = (batchIds[(batchIds.indexOf(trainee[0].batchId) + 1) % batchIds.length]);",
+							"              console.log(id);",
+							"              pm.globals.set(\"batchId\", id);",
+							"              pm.globals.set(\"traineeId\", trainee[0].traineeId);",
+							"              pm.globals.set(\"resourceId\", '\"'+trainee[0].resourceId+'\"');",
+							"              pm.globals.set(\"name\", '\"'+trainee[0].name+'\"');",
+							"              pm.globals.set(\"email\", '\"'+trainee[0].email+'\"');",
+							"              pm.globals.set(\"trainingStatus\", '\"'+trainee[0].trainingStatus+'\"');",
+							"              pm.globals.set(\"batchId\", trainee[0].batchId);",
+							"              pm.globals.set(\"phoneNumber\", '\"'+trainee[0].phoneNumber+'\"');",
+							"              pm.globals.set(\"skypeId\", '\"'+trainee[0].skypeId+'\"');",
+							"              pm.globals.set(\"profileUrl\", '\"'+trainee[0].profileUrl+'\"');",
+							"              pm.globals.set(\"recruiterName\", '\"'+trainee[0].recruiterName+'\"');",
+							"              pm.globals.set(\"college\", '\"'+trainee[0].college+'\"');",
+							"              pm.globals.set(\"degree\", '\"'+trainee[0].degree+'\"');",
+							"              pm.globals.set(\"major\", '\"'+trainee[0].major+'\"');",
+							"              pm.globals.set(\"techScreenerName\", '\"'+trainee[0].techScreenerName+'\"');",
+							"              pm.globals.set(\"techScreenScore\", trainee[0].techScreenerScore?trainee[0].techScreenerScore:\"null\");",
+							"              pm.globals.set(\"projectCompletion\", '\"'+trainee[0].projectCompletion+'\"');",
+							"              pm.globals.set(\"flagStatus\", '\"'+trainee[0].flagStatus+'\"');",
+							"              pm.globals.set(\"flagNotes\", '\"'+trainee[0].flagNotes+'\"');",
+							"              pm.globals.set(\"flagAuthor\", '\"'+trainee[0].flagAuthor+'\"');",
+							"              pm.globals.set(\"flagTimestamp\", '\"'+trainee[0].flagTimestamp+'\"');",
+							"            }",
+							"          });",
+							"      i += 1;",
+							"    }",
+							" });",
+							"            "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"traineeId\":{{traineeId}},\n\t\"resourceId\":{{resourceId}},\n\t\"name\": {{name}},\n\t\"email\":{{email}},\n\t\"trainingStatus\":{{trainingStatus}},\n\t\"batchId\":{{batchId}},\n\t\"phoneNumber\":{{phoneNumber}},\n\t\"skypeId\":{{skypeId}},\n\t\"recruiterName\":{{recruiterName}},\n\t\"collge\":{{college}},\n\t\"degree\":{{degree}},\n\t\"major\":{{major}},\n\t\"techScreenerName\":{{techScreenerName}},\n\t\"techScreenScore\":{{techScreenScore}},\n\t\"projectCompletion\":{{projectCompletion}},\n\t\"flagStatus\":{{flagStatus}},\n\t\"flagNotes\":{{flagNotes}},\n\t\"flagAuthor\":{{flagAuthor}},\n\t\"flagTimestamp\":{{flagTimestamp}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/trainee/switch",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"user",
+						"trainee",
+						"switch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createTrainer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "27034e62-ed8e-4337-a2f7-1a08ae01dcd4",
+						"exec": [
+							"pm.test(\"Status code is 200 or 201\", function () {\r",
+							"   pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1ca99a85-b4be-445f-9046-95e2c52834d8",
+						"exec": [
+							"const fnames = [\"Vishal\", \"Prithi\", \"Sanjay\", \"Vlad\", \"Helmut\", \"Angela\", \"Joe\", \"Boris\", \"Sven\", \"Hans\", \"Natalie\", \"Sigmund\", \"Eric\", \"Kevin\", \"Dan\", \"Sam\", \"Hakim\",\"Nate\", \"Jason\", \"Bryan\", \"Dylan\", \"Aaron\", \"Dave\", \"Jerry\", \"John\", \"James\", \"Ivan\", \"Ahmed\", \"Abdul\", \"Mohammed\",\"Ishmail\", \"Yosef\", \"Jacob\", \"Joseph\",\"Nobu\",\"Carlos\", \"Jarred\",\"Jamal\", \"Tyrone\", \"Sandy\",\"Shantel\",\"Michele\",\"Morris\",\"Francois\",\"Sylvester\",\"Stefan\",\"Sal\",\"Vito\",\"Baruch\",\"Kzysztoff\",\"Faruq\"];",
+							"const lnames = [\"Zimmerman\",\"Silverman\",\"Smith\",\"Anpour\", \"Park\", \"Patel\",\"Shazar\",\"Kowalski\",\"Goldburg\",\"Chan\",\"Hansen\", \"Akhan\",\"Lin\",\"Musavini\",\"Savo\",\"Gambi\",\"Ivanovich\",\"Solnichka\",\"Assam\", \"Bartosz\", \"Zamir\", \"Saddiqi\",\"Soto\",\"Miller\",\"Baker\",\"Fischer\",\"Wiesmann\",\"Diaz\",\"Rodriguez\",\"Shaw\",\"Lopez\",\"Kim\",\"Maggiano\",\"Nunzio\",\"Salieri\",\"Zanussi\",\"Davidoff\",\"Smolensk\",\"Kransodar\",\"Dniepopietrovsk\",\"Papodapolis\",\"Milonakis\",\"Hogwrath\",\"Heschler\",\"Astana\",\"Biro\",\"Reed\",\"Adesena\",\"Bishkek\",\"Bakku\",\"Baghdad\",\"Allepo\",\"Damascus\",\"Ankara\",\"Dijabouti\",\"Eritrea\",\"Hussein\",\"Harare\",\"Amanpour\"];",
+							"const domains = [\"aol\",\"yahoo\",\"outlook\",\"gmail\",\"zoho\",\"protonmail\"];",
+							"const tiers = ['\"ROLE_TRAINER\"','\"ROLE_VP\"','\"ROLE_QC\"','\"ROLE_PANEL\"'];",
+							"const fname = fnames[Math.floor(Math.random()*fnames.length)];",
+							"const lname = lnames[Math.floor(Math.random()*lnames.length)];",
+							"const domain = domains[Math.floor(Math.random()*domains.length)];",
+							"const tier = tiers[Math.floor(Math.random()*4)];",
+							" pm.globals.set('name',`\"${fname} ${lname}\"`);",
+							" pm.globals.set('email',`\"${fname}.${lname}@${domain}.com\"`);",
+							" pm.globals.set('tier',tier);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"trainerId\":0,\n\t\"name\":{{name}},\n\t\"title\":\"trainer\",\n\t\"email\":{{email}},\n\t\"tier\":{{tier}},\n\t\"password\":\"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/trainers/",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"user",
+						"trainers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSpiderGraphDataForTrainee",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "17394536-7a83-46d4-a18c-8612b9288d28",
+						"exec": [
+							"var incomplete = true;",
+							" // get a batch",
+							" pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    // pm.globals.set(\"batId\", responseText[2].batchId);",
+							"    const batchIds = res.json().map(batch => batch.batchId);",
+							"    console.log(batchIds);",
+							"    let i = 0; ",
+							"    while (incomplete && i < batchIds.length){",
+							"        pm.sendRequest({",
+							"            url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/all/trainee/?batch=\" + batchIds[i],",
+							"            method: \"GET\",",
+							"            headers: {},",
+							"            body: {}",
+							"          },",
+							"          function (err, resp) {",
+							"            let trainee = resp.json();",
+							"            if (trainee.length>0 && incomplete) {",
+							"                incomplete = false;",
+							"                pm.globals.set(\"batchId\",trainee[0].batchId);",
+							"                pm.globals.set(\"traineeId\", trainee[0].traineeId);",
+							"            }",
+							"          });",
+							"        i += 1;",
+							"    }",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "61ba51f5-2db1-43fc-9815-3e2e12bfe53c",
+						"exec": [
+							"pm.test(\"Status code is 200 or 204\", function () {",
+							"      pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/grade/reports/{{batchId}}/spider/{{traineeId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"grade",
+						"reports",
+						"{{batchId}}",
+						"spider",
+						"{{traineeId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSpiderGraphData",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f9827409-9e45-4aa0-a4d1-c8247937cbcf",
+						"exec": [
+							"var incomplete = true;",
+							" // get a batch",
+							" pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    // pm.globals.set(\"batId\", responseText[2].batchId);",
+							"    const batchIds = res.json().map(batch => batch.batchId);",
+							"    pm.globals.set(\"batchId\",batchIds[Math.floor(Math.random()*batchIds.length)])",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ccf4657d-c4ac-44b8-8a40-f08cc950a33b",
+						"exec": [
+							"pm.test(\"Status code is 200 or 204\", function () {\r",
+							"   pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/grade/reports/{{batchId}}/spider/",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"grade",
+						"reports",
+						"{{batchId}}",
+						"spider",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBatchGradeComparisonDto",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7d70948e-9225-4e9d-96b7-a8acc163bdf5",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json().reduce((acc,batch)=> {",
+							"        if (batch.weeks > 1) {",
+							"            acc.push([",
+							"                batch.batchId,",
+							"                Math.floor(Math.random()*(batch.weeks-1))+1]) // random week within range",
+							"        }",
+							"        return acc;",
+							"    },[]);",
+							"    let randomBatch = batchs[Math.floor(Math.random()*batchs.length)]; // random batch",
+							"    pm.globals.set(\"batchId\", randomBatch[0]);",
+							"    pm.globals.set(\"week\", randomBatch[1]);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "76507a79-58ac-4640-b85a-51e6591fe267",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/grade/reports/batch/{{batchId}}/{{week}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"grade",
+						"reports",
+						"batch",
+						"{{batchId}}",
+						"{{week}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getIndividualGradeComparisonDto",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "54f8a652-db82-4a99-b515-7f7b68d15a0f",
+						"exec": [
+							"//243",
+							"",
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const batchs = res.json();",
+							"    let incomplete = true;",
+							"    for (let i = 0; i < batchs.length; i++){",
+							"        if (incomplete && batchs[i].weeks > 1) {",
+							"            pm.sendRequest({",
+							"                url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/all/trainee/?batch=\"+batchs[i].batchId,",
+							"                method: \"GET\",",
+							"                headers: {},",
+							"                body: {}",
+							"              },",
+							"              function (err, resp) {",
+							"                const trainees = resp.json();",
+							"                if (incomplete && trainees.length > 0) {",
+							"                  incomplete = false;",
+							"                  // to do !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+							"                  pm.globals.set(\"traineeId\",  trainees[0].traineeId);",
+							"                  pm.globals.set(\"week\", Math.floor(Math.random()*(batchs[i].weeks-1))+1);",
+							"                }",
+							"              });",
+							"        }",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e0a6041-00c8-400d-8368-c674f6b5d418",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/grade/reports/individual/{{traineeId}}/{{week}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"grade",
+						"reports",
+						"individual",
+						"{{traineeId}}",
+						"{{week}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateAssessment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "285d5656-c615-4752-a9fc-9d53577b3ea4",
+						"exec": [
+							"const categories = ['Java','Go','Python','JavaScript','TypeScript','Spring Framework','Vaadin','Django','Akka','Scala','Flask','Scelenium','React','Angular','AngularJS','Vue.js', 'Express','Play','Android','iOS','Erlang','Linux','SQL','Database','Oracle','Azure','AWS','GCP','dotnet','C#','PHP','Websphere','Sysadmin','DevOps','AWS devops','Ruby','Ruby on Rails','Perl','Lisp','COBOL','Legacy Technologies','C','C++','SOAP','Node.js','Scheme','SML','OCaml','Data Science','CCNA',\"SAP\",\"Cucumber\",\"Computer Networks\",\"Mobile Developement\",\"Digital Logic\",\"UDP\",\"TCP/IP\",\"VOIP\",\"SMTP\"]",
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/assessment/all\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const assessments = res.json();",
+							"    const assessment = assessments[Math.floor(Math.random()*assessments.length)];",
+							"    Object.keys(assessment).forEach((field)=>{",
+							"        if (field===\"assessmentTitle\"){",
+							"            pm.globals.set(field,`\"${categories[Math.floor(Math.random()*categories.length)]}\"`);",
+							"        } else {",
+							"            if(typeof(assessment[field])===\"number\"){",
+							"                pm.globals.set(field,assessment[field]);",
+							"            } else {",
+							"                pm.globals.set(field,`\"${assessment[field]}\"`);",
+							"            }",
+							"        }",
+							"    });",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c50cb84-1ec1-43e8-b7ed-0579de4d6f28",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"assessmentId\":{{assessmentId}},\n\t\"assessmentTitle\":{{assessmentTitle}},\n\t\"assessmentType\": {{assessmentType}},\n\t\"weekNumber\":{{week}},\n\t\"batchId\":{{batchId}},\n\t\"assessmentCategory\":{{assessmentCategory}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/assessment/update",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"all",
+						"assessment",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteAssessment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "05820a04-d86a-4465-9869-894ec8584aca",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/assessment/all\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const assessments = res.json();",
+							"    const assessment = assessments[Math.floor(Math.random()*assessments.length)];",
+							"    pm.globals.set('assessmentId',assessment.assessmentId);",
+							"    Object.keys(assessment).forEach((field)=>{",
+							"        if(typeof(assessment[field])===\"number\"){",
+							"            pm.globals.set(field,assessment[field]);",
+							"        } else {",
+							"            pm.globals.set(field,`\"${assessment[field]}\"`);",
+							"        }",
+							"    });",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "24925530-a6ab-434b-a352-7e64dcaac6eb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"assessmentId\":{{assessmentId}},\n\t\"assessmentTitle\":{{assessmentTitle}},\n\t\"assessmentType\": {{assessmentType}},\n\t\"weekNumber\":{{week}},\n\t\"batchId\":{{batchId}},\n\t\"assessmentCategory\":{{assessmentCategory}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/assessment/delete/{{assessmentId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"all",
+						"assessment",
+						"delete",
+						"{{assessmentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insertNote",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7192e49a-254b-4f49-9d8f-72ec0b63e851",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "32371c2e-88c6-4f35-85f3-b17f0e54fa7b",
+						"exec": [
+							"let incomplete = true;",
+							"// const text = `",
+							"// Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
+							"",
+							"// Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.",
+							"",
+							"// Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.",
+							"",
+							"// Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.",
+							"",
+							"// Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.",
+							"",
+							"// Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions.",
+							"",
+							"// Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.",
+							"",
+							"// Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.",
+							"",
+							"// Proactively envisioned multimedia based expertise and cross-media growth strategies. Seamlessly visualize quality intellectual capital without superior collaboration and idea-sharing. Holistically pontificate installed base portals after maintainable products.",
+							"",
+							"// Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric \"outside the box\" thinking. Completely pursue scalable customer service through sustainable potentialities.",
+							"",
+							"// Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or \"organic\" sources.",
+							"",
+							"// Credibly innovate granular internal or \"organic\" sources whereas high standards in web-readiness. Energistically scale future-proof core competencies vis-a-vis impactful experiences. Dramatically synthesize integrated schemas with optimal networks.",
+							"",
+							"// Interactively procrastinate high-payoff content without backward-compatible data. Quickly cultivate optimal processes and tactical architectures. Completely iterate covalent strategic theme areas via accurate e-markets.",
+							"",
+							"// Globally incubate standards compliant channels before scalable benefits. Quickly disseminate superior deliverables whereas web-enabled applications. Quickly drive clicks-and-mortar catalysts for change before vertical architectures.",
+							"",
+							"// Credibly reintermediate backend ideas for cross-platform models. Continually reintermediate integrated processes through technically sound intellectual capital. Holistically foster superior methodologies without market-driven best practices.",
+							"",
+							"// Distinctively exploit optimal alignments for intuitive bandwidth. Quickly coordinate e-business applications through revolutionary catalysts for change. Seamlessly underwhelm optimal testing procedures whereas bricks-and-clicks processes.",
+							"",
+							"// Synergistically evolve 2.0 technologies rather than just in time initiatives. Quickly deploy strategic networks with compelling e-business. Credibly pontificate highly efficient manufactured products and enabled data.",
+							"",
+							"// Dynamically target high-payoff intellectual capital for customized technologies. Objectively integrate emerging core competencies before process-centric communities. Dramatically evisculate holistic innovation rather than client-centric data.",
+							"",
+							"// Progressively maintain extensive infomediaries via extensible niches. Dramatically disseminate standardized metrics after resource-leveling processes. Objectively pursue diverse catalysts for change for interoperable meta-services.",
+							"",
+							"// Proactively fabricate one-to-one materials via effective e-business. Completely synergize scalable e-commerce rather than high standards in e-services. Assertively iterate resource maximizing products after leading-edge intellectual capital.",
+							"",
+							"// Distinctively re-engineer revolutionary meta-services and premium architectures. Intrinsically incubate intuitive opportunities and real-time potentialities. Appropriately communicate one-to-one technology after plug-and-play networks.",
+							"",
+							"// Quickly aggregate B2B users and worldwide potentialities. Progressively plagiarize resource-leveling e-commerce through resource-leveling core competencies. Dramatically mesh low-risk high-yield alignments before transparent e-tailers.",
+							"",
+							"// Appropriately empower dynamic leadership skills after business portals. Globally myocardinate interactive supply chains with distinctive quality vectors. Globally revolutionize global sources through interoperable services.",
+							"",
+							"// Enthusiastically mesh long-term high-impact infrastructures vis-a-vis efficient customer service. Professionally fashion wireless leadership rather than prospective experiences. Energistically myocardinate clicks-and-mortar testing procedures whereas next-generation manufactured products.",
+							"",
+							"// Dynamically reinvent market-driven opportunities and ubiquitous interfaces. Energistically fabricate an expanded array of niche markets through robust products. Appropriately implement visionary e-services vis-a-vis strategic web-readiness.",
+							"",
+							"// Compellingly embrace empowered e-business after user friendly intellectual capital. Interactively actualize front-end processes with effective convergence. Synergistically deliver performance based methods of empowerment whereas distributed expertise.",
+							"",
+							"// Efficiently enable enabled sources and cost effective products. Completely synthesize principle-centered information after ethical communities. Efficiently innovate open-source infrastructures via inexpensive materials.",
+							"",
+							"// Objectively integrate enterprise-wide strategic theme areas with functionalized infrastructures. Interactively productize premium technologies whereas interdependent quality vectors. Rapaciously utilize enterprise experiences via 24/7 markets.",
+							"",
+							"// Uniquely matrix economically sound value through cooperative technology. Competently parallel task fully researched data and enterprise process improvements. Collaboratively expedite quality manufactured products via client-focused results.",
+							"",
+							"// Quickly communicate enabled technology and turnkey leadership skills. Uniquely enable accurate supply chains rather than frictionless technology. Globally network focused materials vis-a-vis cost effective manufactured products.",
+							"",
+							"// Enthusiastically leverage existing premium quality vectors with enterprise-wide innovation. Phosfluorescently leverage others enterprise-wide \"outside the box\" thinking with e-business collaboration and idea-sharing. Proactively leverage other resource-leveling convergence rather than inter-mandated networks.",
+							"",
+							"// Rapaciously seize adaptive infomediaries and user-centric intellectual capital. Collaboratively unleash market-driven \"outside the box\" thinking for long-term high-impact solutions. Enthusiastically engage fully tested process improvements before top-line platforms.",
+							"",
+							"// Efficiently myocardinate market-driven innovation via open-source alignments. Dramatically engage high-payoff infomediaries rather than client-centric imperatives. Efficiently initiate world-class applications after client-centric infomediaries.",
+							"",
+							"// Phosfluorescently expedite impactful supply chains via focused results. Holistically generate open-source applications through bleeding-edge sources. Compellingly supply just in time catalysts for change through top-line potentialities.",
+							"",
+							"// Uniquely deploy cross-unit benefits with wireless testing procedures. Collaboratively build backward-compatible relationships whereas tactical paradigms. Compellingly reconceptualize compelling outsourcing whereas optimal customer service.",
+							"",
+							"// Quickly incentivize impactful action items before tactical collaboration and idea-sharing. Monotonically engage market-driven intellectual capital through wireless opportunities. Progressively network performance based services for functionalized testing procedures.",
+							"",
+							"// Globally harness multimedia based collaboration and idea-sharing with backend products. Continually whiteboard superior opportunities via covalent scenarios.",
+							"",
+							"// Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
+							"",
+							"// Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.",
+							"",
+							"// Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.",
+							"",
+							"// Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.",
+							"",
+							"// Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.",
+							"",
+							"// Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions.",
+							"",
+							"// Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.",
+							"",
+							"// Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.",
+							"",
+							"// Proactively envisioned multimedia based expertise and cross-media growth strategies. Seamlessly visualize quality intellectual capital without superior collaboration and idea-sharing. Holistically pontificate installed base portals after maintainable products.",
+							"",
+							"// Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric \"outside the box\" thinking. Completely pursue scalable customer service through sustainable potentialities.",
+							"",
+							"// Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or \"organic\" sources.",
+							"",
+							"// Credibly innovate granular internal or \"organic\" sources whereas high standards in web-readiness. Energistically scale future-proof core competencies vis-a-vis impactful experiences. Dramatically synthesize integrated schemas with optimal networks.",
+							"",
+							"// Interactively procrastinate high-payoff content without backward-compatible data. Quickly cultivate optimal processes and tactical architectures. Completely iterate covalent strategic theme areas via accurate e-markets.",
+							"",
+							"// Globally incubate standards compliant channels before scalable benefits. Quickly disseminate superior deliverables whereas web-enabled applications. Quickly drive clicks-and-mortar catalysts for change before vertical architectures.",
+							"",
+							"// Credibly reintermediate backend ideas for cross-platform models. Continually reintermediate integrated processes through technically sound intellectual capital. Holistically foster superior methodologies without market-driven best practices.",
+							"",
+							"// Distinctively exploit optimal alignments for intuitive bandwidth. Quickly coordinate e-business applications through revolutionary catalysts for change. Seamlessly underwhelm optimal testing procedures whereas bricks-and-clicks processes.",
+							"",
+							"// Synergistically evolve 2.0 technologies rather than just in time initiatives. Quickly deploy strategic networks with compelling e-business. Credibly pontificate highly efficient manufactured products and enabled data.",
+							"",
+							"// Dynamically target high-payoff intellectual capital for customized technologies. Objectively integrate emerging core competencies before process-centric communities. Dramatically evisculate holistic innovation rather than client-centric data.",
+							"",
+							"// Progressively maintain extensive infomediaries via extensible niches. Dramatically disseminate standardized metrics after resource-leveling processes. Objectively pursue diverse catalysts for change for interoperable meta-services.",
+							"",
+							"// Proactively fabricate one-to-one materials via effective e-business. Completely synergize scalable e-commerce rather than high standards in e-services. Assertively iterate resource maximizing products after leading-edge intellectual capital.",
+							"",
+							"// Distinctively re-engineer revolutionary meta-services and premium architectures. Intrinsically incubate intuitive opportunities and real-time potentialities. Appropriately communicate one-to-one technology after plug-and-play networks.",
+							"",
+							"// Quickly aggregate B2B users and worldwide potentialities. Progressively plagiarize resource-leveling e-commerce through resource-leveling core competencies. Dramatically mesh low-risk high-yield alignments before transparent e-tailers.",
+							"",
+							"// Appropriately empower dynamic leadership skills after business portals. Globally myocardinate interactive supply chains with distinctive quality vectors. Globally revolutionize global sources through interoperable services.",
+							"",
+							"// Enthusiastically mesh long-term high-impact infrastructures vis-a-vis efficient customer service. Professionally fashion wireless leadership rather than prospective experiences. Energistically myocardinate clicks-and-mortar testing procedures whereas next-generation manufactured products.",
+							"",
+							"// Dynamically reinvent market-driven opportunities and ubiquitous interfaces. Energistically fabricate an expanded array of niche markets through robust products. Appropriately implement visionary e-services vis-a-vis strategic web-readiness.",
+							"",
+							"// Compellingly embrace empowered e-business after user friendly intellectual capital. Interactively actualize front-end processes with effective convergence. Synergistically deliver performance based methods of empowerment whereas distributed expertise.",
+							"",
+							"// Efficiently enable enabled sources and cost effective products. Completely synthesize principle-centered information after ethical communities. Efficiently innovate open-source infrastructures via inexpensive materials.",
+							"",
+							"// Objectively integrate enterprise-wide strategic theme areas with functionalized infrastructures. Interactively productize premium technologies whereas interdependent quality vectors. Rapaciously utilize enterprise experiences via 24/7 markets.",
+							"",
+							"// Uniquely matrix economically sound value through cooperative technology. Competently parallel task fully researched data and enterprise process improvements. Collaboratively expedite quality manufactured products via client-focused results.",
+							"",
+							"// Quickly communicate enabled technology and turnkey leadership skills. Uniquely enable accurate supply chains rather than frictionless technology. Globally network focused materials vis-a-vis cost effective manufactured products.",
+							"",
+							"// Enthusiastically leverage existing premium quality vectors with enterprise-wide innovation. Phosfluorescently leverage others enterprise-wide \"outside the box\" thinking with e-business collaboration and idea-sharing. Proactively leverage other resource-leveling convergence rather than inter-mandated networks.",
+							"",
+							"// Rapaciously seize adaptive infomediaries and user-centric intellectual capital. Collaboratively unleash market-driven \"outside the box\" thinking for long-term high-impact solutions. Enthusiastically engage fully tested process improvements before top-line platforms.",
+							"",
+							"// Efficiently myocardinate market-driven innovation via open-source alignments. Dramatically engage high-payoff infomediaries rather than client-centric imperatives. Efficiently initiate world-class applications after client-centric infomediaries.",
+							"",
+							"// Phosfluorescently expedite impactful supply chains via focused results. Holistically generate open-source applications through bleeding-edge sources. Compellingly supply just in time catalysts for change through top-line potentialities.",
+							"",
+							"// Uniquely deploy cross-unit benefits with wireless testing procedures. Collaboratively build backward-compatible relationships whereas tactical paradigms. Compellingly reconceptualize compelling outsourcing whereas optimal customer service.",
+							"",
+							"// Quickly incentivize impactful action items before tactical collaboration and idea-sharing. Monotonically engage market-driven intellectual capital through wireless opportunities. Progressively network performance based services for functionalized testing procedures.",
+							"",
+							"// Globally harness multimedia based collaboration and idea-sharing with backend products. Continually whiteboard superior opportunities via covalent scenarios.",
+							"",
+							"// Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
+							"",
+							"// Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.",
+							"",
+							"// Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.",
+							"",
+							"// Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.",
+							"",
+							"// Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.",
+							"",
+							"// Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions.",
+							"",
+							"// Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.",
+							"",
+							"// Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.",
+							"",
+							"// Proactively envisioned multimedia based expertise and cross-media growth strategies. Seamlessly visualize quality intellectual capital without superior collaboration and idea-sharing. Holistically pontificate installed base portals after maintainable products.",
+							"",
+							"// Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric \"outside the box\" thinking. Completely pursue scalable customer service through sustainable potentialities.",
+							"",
+							"// Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or \"organic\" sources.",
+							"",
+							"// Credibly innovate granular internal or \"organic\" sources whereas high standards in web-readiness. Energistically scale future-proof core competencies vis-a-vis impactful experiences. Dramatically synthesize integrated schemas with optimal networks.",
+							"",
+							"// Interactively procrastinate high-payoff content without backward-compatible data. Quickly cultivate optimal processes and tactical architectures. Completely iterate covalent strategic theme areas via accurate e-markets.",
+							"",
+							"// Globally incubate standards compliant channels before scalable benefits. Quickly disseminate superior deliverables whereas web-enabled applications. Quickly drive clicks-and-mortar catalysts for change before vertical architectures.",
+							"",
+							"// Credibly reintermediate backend ideas for cross-platform models. Continually reintermediate integrated processes through technically sound intellectual capital. Holistically foster superior methodologies without market-driven best practices.",
+							"",
+							"// Distinctively exploit optimal alignments for intuitive bandwidth. Quickly coordinate e-business applications through revolutionary catalysts for change. Seamlessly underwhelm optimal testing procedures whereas bricks-and-clicks processes.",
+							"",
+							"// Synergistically evolve 2.0 technologies rather than just in time initiatives. Quickly deploy strategic networks with compelling e-business. Credibly pontificate highly efficient manufactured products and enabled data.",
+							"",
+							"// Dynamically target high-payoff intellectual capital for customized technologies. Objectively integrate emerging core competencies before process-centric communities. Dramatically evisculate holistic innovation rather than client-centric data.",
+							"",
+							"// Progressively maintain extensive infomediaries via extensible niches. Dramatically disseminate standardized metrics after resource-leveling processes. Objectively pursue diverse catalysts for change for interoperable meta-services.",
+							"",
+							"// Proactively fabricate one-to-one materials via effective e-business. Completely synergize scalable e-commerce rather than high standards in e-services. Assertively iterate resource maximizing products after leading-edge intellectual capital.",
+							"",
+							"// Distinctively re-engineer revolutionary meta-services and premium architectures. Intrinsically incubate intuitive opportunities and real-time potentialities. Appropriately communicate one-to-one technology after plug-and-play networks.",
+							"",
+							"// Quickly aggregate B2B users and worldwide potentialities. Progressively plagiarize resource-leveling e-commerce through resource-leveling core competencies. Dramatically mesh low-risk high-yield alignments before transparent e-tailers.",
+							"",
+							"// Appropriately empower dynamic leadership skills after business portals. Globally myocardinate interactive supply chains with distinctive quality vectors. Globally revolutionize global sources through interoperable services.",
+							"",
+							"// Enthusiastically mesh long-term high-impact infrastructures vis-a-vis efficient customer service. Professionally fashion wireless leadership rather than prospective experiences. Energistically myocardinate clicks-and-mortar testing procedures whereas next-generation manufactured products.",
+							"",
+							"// Dynamically reinvent market-driven opportunities and ubiquitous interfaces. Energistically fabricate an expanded array of niche markets through robust products. Appropriately implement visionary e-services vis-a-vis strategic web-readiness.",
+							"",
+							"// Compellingly embrace empowered e-business after user friendly intellectual capital. Interactively actualize front-end processes with effective convergence. Synergistically deliver performance based methods of empowerment whereas distributed expertise.`",
+							"const noteType = ['gc assessment','other','pannel']",
+							" pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    // pm.globals.set(\"batId\", responseText[2].batchId);",
+							"    const batchIds = res.json().map(batch => batch.batchId);",
+							"    console.log(batchIds);",
+							"    let i = 0; ",
+							"    while (incomplete && i < batchIds.length){",
+							"        pm.sendRequest({",
+							"            url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/all/trainee/?batch=\" + batchIds[i],",
+							"            method: \"GET\",",
+							"            headers: {},",
+							"            body: {}",
+							"          },",
+							"          function (err, resp) {",
+							"            let trainees = resp.json();",
+							"            if (trainees.length>0 && incomplete) {",
+							"              incomplete = false;",
+							"              //let begin = Math.floor(Math.random()*text.length);",
+							"              const trainee = trainees[Math.floor(Math.random() * trainees.length)];",
+							"              pm.globals.set(\"noteContent\", `\"${Math.floor(Math.random()*10000)}\"`);",
+							"              pm.globals.set(\"noteType\", `\"${noteType[Math.floor(Math.random()*3)]}\"`);",
+							"              pm.globals.set(\"batchId\", trainee.batchId);",
+							"              pm.globals.set(\"traineeId\", trainee.traineeId);",
+							"              pm.globals.set(\"weekNumber\", 3);",
+							"            }",
+							"          })",
+							"          i++;",
+							"    }",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"noteId\":0,\r\n\t\"noteContent\":{{noteContent}},\r\n\t\"noteType\":{{noteType}},\r\n\t\"weekNumber\":{{weekNumber}},\r\n\t\"batchId\": {{batchId}},\r\n\t\"traineeId\":{{traineeId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/note",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"note"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insertGrade",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1a3f6240-46f5-40ba-92f4-b30cbb7318df",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/assessment/all\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"     const assessments = res.json();",
+							"     console.log(assessments);",
+							"     const assessment = assessments[Math.floor(Math.random()*assessments.length)];",
+							"     pm.globals.set('assessmentId', assessment.assessmentId);",
+							"     pm.globals.set(\"dateReceived\", (new Date()).getTime());",
+							"     pm.globals.set(\"score\", Math.ceil(Math.random()*100));",
+							"     // api call",
+							"     if (assessment.batchId<1){",
+							"        pm.globals.set('traineeId', -1);",
+							"     } else {",
+							"        pm.sendRequest({",
+							"            url:'url: http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/all/trainee/?batch='+assessment.batchId,",
+							"            method: \"GET\",",
+							"            headers: {},",
+							"            body: {}",
+							"         },",
+							"         function (err, resp) {",
+							"             const trainees = resp.json();",
+							"             if (trainees.length>0){",
+							"                pm.globals.set('traineeId', trainees[Math.floor(Math.random()*trainees.length)]);",
+							"             } else {",
+							"                pm.globals.set('traineeId', -1);",
+							"             }",
+							"         });",
+							"     }",
+							"     ",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9f4e5bf-c9e7-44f0-b884-c29ad7e5834a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gradeId\": 1,\n\t\"dateReceived\": {{dateReceived}},\n\t\"score\": {{score}},\n\t\"assessmentId\":{{assessmentId}},\n\t\"traineeId\":{{traineeId}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/grade",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"grade"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateGrade",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f2833e79-79d0-462d-a0a1-dbc6f3acccb7",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/all/grade/all\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const grades = res.json();",
+							"    const grade = grades[Math.floor(Math.random()*grades.length)];",
+							"    Object.keys(grade).forEach((field)=>{",
+							"        if (field===\"score\"){",
+							"            pm.globals.set('score',Math.ceil(Math.random()*100))",
+							"        } else if (field===\"dateReceived\") {",
+							"            pm.globals.set(\"dateReceived\",`\"${grade.dateReceived}\"`);",
+							"        } else {",
+							"            pm.globals.set(field,grade[field]);",
+							"        }",
+							"    });",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bdad1e43-1f48-4111-8e8c-36015aa57612",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gradeId\": {{gradeId}},\n\t\"dateReceived\": {{dateReceived}},\n\t\"score\": {{score}},\n\t\"assessmentId\":{{assessmentId}},\n\t\"traineeId\":{{traineeId}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/assessment/grade",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"assessment",
+						"grade"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBatch",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e2b89d69-058b-4039-be74-b118c0004d42",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const data = res.json();",
+							"    if (data.length>0){",
+							"        const batchs = data.reduce((acc,batch)=> {",
+							"            if (batch.weeks < 2) {",
+							"                acc[0].push(batch.batchId); // random week within range",
+							"            } else {",
+							"                acc[1].push(batch.batchId);",
+							"            }",
+							"            return acc;",
+							"        },[[],[]]);",
+							"        let randomBatch = batchs[0].length===0?batchs[1][Math.floor(Math.random()*batchs[1].length)]:batchs[0][Math.floor(Math.random()*batchs[0].length)]; // random batch",
+							"        pm.globals.set(\"batchId\", randomBatch);",
+							"    } else {",
+							"       pm.globals.set(\"batchId\",0); ",
+							"    }",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "31f00b07-4968-4de7-924d-150bb55d2f44",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/all/batch/delete/{{batchId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"batch",
+						"all",
+						"batch",
+						"delete",
+						"{{batchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "putBatch",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "28cc918b-26fc-469e-baa4-4f72bacef906",
+						"exec": [
+							"const locations = ['\"Ford, 111 Ford Street, Detroit, MI 33333\"',",
+							"'\"496 High St. Morgantown, WV 26505\"',",
+							"'\" 11730 Plaza America Drive, Suite 205, Reston, VA\"',",
+							"'\"CUNY Queens College Quees, NY, USA\"',",
+							"'\"University of Texas at Arlington, Dallas, TX, USA\"',",
+							"'\"University of South Florida, Tampa, FL, USA\"'];",
+							"const categories = ['Java','Go','Python','JavaScript','TypeScript','Spring Framework','Vaadin','Django','Akka','Scala','Flask','Scelenium','React','Angular','AngularJS','Vue.js', 'Express','Play','Android','iOS','Erlang','Linux','SQL','Database','Oracle','Azure','AWS','GCP','dotnet','C#','PHP','Websphere','Sysadmin','DevOps','AWS devops','Ruby','Ruby on Rails','Perl','Lisp','COBOL','Legacy Technologies','C','C++','SOAP','Node.js','Scheme','SML','OCaml','Data Science','CCNA',\"SAP\",\"Cucumber\",\"Computer Networks\",\"Mobile Developement\",\"Digital Logic\",\"UDP\",\"TCP/IP\",\"VOIP\",\"SMTP\"];",
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"        const batches = res.json();",
+							"        const batch = batches[Math.floor(Math.random()*batches.length)];",
+							"        const category = `\"${categories[Math.floor(Math.random()*categories.length)]}\"`;",
+							"        pm.globals.set(\"batchId\",batch.batchId);",
+							"        pm.globals.set(\"trainingName\",category);",
+							"        pm.globals.set(\"trainingType\",Math.random()>0.5?'\"Revature\"':'\"Other\"');",
+							"        pm.globals.set(\"skillType\", category);",
+							"        pm.globals.set(\"trainer\", `\"${batch.trainer}\"`);",
+							"        pm.globals.set(\"coTrainer\",`\"${batch.coTrainer}\"`);",
+							"        pm.globals.set(\"locationId\",batch.locationId);",
+							"        pm.globals.set(\"location\",locations[Math.floor(Math.random()*locations.length)]);",
+							"        pm.globals.set(\"startDate\",batch.startDate);",
+							"        pm.globals.set(\"endDate\",batch.endDate);",
+							"        pm.globals.set(\"goodGrade\",batch.goodGrade);",
+							"        pm.globals.set(\"passingGrade\",batch.passingGrade);",
+							"        pm.globals.set(\"weeks\",batch.weeks);",
+							" });",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "72adb811-9519-497c-bd5b-597f88b5f74f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"batchId\": {{batchId}},\r\n        \"trainingName\": {{trainingName}},\r\n        \"trainingType\": {{trainingType}},\r\n        \"skillType\": {{skillType}},\r\n        \"trainer\": {{trainer}},\r\n        \"coTrainer\": {{coTrainer}},\r\n        \"locationId\": {{locationId}},\r\n        \"location\": {{location}},\r\n        \"startDate\": {{startDate}},\r\n        \"endDate\": {{endDate}},\r\n        \"goodGrade\": {{goodGrade}},\r\n        \"passingGrade\": {{passingGrade}},\r\n        \"weeks\": {{weeks}}\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/all/batch/update",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"batch",
+						"all",
+						"batch",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateCategory",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1dd25058-cf52-4217-bee9-be4bff5da3fc",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/category/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    const categories = res.json();",
+							"    const category = categories[Math.floor(Math.random()*categories.length)];",
+							"    pm.globals.set(\"categoryId\", category.categoryId);",
+							"    pm.globals.set(\"skillCategory\", `\"${category.skillCategory}\"`);",
+							"    pm.globals.set(\"active\", !category.active);",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "12fcedc2-89d7-4de8-bfa5-87d9c93279d0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"categoryId\": {{categoryId}},\r\n        \"skillCategory\": {{skillCategory}},\r\n        \"active\": {{active}}\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/category/{{categoryId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"category",
+						"{{categoryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteCategory",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6977a32e-4663-49cf-92eb-49074c3df5ee",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/category/\",",
+							"    method: \"GET\",",
+							"    headers: {},",
+							"    body: {}",
+							" },",
+							" function (err, res) {",
+							"    let categories = res.json();",
+							"             console.log(\"1 :::::::::::::::::::::::::::::::::::::::\");",
+							" \t pm.sendRequest({",
+							"        url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/batch/vp/batch/all/\",",
+							"        method: \"GET\",",
+							"        headers: {},",
+							"        body: {}",
+							"     },",
+							"     function (err, resp) {",
+							"        let batches = resp.json();",
+							"             console.log(\"2 :::::::::::::::::::::::::::::::::::::::\");",
+							"            //  const body = {",
+							"            // \t\"id\":0,",
+							"            // \t\"categoryId\":categories[0].categoryId,",
+							"            // \t\"skillCategory\":`\"${categories[0].skillCategory}\"`,",
+							"            // \t\"batchId\":batches[0].batchId,",
+							"            // \t\"week\":10",
+							"            // }",
+							"            //  console.log(body)",
+							"        pm.sendRequest({",
+							"            url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/qa/category\",",
+							"            method: \"POST\",",
+							"            header: {'Content-Type':'application/json'},",
+							"            body: {",
+							"                mode:'raw',",
+							"                raw:JSON.stringify({",
+							"                    \"id\":Math.ceil(Math.random()*1000000),",
+							"                \t\"categoryId\":categories[0].categoryId,",
+							"                \t\"skillCategory\":Math.ceil(Math.random()*1000000).toString(),",
+							"                \t\"batchId\":batches[0].batchId,",
+							"                \t\"week\":10",
+							"                })",
+							"                \t",
+							"            }",
+							"         },",
+							"         function (err, response) {",
+							"             console.log(\"3 :::::::::::::::::::::::::::::::::::::::\");",
+							"             const qcCat = response.json();",
+							"             pm.sendRequest({",
+							"                 url: `http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/qa/category/${qcCat.batchId}/${qcCat.week}/all`,",
+							"                method: \"GET\",",
+							"                headers: {},",
+							"                body: {}",
+							"             },",
+							"             function (err, r) {",
+							"                const cats = r.json();",
+							"                pm.globals.set(\"categoryId\", cats[0].id)",
+							"             })",
+							"         });",
+							"     });",
+							" });",
+							" ",
+							" ",
+							"    "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6dfbb656-40ad-4138-91a4-5da4e16cf0be",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/qa/category/delete/{{categoryId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"qa",
+						"category",
+						"delete",
+						"{{categoryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateLocation",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "53525dcf-b400-4633-9ea0-0c549ecce491",
+						"exec": [
+							"pm.sendRequest({    url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/location/all/location/all\",    method: \"GET\",    headers: {},    body: {} }, function (err, res) {\r",
+							"    let locations = res.json();\r",
+							"    console.log(locations[0]);\r",
+							"    pm.globals.set(\"id\", locations[0].id);\r",
+							"    pm.globals.set(\"active\", !locations[0].active);\r",
+							"    pm.globals.set(\"address\", `\"${locations[0].address}\"`);\r",
+							"    pm.globals.set(\"city\", `\"${locations[0].city}\"`);\r",
+							"    pm.globals.set(\"name\", `\"${locations[0].name}\"`);\r",
+							"    pm.globals.set(\"state\", `\"${locations[0].state}\"`);\r",
+							"    pm.globals.set(\"zipcode\", `\"${locations[0].zipcode}\"`);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb55f7bd-d98a-4906-b36a-7380b1cfff01",
+						"exec": [
+							"pm.test(\"Status code is 200 or 409\", function () {\r",
+							"   pm.expect(pm.response.code).to.be.oneOf([200,204]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":{{id}},\r\n    \"name\":{{name}},\r\n    \"city\":{{city}},\r\n    \"zipcode\":{{zipcode}},\r\n    \"address\":{{address}},\r\n    \"state\":{{state}},\r\n    \"active\":{{active}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/location/vp/location/update",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"location",
+						"vp",
+						"location",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateTrainer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "08e276a5-8e1d-4e24-a5e0-8ff451fda4c2",
+						"exec": [
+							"pm.sendRequest({\r",
+							"   url: \"http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/trainers/\",\r",
+							"   method: \"GET\",\r",
+							"   headers: {},\r",
+							"   body: {}\r",
+							"},\r",
+							"function (err, res) {\r",
+							"   let trainers = res.json();\r",
+							"   let trainer = trainers[Math.floor(Math.random() * trainers.length)];\r",
+							"   pm.globals.set(\"trainerId\", trainer.trainerId);\r",
+							"   pm.globals.set(\"id\", trainer.trainerId);\r",
+							"   pm.globals.set(\"name\",`\"${trainer.name}\"`);\r",
+							"   pm.globals.set(\"title\",`\"${trainer.title}\"`);\r",
+							"   pm.globals.set(\"tier\",`\"${trainer.tier}\"`);\r",
+							"   pm.globals.set(\"password\",`\"${trainer.password}\"`);\r",
+							"   pm.globals.set(\"email\",`\"person${Math.floor(Math.random()*1000)}@email.com\"`);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "13f99add-485a-495d-b6a4-fc795e4fd829",
+						"exec": [
+							"pm.test(\"Status code is 200 or 409\", function () {\r",
+							"   pm.expect(pm.response.code).to.be.oneOf([200,202]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"trainerId\":{{id}},\r\n    \"name\":{{name}},\r\n    \"title\":{{title}},\r\n    \"email\":{{email}},\r\n    \"tier\":{{tier}},\r\n    \"password\":{{password}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://caliber-2-dev-alb-315997072.us-east-1.elb.amazonaws.com/user/trainers/{{trainerId}}",
+					"protocol": "http",
+					"host": [
+						"caliber-2-dev-alb-315997072",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"user",
+						"trainers",
+						"{{trainerId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

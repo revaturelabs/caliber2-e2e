@@ -17,3 +17,10 @@ class annotation to be changed to `src/main/resources/features`. The current set
 is for finding features inside the jar file. You may also have to manually place the 
 selenium driver in the root directory if running from the editor does not automatically 
 export it there.
+
+# Endpoint Testing
+The JSON file containing the collection exported from Postman can be found in the file EndpointTests.json
+To run the tests first install Newman with:
+npm install -g newman
+Then execute with:
+newman run <jsonfile>
