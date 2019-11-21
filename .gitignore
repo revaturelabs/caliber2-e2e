@@ -33,6 +33,7 @@ build/
 
 \target\classes\META-INF\maven\com.example\caliber2-e2e\pom.properties
 *.json
+!EndpointTests.json
 *.html
 *.exe
 target/classes/META-INF/MANIFEST.MF
